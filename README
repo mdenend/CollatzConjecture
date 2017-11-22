@@ -1,0 +1,58 @@
+NEED TO ADD more stuff here, once I'm done documenting everything else in the code, and cleaning it up.
+
+FINALLY, A READ ME TO DESCRIBE WHAT THE HELL IS GOING ON HERE!
+
+This is an application to run the Collatz Conjecture. It allows us to run the Collatz Conjecture on a batch system, like Condor, using a number of input files.
+
+First, you need to generate input files that denote the number ranges. To do this, run:
+
+    (This command isn't correct, but it doesn't matter to me unless if I share this project to other people)
+    java GenerateInputFiles lowNum highNum numFiles
+
+    lowNum: The lowest number that you run the Collatz Conjecture on. Number must be positive. Allows any value up to 2^63-1. Should be odd.
+    highNum: The highest number that you run the Collatz Conjecture on. Number must be positive. Allows any value up to 2^63-1. Must be greater than lowNum. Also should be odd.
+    numFiles: The number of input files that you'll divide into.
+
+    GenerateInputFiles will figure out the slice size per number number range by computing highNum - lowNum, then divide by numberOfFiles.
+    If the resulting slice size is an odd number, since our code is sensitive to odd/even numbers, it will terminate the code and not generate files.
+
+    The resulting input files will always start with an odd number, and end with an even number. To make things best work, it's best to:
+        1. Make both the input and output numbers are odd odd.
+        2. Make the difference of them EXACTLY a power of 2. Ex: lowNum = 1; highNum = 2^32 + 1. The difference is 2^32.
+        3. Make numFiles some power of 2. Good choices are 128 (less threads, less granularity), or 1024. Both of these will divide perfectly evenly into 2^n
+        for any int n >= 10.
+
+After this, you'll have some number of input files stored into the directory Input. (Note: in the future, have an option where we can change the input directory,
+but I don't super care about this now.)
+
+OK, now the actual Collatz running part. To run the Collatz Conjecture, you need to run:
+
+    (again not the exact command, but still rolling with it for now.)
+    java Main [--base baseNum] [--baseoutput ALL|EVEN|ODD|[#-#, #, #]] [--inputfile Input/InputLarge.txt] --timeefficient --outputfile Output/Large/outputtimeeff.csv 5 1 7 5-7
+
+    --base #: Changes the base of our graph to #. If no input, default is 8.
+
+    --baseOutput ALL, EVEN, ODD, [#-#,#] Changes the output bases in the output csv file. Base 10 is ALWAYS considered, and will be added in no matter what
+        If nothing, will only output results in normal base 10.
+        If ALL, bases from 2-32 are considered.
+        If EVEN, only even bases from input are considered.
+        If ODD,  only odd bases from input are considered.
+            **Note that for EVEN and ODD options, you still need to provide SOME other input. For example, [4-8, EVEN] is a perfectly valid way of saying
+            bases 4, 6, and 8. If you just provide EVEN, only base 10 will be output.
+        If single number, just consider that base, plus base 10.
+        If brackets detected [], then take groupings of numbers:
+            any range low-high in hyphen, and other numbers in commas. Ex. [2-8, 12] means bases from 2-8 and 12. Another option is [4-8, EVEN] to consider
+            bases 4, 6, 8, and 10.
+
+    --inputFile name: take the input file, which must be exactly two lines of numbers: first number is low number, second number is high number.
+            If not provided, defaults to low number being 1 and high number being 100.
+
+    --outputFile name: outputs the text to name_avoidingBase#.csv, where # is/are the base(s) that this file corresponds to. If nothing, name will just default to output (with .csv suffix)
+        Also splits at the last period and adds the avoid bases between the name and suffix.
+
+    --timeefficient uses a map to store numbers that were already detected in Collatz conjecture. Only a good idea if you have enough memory for RANGE/2 BigInts.
+
+    Last numbers are the ones that are supposed that we're tracking as avoiding in our graph, and are required. 1 means avoid 1 mod b (b is the base number).
+        To include avoiding several bases at once, use hyphens to separate. Ex: 2-3 means avoid both 2 mod b and 3 mod b.
+
+
