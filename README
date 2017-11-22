@@ -1,16 +1,14 @@
-NEED TO ADD more stuff here, once I'm done documenting everything else in the code, and cleaning it up.
+This is an application to run the 3x+1 problem. It allows us to run the 3x+1 problem on a batch system, like Condor, using a number of input files.
 
-FINALLY, A READ ME TO DESCRIBE WHAT THE HELL IS GOING ON HERE!
-
-This is an application to run the Collatz Conjecture. It allows us to run the Collatz Conjecture on a batch system, like Condor, using a number of input files.
+First, you need to compile this package. I 
 
 First, you need to generate input files that denote the number ranges. To do this, run:
 
-    (This command isn't correct, but it doesn't matter to me unless if I share this project to other people)
-    java GenerateInputFiles lowNum highNum numFiles
+       
+    java -cp [DIRECTORY_WITH_GENERATE_INPUT_CLASS] GenerateInputFiles lowNum highNum numFiles
 
-    lowNum: The lowest number that you run the Collatz Conjecture on. Number must be positive. Allows any value up to 2^63-1. Should be odd.
-    highNum: The highest number that you run the Collatz Conjecture on. Number must be positive. Allows any value up to 2^63-1. Must be greater than lowNum. Also should be odd.
+    lowNum: The lowest number that you run the 3x+1 problem on. Number must be positive. Allows any value up to 2^63-1. Should be odd.
+    highNum: The highest number that you run the 3x+1 problem on. Number must be positive. Allows any value up to 2^63-1. Must be greater than lowNum. Also should be odd.
     numFiles: The number of input files that you'll divide into.
 
     GenerateInputFiles will figure out the slice size per number number range by computing highNum - lowNum, then divide by numberOfFiles.
@@ -25,34 +23,38 @@ First, you need to generate input files that denote the number ranges. To do thi
 After this, you'll have some number of input files stored into the directory Input. (Note: in the future, have an option where we can change the input directory,
 but I don't super care about this now.)
 
-OK, now the actual Collatz running part. To run the Collatz Conjecture, you need to run:
+To run the 3x+1 problem, you need to run:
 
-    (again not the exact command, but still rolling with it for now.)
-    java Main [--base baseNum] [--baseoutput ALL|EVEN|ODD|[#-#, #, #]] [--inputfile Input/InputLarge.txt] --timeefficient --outputfile Output/Large/outputtimeeff.csv 5 1 7 5-7
+    java -cp [DIRECTORY_FOR_COLLATZ_PACKAGE] Main [--base baseNum] [--baseoutput ALL|EVEN|ODD|[#-#, #, #]] [--inputfile Input/InputLarge.txt] --timeefficient --outputfile Output/Large/outputtimeeff.csv 5 1 7 5-7
+
 
     --base #: Changes the base of our graph to #. If no input, default is 8.
-
-    --baseOutput ALL, EVEN, ODD, [#-#,#] Changes the output bases in the output csv file. Base 10 is ALWAYS considered, and will be added in no matter what
-        If nothing, will only output results in normal base 10.
+    --inputFile name: take the input file and consider the range.
+    --baseOutput ALL, EVEN, ODD, [#-#,#] Changes the output bases.
         If ALL, bases from 2-32 are considered.
         If EVEN, only even bases from input are considered.
         If ODD,  only odd bases from input are considered.
-            **Note that for EVEN and ODD options, you still need to provide SOME other input. For example, [4-8, EVEN] is a perfectly valid way of saying
-            bases 4, 6, and 8. If you just provide EVEN, only base 10 will be output.
-        If single number, just consider that base, plus base 10.
-        If brackets detected [], then take groupings of numbers:
-            any range low-high in hyphen, and other numbers in commas. Ex. [2-8, 12] means bases from 2-8 and 12. Another option is [4-8, EVEN] to consider
-            bases 4, 6, 8, and 10.
+        If single number, just consider that base.
+        If brackets detected [] (or something else), then take any range low-high in hyphen, and other numbers in commas. Ex. [2-8, 12] means numbers from 2-8 and 12.
+    --mode baseavoid|entirechain|untildecay|updown|avoidingmodgrowth Changes the various modes in which we can analyze the collatz conjecture:
+      baseavoid is the default option. This allows us to check, for multiple bases, how long it takes for us to hit a base.
 
-    --inputFile name: take the input file, which must be exactly two lines of numbers: first number is low number, second number is high number.
-            If not provided, defaults to low number being 1 and high number being 100.
+      entirechain just prints the entire chain, from the starting number to 1. Does not print 1, but it's trivial that 2 goes to 1, so this is unnecessary.
 
+      untildecay means that, for an odd number, we continue to run until we have a number lower than the original number. We then check to see if the chain is longer than previous one.
+      updown is a quite different mode. In a set of numbers, for each odd number, determine how long it can run until decay
+         (EXACTLY the same as case 3, except we don't care about the list, just what number it becomes and number of steps), and
+         what's the shortest length that a number below it can be, what's that number, and the number of steps (if we go backwards). So csv here is VERY different from other cases.
+
+      avoidingmodgrowth is a mode that analyzes records of the given x mod b, where x is the node we're avoiding, and b is the base we're analyzing.
+    --numSteps #: restricts the number of steps made in the Collatz Conjecture. Includes input number as a step. Must be greater than 1. Usually done with whole list mode.
+    --onenumber # only run the Collatz Conjecture on this number.
     --outputFile name: outputs the text to name_avoidingBase#.csv, where # is/are the base(s) that this file corresponds to. If nothing, name will just default to output (with .csv suffix)
         Also splits at the last period and adds the avoid bases between the name and suffix.
-
+    --reverselimit #: sets the maximum amount of steps we can reverse compute for the 4th mode, otherwise it may run infinitely. Only used in 4th mode, not anywhere else.
     --timeefficient uses a map to store numbers that were already detected in Collatz conjecture. Only a good idea if you have enough memory for RANGE/2 BigInts.
 
-    Last numbers are the ones that are supposed that we're tracking as avoiding in our graph, and are required. 1 means avoid 1 mod b (b is the base number).
-        To include avoiding several bases at once, use hyphens to separate. Ex: 2-3 means avoid both 2 mod b and 3 mod b.
+    Last numbers are the ones that are supposed that we're tracking. 1 means avoid 1 mod b (b is the base number, 2,3 means avoid both 2 mod b and 3 mod b.
+    	 In the baseavoid mode, we can avoiding several bases as a group. Ex: 2-3 means avoid both 2 mod b and 3 mod b.
 
 
