@@ -1,8 +1,8 @@
 This is an application to run the 3x+1 problem. It allows us to run the 3x+1 problem on a batch system, like Condor, using a number of input files.
 
-First, you need to compile this package. I 
+First, you need to compile this package. I have just been using Eclipse for now, so this is taken care of automatically. I recommend importing this project into Eclipse. I'll work on a javac command for the future.
 
-First, you need to generate input files that denote the number ranges. To do this, run:
+Then, you need to generate input files that denote the number ranges. To do this, run:
 
        
     java -cp [DIRECTORY_WITH_GENERATE_INPUT_CLASS] GenerateInputFiles lowNum highNum numFiles
