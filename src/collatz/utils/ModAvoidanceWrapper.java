@@ -10,7 +10,7 @@ public class ModAvoidanceWrapper {
 
     private Map<Integer, List<Set<Integer>>> mapping;
 
-    public ModAvoidanceWrapper(Set<Set<Integer>> in) {
+    private ModAvoidanceWrapper(Set<Set<Integer>> in) {
         mapping = new HashMap<>();
         for (Set<Integer> s: in) {
             for (int i: s) {

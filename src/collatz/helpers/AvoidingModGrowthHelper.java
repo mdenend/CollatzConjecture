@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by mad4672 on 10/25/17.
+ * This is much like the MultiBaseListSizeHelper, except it was rewritten using Longs instead of BigIntegers.
+ * This is of course stupid, and I'm going to rewrite the code to make it cleaner.
+ * Created by Matthew Denend on 10/25/17.
  */
 public class AvoidingModGrowthHelper{
     private int currentLongestChain;
@@ -28,24 +30,10 @@ public class AvoidingModGrowthHelper{
 
     public AvoidingModGrowthHelper(OptionsHelper opts) {
     	modGrowthRows = new ArrayList<>();
-        //not terribly sure yet how the opts will come into play yet.
-    	//currentLargestNumber = BigInteger.ZERO;
     	currentLargestNumber = 0;
         
     }
 
-    /*
-    public void addToModGrowthRows(BigInteger startingNumber, int numSteps, BigInteger largestNumberInChain, List<BigInteger> chain) {
-        modGrowthRows.add(new AvoidingModGrowthRow(startingNumber, numSteps, largestNumberInChain, chain));
-    }
-
-    public int getCurrentLongestChain() {
-        return currentLongestChain;
-    }
-
-    public void setCurrentLongestChain(int currentLongestChain) {
-        this.currentLongestChain = currentLongestChain;
-    }*/
 
     /**
      * Need to change this to BigInteger sometime in the future.
@@ -97,12 +85,6 @@ public class AvoidingModGrowthHelper{
         difference = 0;
         numOddNumbersInChain = 0;
     }
-    
-    /*public void checkIfNewLargestNumber(BigInteger other) {
-    	if (currentLargestNumber.compareTo(other) < 0) {
-    		currentLargestNumber = other;
-    	}
-    }*/
     
     public void checkIfNewLargestNumber(long other) {
     	if (currentLargestNumber < other) {

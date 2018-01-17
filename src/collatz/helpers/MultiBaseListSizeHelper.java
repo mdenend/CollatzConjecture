@@ -10,8 +10,8 @@ import java.util.Set;
 
 /**
  * MultiBaseListSizeHelper is a class that builds objects that store a couple of bits of information:
- * 1. The longest chain that has currently been computed.
- * 2. Which number has that longest chain.
+ * 1. The longest chain that has currently been computed (from superclass ListSizeHelper)
+ * 2. Which number has that longest chain (from superclass ListSizeHelper).
  *
  * It also stores other information that is used during a run of the Collatz Conjecture of a number:
  * 1. currentLowIndex: The previous index which hit modulo base equals the number we're avoiding.
@@ -22,15 +22,13 @@ import java.util.Set;
  */
 public class MultiBaseListSizeHelper extends ListSizeHelper{
 
-    //declared in ListSizeHelper
-    //private List<BigInteger> topChain;
-    //private long longestChainNumber;
 
-    //used to help count the current number only.
+
+    //these four numbers are used to track locations of the longest chain avoiding x mod 8 for some x. They are indices of the entire
+    //chain, which is done to allow multiple bases to be checked at the same time.
+    //see above JavaDoc comment for the whole class.
     private int currentLowIndex = 0;
-
-    //for the current number, stores these numbers.
-    private int longestLowIndex = 0; //ex: Index 0 low, and Index 4 high. That's 5 elements. So... high - low + 1 to compare to the size of the top chain.
+    private int longestLowIndex = 0;
     private int longestHighIndex = 0;
     private int difference = 0;
 
@@ -100,16 +98,11 @@ public class MultiBaseListSizeHelper extends ListSizeHelper{
         difference = 0;
     }
 
-/*
-    //do I even need this? I'm thinking probably not. Should compare indices instead, before I even consider building a list...
-    //used in older methodology. Kept for legacy reasons only.
-    public void compareTopChain(List<BigInteger> other, long otherNum) {
-        if (other.size() > topChain.size()) {
-            longestChainNumber = otherNum;
-            topChain = other;
-        }
-    }
-*/
+    /**
+     * Only called when printing. Hacky, but there since the print method doesn't need options otherwise.
+     * @param bases What bases are being avoided.
+     * @return The resulting string.
+     */
     public static String avoidBasesSetToString(Set<Integer> bases) {
         StringBuffer s = new StringBuffer();
         Iterator<Integer> i = bases.iterator();
@@ -121,22 +114,6 @@ public class MultiBaseListSizeHelper extends ListSizeHelper{
         }
         return s.toString();
     }
-
-    /**
-     * Returns the topChain, or the longest chain avoiding mod base congruent modulo to avoidBase.
-     * @return topChain, the longest chain avoiding mod base congruent modulo to avoidBase.
-     */
-    /*public List<BigInteger> getTopChain() {
-        return topChain;
-    }*/
-
-    /**
-     * Returns the number that has the longest chain avoiding mod base congruent modulo to avoidBase.
-     * @return longestChainNumber, the number that has the longest chain avoiding mod base congruent modulo to avoidBase.
-     */
-    /*public long getLongestChainNumber() {
-        return longestChainNumber;
-    }*/
 
 
 

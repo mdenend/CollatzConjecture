@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class ListSizeHelper {
 
-    List<BigInteger> topChain; //needed
-    long longestChainNumber; //needed
-    private String firstCellInitial;
+    List<BigInteger> topChain; //the chain of the longest number. not private so modes 0 and 2 can interact with it.
+    long longestChainNumber; //which number has the longest chain.
+    private String firstCellInitial; //what prints in the first cell of the spreadsheet.
 
 
 
@@ -76,10 +76,19 @@ Number range: " + opts.getLowNum() + "-" + opts.getHighNum() + "opts.LS" +
     }
 
 
+
     public String getFirstCellInitial() {
         return firstCellInitial;
     }
 
+    /**
+     * This is called in runCollatzWholeList for mode 1. The termination condition is to see if the number is larger than 1,
+     * or if the currentCollatzPath is greater than the number of steps.
+     * @param number The current number in the path.
+     * @param currentCollatzPath The currentCollatzPath.
+     * @param opts Options for this run.
+     * @return true if the while loop should continue, false if not.
+     */
     public boolean whileLoopCondition(BigInteger number, List<BigInteger> currentCollatzPath, OptionsHelper opts) {
         return number.compareTo(BigInteger.ONE) > 0 && currentCollatzPath.size() < opts.getNumSteps();
     }

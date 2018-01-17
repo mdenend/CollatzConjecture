@@ -35,51 +35,6 @@ public class PrintUpDown {
     }
 
     /**
-     * This was the static method that was called when everything was taken care of, not printing as we go.
-     * @param results The set of helpers to be printed.
-     * @param opts OptionsHelper that has arguments.
-     * @param stamp The timestamp generated after we finish running.
-     */
-    @Deprecated
-    public static void writeOutputFile(Set<UpDownHelper> results, OptionsHelper opts, String stamp) {
-        try {
-            PrintWriter output = new PrintWriter(new FileWriter(opts.getOutputFilePrefix() + opts.getOutputFileSuffix()));
-            output.println("Time needed to run: " + stamp);
-            output.println(header);
-            for (UpDownHelper u: results) {
-                output.print(addCommas(u.getNumber()) + CS);
-                //output.print(u.getNumber().mod(BigInteger.valueOf(opts.getOutputBase())) + CS);
-                output.print(u.getNumber().mod(ComputeMods.THREE) + CS);
-                output.print(addCommas(u.getDecaysTo()) + CS);
-                output.print(u.getDecaysToLength() + CS);
-                switch(u.getState()) {
-                    case FOUND:
-                        output.print(addCommas(u.getGrowsFrom()) + CS + u.getGrowsFromLength());
-                        break;
-                    case NOT_FOUND:
-                        output.print("UNK" + CS + ">" + u.getGrowsFromLength());
-                        break;
-                    case IMPOSSIBLE:
-                        output.print("N/A" + CS + u.getGrowsFromLength());
-                        break;
-                    default:
-                        System.err.println("Error printing growsFrom information for number " + u.getNumber());
-                        break;
-                }
-                output.println();
-                output.flush();
-            }
-            output.close();
-
-        } catch (IOException e) {
-            System.err.println("Error writing file " + opts.getOutputFilePrefix() + opts.getOutputFileSuffix() + ":");
-            e.printStackTrace();
-        }
-        
-    }
-
-
-    /**
      * This both prints UpDownHelpers, and removes them because we don't care about lower numbers.
      * @param m The map containing the BigInteger and UpDownHelper pairs.
      * @param low The lowest value to print

@@ -21,31 +21,6 @@ import java.math.BigInteger;
  */
 public class UpDownHelper{
 
-    /*
-    I'm just going to write out the steps to run method 4 here. I think there's some things in common with the other modes,
-    but I still think this is sufficiently different from before.
-    Given a number as input:
-        1. Figure how how many steps it takes for the number to the number to decay. Much like the untildecay mode. Code will more or less borrow from here.
-            The helper will store what number is reached, and the number of steps it takes.
-        2. Figure out the reverse chain part. Here's what I've thought of so far.
-            A. Let's use a Queue of BigIntegers, and a count that, if it exceeds a number, we should give up. (For example, it's impossible to find any
-                lower number for 3, 7, or 19, so we'd say after count attempts, we stop.)
-            B. Termination condition: Either we have had too many steps (make this parameter in options), or any number in our queue is lower than the input.
-            C. The algorithm for reverse computation. Given a number:
-                i. If the number is odd, multiply it by 2, and put it back into the queue.
-                ii. If it's even, then depending on how it stands modulo 3:
-                    a. If congruent modulo to 0, we throw this number away. After multiplying it by 2, it will always be congruent modulo 0, so the only path
-                        is continuing to multiply itself by 2. So it's a dead end. Don't put it back into the queue.
-                    b. If congruent modulo to 1, this is actually a split case. We put in two different numbers: One that undoes the odd operation of the Collatz Conjecture,
-                        and another that is this number multiplied by 2. Put both numbers into the queue.
-                    c. If congruent modulo to 2, just multiply it by 2 and put it back into the queue.
-            D. The helper will store, for the reverse computation:
-                i. The number (if found), otherwise it will remain as -1.
-                ii. The number of iterations it took to find this number. Will be >length if ran out of iterations, or a specific number if all paths led to modulo 3.
-                iii. The state, either found, impossible, or notfound. Impossible is when all numbers are mod 3, notfound means we hit the limit.
-        3. The final output:
-            Number | Mod (base) | Mod 3 | DecaysTo | DecaysToLength | growsFrom (if found) | growsFromLength
-     */
 
     private BigInteger number; //the number that this UpDownHelper refers to.
 
@@ -72,7 +47,7 @@ public class UpDownHelper{
      * Case 1: When isDecaysTo is true, constructor if the helper is built from the inital decaysTo parameters.
      * This means that it can't decay from anything, and parameters are finalized after this is built. We also check to see
      * if the input number is odd. If so, we flag that we can't change that either.
-     * Case 2: When isDecaysTo is false, the inputs are
+     * Case 2: When isDecaysTo is false, the inputs are actually growsFrom.
      * @param otherChainNumber either the first number that it's decayed to, or the number that it's grown from.
      * @param lengthToOtherChainNumber the number of Collatz steps that it has taken us to construct this Helper.
      */
@@ -108,26 +83,6 @@ public class UpDownHelper{
         decaysToLocked = isDecaysTo; //if we pass true as decaysTo, then can't modify decaysTo. Otherwise, we can modify it ONCE.
     }
 
-
-    /**
-      Don't use this, as it's only for the first attempt of UpDown, with the reverse collatz computation.
-     * @param number
-     * @param decaysTo
-     * @param decaysToLength
-     * @param growsFrom
-     * @param growsFromLength
-     * @param state
-     */
-    @Deprecated
-    public UpDownHelper(BigInteger number, BigInteger decaysTo, int decaysToLength, BigInteger growsFrom, int growsFromLength,
-                        UpDownReverseStates state) {
-        this.state = state;
-        this.growsFrom = growsFrom;
-        this.growsFromLength = growsFromLength;
-        this.decaysTo = decaysTo;
-        this.decaysToLength = decaysToLength;
-        this.number = number;
-    }
 
 
 

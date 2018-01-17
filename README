@@ -1,11 +1,16 @@
 This is an application to run the 3x+1 problem. It allows us to run the 3x+1 problem on a batch system, like Condor, using a number of input files.
 
-First, you need to compile this package. I have just been using Eclipse for now, so this is taken care of automatically. I recommend importing this project into Eclipse. I'll work on a javac command for the future.
+(Define "Chain here")
+
+First, you need to compile this package. To do this, run:
+
+ javac -d [YOUR_DIRECTORY_NAME] src/collatz/Main.java src/collatz/compute/* src/collatz/helpers/* src/collatz/output/* src/collatz/utils/*
+
 
 Then, you need to generate input files that denote the number ranges. To do this, run:
 
        
-    java -cp [DIRECTORY_WITH_GENERATE_INPUT_CLASS] GenerateInputFiles lowNum highNum numFiles
+    java -cp [DIRECTORY_WITH_GENERATED_INPUT_CLASS] GenerateInputFiles lowNum highNum numFiles
 
     lowNum: The lowest number that you run the 3x+1 problem on. Number must be positive. Allows any value up to 2^63-1. Should be odd.
     highNum: The highest number that you run the 3x+1 problem on. Number must be positive. Allows any value up to 2^63-1. Must be greater than lowNum. Also should be odd.
@@ -29,7 +34,7 @@ To run the 3x+1 problem, you need to run:
 
 
     --base #: Changes the base of our graph to #. If no input, default is 8.
-    --inputFile name: take the input file and consider the range.
+    --inputFile name: take the input file and consider the range. Input file has two lines: one for the start number, and the other for the stop number.
     --baseOutput ALL, EVEN, ODD, [#-#,#] Changes the output bases.
         If ALL, bases from 2-32 are considered.
         If EVEN, only even bases from input are considered.
@@ -58,3 +63,21 @@ To run the 3x+1 problem, you need to run:
     	 In the baseavoid mode, we can avoiding several bases as a group. Ex: 2-3 means avoid both 2 mod b and 3 mod b.
 
 
+    Examples:
+
+    Assume that, in our present working directory, that we have the following directories:
+    out: has all of the compiled output, hence will be in -cp
+    Input: has the input text file with the two numbers.
+    Output/Batch1: where the output will go.
+
+    baseavoid:
+    java -cp out --inputfile Input/Input.txt Main --mode baseavoid --base 8 --baseoutput ALL --timeefficient --outputfile Output/Batch1/outputtimeeff.csv 1 5 7 5-7
+        runs a test for all input numbers and for one input number, sees when the 3x+1 mapping chain hits 1 mod 8, 5 mod 8, 7 mod 8, and 5 mod 8 AND 7 mod 8 together, and tracks records for avoiding said bases.
+        --inputfile grabs the file Input/Input.txt and reads the first number x as the start of the range, and the second number y as the end of the range.
+        --mode baseavoid runs the 3x+1 mapping, for all odd numbers from range x to y, until these odd numbers reach 1. While a number n is being run,
+        it is being tracked for
+        --base 8 makes us avoid the numbers n (listed as the last arguments, here 5, 1, 7, and 5-7 together) mod 8.
+        --baseoutput ALL means we output all bases from 2 to 32 in the output file.
+        --timeefficient If this mode is enabled, when an odd number is visited in any chain, it is added to a "visited set". Before a new chain is built, if one of the input numbers between x and y is in this "visited set", we skip this number.
+        --outputfile Output/Batch1/outputtimeeff.csv outputs several files for each of the record chains avoiding 1 mod 8, 5 mod 8, 7 mod 8, and 5 mod 8, 7 mod 8 together.
+        1, 5, 7, 5-7 makes 1 mod 8, 5 mod 8, 7 mod 8, and 5 mod 8 + 7 mod 8 are the targets.
