@@ -38,3 +38,7 @@ Thumbs.db
 
 # From IntelliJ, we don't want these.
 .idea/*
+
+#directories that I use locally
+Input/
+Output/

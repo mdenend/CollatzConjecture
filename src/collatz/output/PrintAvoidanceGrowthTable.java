@@ -35,7 +35,8 @@ public class PrintAvoidanceGrowthTable {
             writer.print("Number of odd numbers visited" + CS);
             writer.print("Number of odd numbers in longest chain" + CS);
             writer.print("Chain" + CS);
-            writer.println("Chain Reversed, Delimited");
+            //writer.print("Chain Reversed, Delimited");
+            writer.println();
             writer.flush();
             
             for (AvoidingModGrowthRow r : helper.getModGrowthRows()) {
@@ -43,15 +44,18 @@ public class PrintAvoidanceGrowthTable {
             	double hardnessApprox = r.getNumSteps() / log2num;
             	writer.print(r.getStartingNumber() + CS + log2num + CS + r.getNumSteps() + CS + hardnessApprox + CS);
             	writer.print(r.getLargestNumberInChain() + CS + r.getNumStepsOverall() + CS + r.getNumOddNumbers() + CS
-            				+ r.getOddNumbersInChain() + CS + r.getChain() + CS);
+            				+ r.getOddNumbersInChain() + CS + r.getChain());
             	//reverse the chain, and output just numbers and tabs. This will help my analysis of chain similarity.
+            	
+            	/*
             	List<Long> chain = r.getChain();
             	Collections.reverse(chain);
             	int i;
             	for (i = 0; i < chain.size()-1; i++) {
             		writer.print(chain.get(i) + CS);
             	}
-            	writer.println(chain.get(i));
+            	writer.print(chain.get(i));*/
+            	writer.println();
             	writer.flush();
             }
             writer.close();

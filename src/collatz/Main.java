@@ -16,6 +16,8 @@ import java.util.*;
 //TODO: I should also try and get a better grasp on the UpDown mode, because the comments are confusing me.
 public class Main {
     public static void main(String[] args) {
+
+
         OptionsHelper opts = new OptionsHelper(args);
         //I'll admit... this isn't the best design, but it gets the job done. Better would have been to build the Modes as classes and
         //modularize everything to these modes, but modes are sufficiently different.
