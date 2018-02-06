@@ -1,0 +1,23 @@
+1. Some better integer handling logic. Build a VisitedNumbers Wrapper class.
+    (DONE) a. Build two VisitedNumbers maps:
+        aa. one for ints less than int max
+        ab. one for longs greater than int max.
+    b. When Computing the 3x+1 mapping on a number, always convert it to BigInteger. There should only be one BigInteger actively used in memory at any time,
+            so this isn't expensive to do.
+    (DONE) c. Build an add method into VisitedNumbers that takes a BigInteger as a parameter, and parses it into a long.
+        aa. Should never be an issue with precision, since we won't be running numbers THAT big.
+        ab. In this method, check if the number exceeds INT_MAX. If so, put into the long mapping. Otherwise, put into the int mapping.
+    d. Have VisitedNumbers tied to the option helper, always, but only trigger it if timeefficient flag is run (which is what the setup is anyways).
+2. Changing mode 4:
+    a. Helper: Shouldn't extend MultiBaseListSizeHelper. Actually, the Helper is pretty much the same as the AvoidingModGrowthHelper, isn't it?
+        aa. This is because we build a MAP to the helpers. So this logic doesn't change.
+        ab. Try to build this whole thing using AvoidingModGrowthHelper.
+    b. EVENTUALLY: I'm going to want to merge MultiBaseListSizeHelper and AvoidingModGrowthHelper. They're basically identical at this point,
+            only difference is that AvoidingModGrowthHelper is using odd numbers, and comparing Longs instead of Ints.
+        aa. The Longs/Ints? That'll be handled by the better design decisions I've made in point 1.
+        ab. All calculations in BigInts, but helper checks can store info in whatever format. It doesn't matter. The only bottleneck is VisitedNumbers.
+    c. Other than that, the flow for mode 0 and mode 4 are basically exactly the same, except for the very end.
+        aa. In mode 0, we only store one chain record.
+        ab. In mode 4, we store progressively growing chain records.
+    d. At the end of the day, it feels like we can make one helper for both modes 0 and 4, and have likewise pipelines for the two.
+3. Then finally, I can run mode 4 with multiple avoidance bases. Not doing this from the getgo was a poor design decision.

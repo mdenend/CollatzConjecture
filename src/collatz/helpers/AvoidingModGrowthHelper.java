@@ -8,10 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is much like the MultiBaseListSizeHelper, except it was rewritten using Longs instead of BigIntegers.
- * This is of course stupid, and I'm going to rewrite the code to make it cleaner.
+ * This is much like the MultiBaseListSizeHelper, except it was rewritten using Longs instead of BigIntegers, and includes odd number
+ * counting as well.
+ *
  * Created by Matthew Denend on 10/25/17.
  */
+
+//TODO: I should probably just go ahead and have a method that converts a BigInteger to a long instead. This makes much more sense.
+    //The only time that I'll ever have space issues is in the visitedNumbers Map. I can convert this...
 public class AvoidingModGrowthHelper{
     private int currentLongestChain;
     

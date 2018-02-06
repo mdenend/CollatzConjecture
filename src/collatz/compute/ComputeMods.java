@@ -1,6 +1,7 @@
 package collatz.compute;
 
 import collatz.helpers.AvoidingModGrowthHelper;
+import collatz.helpers.MultiBaseRecordTrackingListSizeHelper;
 import collatz.helpers.ListSizeHelper;
 import collatz.helpers.MultiBaseListSizeHelper;
 import collatz.helpers.UntilDecayListSizeHelper;
@@ -307,11 +308,54 @@ public class ComputeMods {
     	helper.checkIfNewLongestChain(number, currentCollatzPath, index+1, oddNumbers); //index+1 is the total chain length.
     	helper.resetCounters();
     	
-/*
- *  // takes an input number and runs the collatz conjecture on it until it converges to 1.
+    }
+
+    /*
+    The following code is all of the new Mode 4 code. It'll be Mode 5 for now, until I verify that it in fact works.
+     */
+
+    /**
+     * This is the main method to call a computation of the Collatz Conjecture for mode 0. This method will continue to run from the low number in opts
+     * to the high number in opts.
+     * @param opts The OptionsHelper that has the options flagged for the arguments that we input into the command line.
+     * @return A Map that has keys that are sets of integers, which are the bases that were avoided, and these each point to a MultiBaseListSizeHelper,
+     * which helps store and process our results. See MultiBaseListSizeHelper class for more details.
+     */
+    public static Map<Set<Integer>, MultiBaseRecordTrackingListSizeHelper> computeModsAvoidingMultipleBasesAndTrackingRecords(OptionsHelper opts) {
+
+        Map<Set<Integer>, MultiBaseRecordTrackingListSizeHelper> basesMapping = new LinkedHashMap<>();
+        Set<Set<Integer>> avoidanceMods = opts.getAvoidBases();
+
+        //this builds a map that, when an integer is fed into this object (w/ getMappedSets), any sets that have the integer in them are returned,
+        // and speeds up the computation significantly.
+        ModAvoidanceWrapper avModsHelp = ModAvoidanceWrapper.getWrapping(avoidanceMods);
+
+        for (Set<Integer> s: avoidanceMods) {
+            basesMapping.put(s, new MultiBaseRecordTrackingListSizeHelper(opts));
+        }
+
+        //these three are only used in time efficient solution, not otherwise, but not huge if not being used.
+        Set<BigInteger> visitedNumbers = new HashSet<>();// if we've seen a number in the collatz conjecture already, then why visit it again??
+
+        //like before, we want our lower number to be odd, and higher number to be even.
+        for (long i = opts.getLowNum(); i <= opts.getHighNum(); i += 2) {
+
+            //if space efficient, we'll avoid computation if number already visited.
+            if (opts.isTimeEffFlag()) {
+                if (visitedNumbers.contains(BigInteger.valueOf(i))) {
+                    continue;
+                }
+            }
+            numModStepsMultipleNodesVisitedNumbersTrackingRecords(i, basesMapping, avModsHelp, visitedNumbers, opts);
+        }
+        return basesMapping;
+    }
+
+    // takes an input number and runs the collatz conjecture on it until it converges to 1.
     // if we have timeeff flag and space is enough, then we can store values we've visited already to avoid visiting them again.
     //
-    private static void numModStepsMultipleNodesVisitedNumbers(long num, Map<Set<Integer>, MultiBaseListSizeHelper> basesMapping,
+    private static void numModStepsMultipleNodesVisitedNumbersTrackingRecords(long num,
+                                                                              Map<Set<Integer>, MultiBaseRecordTrackingListSizeHelper> basesMapping,
                                                                ModAvoidanceWrapper avModsHelp, Set<BigInteger> visitedNumbers,
                                                                OptionsHelper opts) {
         BigInteger number = BigInteger.valueOf(num);
@@ -325,7 +369,7 @@ public class ComputeMods {
             List<Set<Integer>> checkBases = avModsHelp.getMappedSets(modResult);
             if (checkBases != null) {
                 for (Set<Integer> s : checkBases) {
-                    MultiBaseListSizeHelper m = basesMapping.get(s);
+                    MultiBaseRecordTrackingListSizeHelper m = basesMapping.get(s);
                     m.compareCurrentChainToLongestChain(index);
                 }
             }
@@ -334,6 +378,7 @@ public class ComputeMods {
         }
         //NOW, we see if the new longest path exceeds the old ones, and reset the counters.
         //Also, check if our longest chain that converges to 1 ends up exceeding any other chain.
+        //TODO: Here, we need to check if we have a record, and append it to our records table.
         Set<Set<Integer>> baseKeySet = basesMapping.keySet();
         for (Set<Integer> s : baseKeySet) {
             MultiBaseListSizeHelper m = basesMapping.get(s);
@@ -342,61 +387,7 @@ public class ComputeMods {
             m.resetCounters();
         }
     }
- */
-    	
-    	
-    }
 
-    /*
-    private static void numModStepsMultipleNodesVisitedNumbers(long num, Map<Set<Integer>, MultiBaseListSizeHelper> basesMapping,
-                                                 ModAvoidanceWrapper avModsHelp, Set<BigInteger> visitedNumbers,
-                                                 OptionsHelper opts) {
-        y BigInteger number = BigInteger.valueOf(num);
-        y List<BigInteger> currentCollatzPath = new ArrayList<>(2000); //should never need to exceed this size.
-        y int index = 0;
-        //either the number is one, or we finish executing after a certain number of steps.
-        y while(number.compareTo(BigInteger.ONE) > 0 && index < opts.getNumSteps()) {
-          n  int modResult = number.mod(opts.getBaseBigInt()).intValue();
-            //first, add the current number to the currentCollatzPath. Then, see if this base hits any of the bases we're trying to avoid.
-          y  currentCollatzPath.add(number);
-          n  List<Set<Integer>> checkBases = avModsHelp.getMappedSets(modResult);
-          n  if (checkBases != null) {
-          n      for (Set<Integer> s : checkBases) {
-          n          MultiBaseListSizeHelper m = basesMapping.get(s);
-          n          m.compareCurrentChainToLongestChain(index);
-          n      }
-          n  }
-          y  index++; //increment the counter for the collatzPath.
-          y  number = computeCollatzForward(number, visitedNumbers, opts);
-        }
-        //NOW, we see if the new longest path exceeds the old ones, and reset the counters.
-        //Also, check if our longest chain that converges to 1 ends up exceeding any other chain.
-        n Set<Set<Integer>> baseKeySet = basesMapping.keySet();
-        n for (Set<Integer> s : baseKeySet) {
-        n    MultiBaseListSizeHelper m = basesMapping.get(s);
-        n    m.compareCurrentChainToLongestChain(index-1); //check if we have a new chain one more time.
-        y    m.checkIfNewChain(currentCollatzPath, num);
-        n    m.resetCounters();
-        n }
-    }
-     */
-
-    //Should never be called, just plopping this code here for reference. Untested with new way. Assumes that only first base is avoided.
-    /*public static MultiBaseListSizeHelper computeModsOldWay(OptionsHelper opts) {
-        MultiBaseListSizeHelper help = new MultiBaseListSizeHelper(opts);
-        //List<Long> topNums = new ArrayList<Long>(); //I've decided that I don't care about topNums anymore. Just get whatever the lowest number is.
-        LinkedList<BigInteger> topChain = new LinkedList<BigInteger>();
-        for (long i = opts.getLowNum(); i <= opts.getHighNum(); i += 2) {
-            int avoidBase = opts.getFirstAvoidBase();
-            if (avoidBase <= 0) {
-                System.err.println("Error: Wrong avoid base!");
-                System.exit(42);
-            }
-            LinkedList<BigInteger> cur = numModStepsOneNode(i, opts.getOutputBase(), avoidBase);
-            help.compareTopChain(cur, i);
-        }
-        return help;
-    }*/
 
 
 }

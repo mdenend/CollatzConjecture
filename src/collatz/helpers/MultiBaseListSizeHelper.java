@@ -35,13 +35,20 @@ public class MultiBaseListSizeHelper extends ListSizeHelper{
     //Do we ever want to use this field?? Probably not.
     //private Set<Integer> baseAvoiding;
 
+    /**
+     * This constructor exists for the MultiBaseRecordTrackingListSizeHelper to extend, because we don't need a first cell in this case.
+     * @param opts OptionsHelper.
+     */
+    public MultiBaseListSizeHelper(OptionsHelper opts) {
+        super(opts);
+    }
+
 
     //constructor should be exactly the same. I just called super().
     public MultiBaseListSizeHelper(OptionsHelper opts, Set<Integer> baseAvoiding) {
         super(opts, "\"Number range: " + opts.getLowNum() + "-" + opts.getHighNum() + opts.LS +
-                "Base is "+ opts.getOutputBase() + ", avoiding mod(s) " + avoidBasesSetToString(baseAvoiding) + opts.LS);
+                "Base is "+ opts.getOutputBase() + ", avoiding mod(s) " + OptionsHelper.avoidBasesSetToString(baseAvoiding) + opts.LS);
     }
-
 
 
 
@@ -98,22 +105,7 @@ public class MultiBaseListSizeHelper extends ListSizeHelper{
         difference = 0;
     }
 
-    /**
-     * Only called when printing. Hacky, but there since the print method doesn't need options otherwise.
-     * @param bases What bases are being avoided.
-     * @return The resulting string.
-     */
-    public static String avoidBasesSetToString(Set<Integer> bases) {
-        StringBuffer s = new StringBuffer();
-        Iterator<Integer> i = bases.iterator();
-        while (i.hasNext()) {
-            s.append(i.next());
-            if (i.hasNext()) {
-                s.append("-");
-            }
-        }
-        return s.toString();
-    }
+
 
 
 

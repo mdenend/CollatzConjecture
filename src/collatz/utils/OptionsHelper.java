@@ -420,4 +420,21 @@ public class OptionsHelper {
         System.out.println(System.getProperty("sun.arch.data.model")); 
     }
 
+    /**
+     * Only called when printing. Hacky, but there since the print method doesn't need options otherwise.
+     * @param bases What bases are being avoided.
+     * @return The resulting string.
+     */
+    public static String avoidBasesSetToString(Set<Integer> bases) {
+        StringBuffer s = new StringBuffer();
+        Iterator<Integer> i = bases.iterator();
+        while (i.hasNext()) {
+            s.append(i.next());
+            if (i.hasNext()) {
+                s.append("-");
+            }
+        }
+        return s.toString();
+    }
+
 }

@@ -63,7 +63,7 @@ public class Main {
             case 0:
                 Set<Set<Integer>> key = modeZeroResults.keySet();
                 for (Set<Integer> s : key) {
-                    String filename = opts.getOutputFilePrefix() + MultiBaseListSizeHelper.avoidBasesSetToString(s) + opts.getOutputFileSuffix();
+                    String filename = opts.getOutputFilePrefix() + OptionsHelper.avoidBasesSetToString(s) + opts.getOutputFileSuffix();
                     PrintPaths.writeOutputFile(filename, modeZeroResults.get(s), opts, stamp);
                 }
                 break;
