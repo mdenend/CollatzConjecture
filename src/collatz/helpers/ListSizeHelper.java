@@ -19,6 +19,7 @@ public class ListSizeHelper {
     long longestChainNumber; //which number has the longest chain.
     private String firstCellInitial; //what prints in the first cell of the spreadsheet.
 
+    BigInteger currentLargestNumber;
 
 
     public ListSizeHelper(OptionsHelper opts){
@@ -40,6 +41,7 @@ Number range: " + opts.getLowNum() + "-" + opts.getHighNum() + "opts.LS" +
         topChain.add(BigInteger.ZERO);
         longestChainNumber = -1; //means an error if this is ever the number.
         firstCellInitial = firstCell;
+        currentLargestNumber = BigInteger.ZERO;
     }
 
 
@@ -91,6 +93,12 @@ Number range: " + opts.getLowNum() + "-" + opts.getHighNum() + "opts.LS" +
      */
     public boolean whileLoopCondition(BigInteger number, List<BigInteger> currentCollatzPath, OptionsHelper opts) {
         return number.compareTo(BigInteger.ONE) > 0 && currentCollatzPath.size() < opts.getNumSteps();
+    }
+
+    public void checkIfNewLargestNumber(BigInteger other) {
+        if (other.compareTo(currentLargestNumber) > 0) {
+            currentLargestNumber = other;
+        }
     }
 
 

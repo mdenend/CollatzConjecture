@@ -1,6 +1,7 @@
 package collatz.helpers;
 
 import collatz.utils.OptionsHelper;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -27,10 +28,10 @@ public class MultiBaseListSizeHelper extends ListSizeHelper{
     //these four numbers are used to track locations of the longest chain avoiding x mod 8 for some x. They are indices of the entire
     //chain, which is done to allow multiple bases to be checked at the same time.
     //see above JavaDoc comment for the whole class.
-    private int currentLowIndex = 0;
-    private int longestLowIndex = 0;
-    private int longestHighIndex = 0;
-    private int difference = 0;
+    int currentLowIndex = 0;
+    int longestLowIndex = 0;
+    int longestHighIndex = 0;
+    int difference = 0;
 
     //Do we ever want to use this field?? Probably not.
     //private Set<Integer> baseAvoiding;
@@ -75,6 +76,17 @@ public class MultiBaseListSizeHelper extends ListSizeHelper{
     }
 
     /**
+     * Only exists for the subclass AvoidingModGrowthHelper to override. Calling this throws an exception.
+     * @param startingNumber
+     * @param chain
+     * @param totalChainLength
+     * @param numOddNumbers
+     */
+    public void checkIfNewChainWithOddNumbers(long startingNumber, List<BigInteger> chain, int totalChainLength, int numOddNumbers) {
+        throw new UnsupportedOperationException("No need for odd numbers in mode 0");
+    }
+
+    /**
      * This is dynamically called every time that, during a run of the Collatz Conjecture, when the current number mod base equals
      * a number that we are trying to avoid. This will check to see if this chain is longer than the previous longest chain found during
      * the run with the number. If it is, we note the indices of this chain. Things we do when we find a longer chain:
@@ -92,6 +104,15 @@ public class MultiBaseListSizeHelper extends ListSizeHelper{
             longestLowIndex = currentLowIndex;
         }
         currentLowIndex = highIndex;
+    }
+
+    /**
+     * Only exists for the subclass AvoidingModGrowthHelper to override. Calling this throws an exception.
+     * @param highIndex
+     * @param oddNums
+     */
+    public void compareCurrentChainToLongestChainWithOddNumbers(int highIndex, int oddNums) {
+        throw new UnsupportedOperationException("No need for odd numbers in mode 0");
     }
 
     /**

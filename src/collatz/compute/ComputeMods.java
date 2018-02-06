@@ -29,14 +29,24 @@ public class ComputeMods {
     // takes an input number and runs the collatz conjecture on it until it converges to 1.
     // if we have timeeff flag and space is enough, then we can store values we've visited already to avoid visiting them again.
     //
-    private static void numModStepsMultipleNodesVisitedNumbers(long num, Map<Set<Integer>, MultiBaseListSizeHelper> basesMapping,
-                                                               ModAvoidanceWrapper avModsHelp, Set<BigInteger> visitedNumbers,
+    private static void numModStepsMultipleNodesVisitedNumbers(long num, Map<Set<Integer>, ? extends MultiBaseListSizeHelper> basesMapping,
+                                                               ModAvoidanceWrapper avModsHelp,
                                                                OptionsHelper opts) {
         BigInteger number = BigInteger.valueOf(num);
         List<BigInteger> currentCollatzPath = new ArrayList<>(2000); //should never need to exceed this size.
         int index = 0;
+
+        //Change 2.1 Add totolOddNumbers and oddNumbersInCurrentChain declaration here, used by mode 4.
+        int totalOddNumbers = 0;
+        int oddNumbersInCurrentChain = 0;
+
         //either the number is one, or we finish executing after a certain number of steps.
         while(number.compareTo(BigInteger.ONE) > 0 && index < opts.getNumSteps()) {
+            //Change 3. For each base combination, checkIfNewLargestNumber.
+            for (Set<Integer> s: basesMapping.keySet()) {
+                MultiBaseListSizeHelper m = basesMapping.get(s);
+                m.checkIfNewLargestNumber(number);
+            }
             int modResult = number.mod(opts.getBaseBigInt()).intValue();
             //first, add the current number to the currentCollatzPath. Then, see if this base hits any of the bases we're trying to avoid.
             currentCollatzPath.add(number);
@@ -44,19 +54,50 @@ public class ComputeMods {
             if (checkBases != null) {
                 for (Set<Integer> s : checkBases) {
                     MultiBaseListSizeHelper m = basesMapping.get(s);
-                    m.compareCurrentChainToLongestChain(index);
+                    //Change 4.1 If mode 0, call below. Else, if mode 4, call compareCurrentChainToLongestChainWithOddNumbers. Else, throw Exception.
+                    if (opts.getMode() == 0) {
+                        m.compareCurrentChainToLongestChain(index);
+                    } else if (opts.getMode() == 4) {
+                        m.compareCurrentChainToLongestChainWithOddNumbers(index, oddNumbersInCurrentChain);
+                    } else {
+                        throw new IllegalStateException("Unsupported mode detected! Mode" + opts.getMode());
+                    }
+
+                    //Change 2.2: Set oddNumbersInCurrentChain to 0 here.
+                    oddNumbersInCurrentChain = 0;
                 }
             }
+            //Change 2.3: Increment both odd number counts if number is odd.
+            if (number.mod(TWO).compareTo(BigInteger.ONE) == 0) {
+                totalOddNumbers++;
+                oddNumbersInCurrentChain++;
+            }
             index++; //increment the counter for the collatzPath.
-            number = computeCollatzForward(number, visitedNumbers, opts);
+            number = computeCollatzForward(number, opts);
         }
         //NOW, we see if the new longest path exceeds the old ones, and reset the counters.
         //Also, check if our longest chain that converges to 1 ends up exceeding any other chain.
+        //Change 5: Add in the final 1 to the collatz path too.
+        currentCollatzPath.add(number);
+
+        //Change 4.2: If mode 0, call compareCurrentChainToLongestChain and checkIfNewChain.
+        //Else, if mode 4, call compareCurrentChainToLongestChainWithOddNumbers and compareCurrentChainToLongestChainWithOddNumbers.
+        //Else, throw exception.
+
+
         Set<Set<Integer>> baseKeySet = basesMapping.keySet();
         for (Set<Integer> s : baseKeySet) {
             MultiBaseListSizeHelper m = basesMapping.get(s);
-            m.compareCurrentChainToLongestChain(index-1); //check if we have a new chain one more time.
-            m.checkIfNewChain(currentCollatzPath, num);
+            if(opts.getMode() == 0) {
+                m.compareCurrentChainToLongestChain(index); //check if we have a new chain one more time.
+                m.checkIfNewChain(currentCollatzPath, num);
+            } else if (opts.getMode() == 4) {
+                m.compareCurrentChainToLongestChainWithOddNumbers(index, oddNumbersInCurrentChain);
+                m.checkIfNewChainWithOddNumbers(num, currentCollatzPath, index+1, totalOddNumbers);
+            } else {
+                throw new IllegalStateException("Unsupported mode detected! Mode" + opts.getMode());
+            }
+
             m.resetCounters();
         }
     }
@@ -69,7 +110,7 @@ public class ComputeMods {
     
 
     //modularized this because it's going to be called a couple other times.
-    private static BigInteger computeCollatzForward(BigInteger number, Set<BigInteger> visitedNumbers, OptionsHelper opts) {
+    private static BigInteger computeCollatzForward(BigInteger number, OptionsHelper opts) {
         BigInteger result;
         if (number.mod(TWO).compareTo(BigInteger.ZERO) == 0) {
             result = number.divide(TWO);
@@ -79,7 +120,7 @@ public class ComputeMods {
             if (opts.isTimeEffFlag()) {
                 //only check if number is odd... as we're only analyzing odd numbers.
                 if (inBetween(number, opts.getLowNumBigInteger(), opts.getHighNumBigInteger())) {
-                    visitedNumbers.add(number);
+                    opts.visitedNumbers().add(number);
                 }
             }
             number = number.multiply(THREE);
@@ -88,26 +129,7 @@ public class ComputeMods {
         return result;
     }
 
-    
-  //modularized this because it's going to be called a couple other times.
-    //separate method for longs.
-    private static long computeCollatzForward(long number, Set<Long> visitedNumbers, OptionsHelper opts) {
-        long result;
-        if (number % 2 == 0) {
-            result = number / 2;
-        }
-        else {
-            //option only needed for time efficient solution.
-            if (opts.isTimeEffFlag()) {
-                //only check if number is odd... as we're only analyzing odd numbers.
-                if (inBetween(number, opts.getLowNum(), opts.getHighNum())) {
-                    visitedNumbers.add(number);
-                }
-            }            
-            result = (number * 3) + 1;
-        }
-        return result;
-    }
+
     //sees if the current integer is in between the lowest value in the range, and the highest value in the range. If so, we want to add it to the range.
     //only used when we have the timeefficient solution, as we know these numbers can be skipped.
     private static boolean inBetween(long current, long low, long high) {
@@ -122,34 +144,23 @@ public class ComputeMods {
      * @return A Map that has keys that are sets of integers, which are the bases that were avoided, and these each point to a MultiBaseListSizeHelper,
      * which helps store and process our results. See MultiBaseListSizeHelper class for more details.
      */
-    public static Map<Set<Integer>, MultiBaseListSizeHelper> computeModsAvoidingMultipleBases(OptionsHelper opts) {
-        
-        Map<Set<Integer>, MultiBaseListSizeHelper> basesMapping = new LinkedHashMap<>();
-        Set<Set<Integer>> avoidanceMods = opts.getAvoidBases();
-
-        //this builds a map that, when an integer is fed into this object (w/ getMappedSets), any sets that have the integer in them are returned,
-        // and speeds up the computation significantly.
-        ModAvoidanceWrapper avModsHelp = ModAvoidanceWrapper.getWrapping(avoidanceMods);
-
-        for (Set<Integer> s: avoidanceMods) {
-            basesMapping.put(s, new MultiBaseListSizeHelper(opts, s));
-        }
+    public static void computeModsAvoidingMultipleBases(OptionsHelper opts, Map<Set<Integer>, ? extends MultiBaseListSizeHelper> basesMapping) {
+        ModAvoidanceWrapper avModsHelp = ModAvoidanceWrapper.getWrapping(opts.getAvoidBases());
 
         //these three are only used in time efficient solution, not otherwise, but not huge if not being used.
-        Set<BigInteger> visitedNumbers = new HashSet<>();// if we've seen a number in the collatz conjecture already, then why visit it again??
+        //Set<BigInteger> visitedNumbers = new HashSet<>();// if we've seen a number in the collatz conjecture already, then why visit it again??
 
         //like before, we want our lower number to be odd, and higher number to be even.
         for (long i = opts.getLowNum(); i <= opts.getHighNum(); i += 2) {
 
             //if space efficient, we'll avoid computation if number already visited.
             if (opts.isTimeEffFlag()) {
-                if (visitedNumbers.contains(BigInteger.valueOf(i))) {
+                if (opts.visitedNumbers().contains(i)) {
                     continue;
                 }
             }
-            numModStepsMultipleNodesVisitedNumbers(i, basesMapping, avModsHelp, visitedNumbers, opts);
+            numModStepsMultipleNodesVisitedNumbers(i, basesMapping, avModsHelp, opts);
         }
-        return basesMapping;
     }
 
     /**
@@ -160,16 +171,16 @@ public class ComputeMods {
     public static ListSizeHelper computeLongestList(OptionsHelper opts) {
         ListSizeHelper helper = new ListSizeHelper(opts);
 
-        Set<BigInteger> visitedNumbers = new HashSet<>();
+        //Set<BigInteger> visitedNumbers = new HashSet<>();
         //like before, we want our lower number to be odd, and higher number to be even.
         for (long i = opts.getLowNum(); i <= opts.getHighNum(); i += 2) {
             //if time efficient, we'll avoid computation if number already visited.
             if (opts.isTimeEffFlag()) {
-                if (visitedNumbers.contains(BigInteger.valueOf(i))) {
+                if (opts.visitedNumbers().contains(i)) {
                     continue;
                 }
             }
-            runCollatzWholeList(i, helper, visitedNumbers, opts);
+            runCollatzWholeList(i, helper, opts);
         }
         return helper;
 
@@ -180,17 +191,16 @@ public class ComputeMods {
      * given number num. 
      * @param num The number we're running the Collatz Sequence on.
      * @param helper The helper class that'll store the results we have.
-     * @param visitedNumbers The set of numbers we've visited so far.
      * @param opts The OptionsHelper containing our choices.
      */
-    static void runCollatzWholeList(long num, ListSizeHelper helper, Set<BigInteger> visitedNumbers, OptionsHelper opts) {
+    static void runCollatzWholeList(long num, ListSizeHelper helper, OptionsHelper opts) {
         BigInteger number = BigInteger.valueOf(num);
         List<BigInteger> currentCollatzPath = new ArrayList<>(100);
 
         //condition is abstracted to the helper class because mode 3 has a slightly different termination condition than mode 2.
         while(helper.whileLoopCondition(number, currentCollatzPath, opts)) {
             currentCollatzPath.add(number);
-            number = computeCollatzForward(number, visitedNumbers, opts);
+            number = computeCollatzForward(number, opts);
         }
         currentCollatzPath.add(number); //add the last number as well. Useful for Mode 3.
         helper.checkIfNewChain(currentCollatzPath, num);
@@ -206,16 +216,16 @@ public class ComputeMods {
     public static UntilDecayListSizeHelper computeLongestGrowth(OptionsHelper opts) {
         UntilDecayListSizeHelper helper = new UntilDecayListSizeHelper(opts);
 
-        Set<BigInteger> visitedNumbers = new HashSet<>();
+        //Set<BigInteger> visitedNumbers = new HashSet<>();
         //like before, we want our lower number to be odd, and higher number to be even.
         for (long i = opts.getLowNum(); i <= opts.getHighNum(); i += 2) {
             //if time efficient, we'll avoid computation if number already visited.
             if (opts.isTimeEffFlag()) {
-                if (visitedNumbers.contains(BigInteger.valueOf(i))) {
+                if (opts.visitedNumbers().contains(i)) {
                     continue;
                 }
             }
-            runCollatzWholeList(i, helper, visitedNumbers, opts);
+            runCollatzWholeList(i, helper, opts);
         }
         return helper;
 
@@ -229,12 +239,13 @@ public class ComputeMods {
      * @param opts
      * @return
      */
+    /*
     public static AvoidingModGrowthHelper computeAvoidingModGrowth(OptionsHelper opts) {
         AvoidingModGrowthHelper helper = new AvoidingModGrowthHelper(opts);
         //still a lot of work to do here. thinking, OK, so I'll run some mod avoidance stuff, like always, but I don't think I can really utilize any of the methods
         //that are already here. The reason is that I need to run the while loop and
 
-        Set<Long> visitedNumbers = new HashSet<>();
+        //Set<Long> visitedNumbers = new HashSet<>();
         //Set<BigInteger> visitedNumbers = new HashSet<>(); TODO: Add back in later.
         
         Set<Set<Integer>> avoidBases = opts.getAvoidBases();
@@ -250,43 +261,43 @@ public class ComputeMods {
         for (long i = opts.getLowNum(); i <= opts.getHighNum(); i+= 2) {
         	//BigInteger num = BigInteger.valueOf(i); TODO:Add back in later. Also replace i with num.
         	if (opts.isTimeEffFlag()) {
-                if (visitedNumbers.contains(i)) {
+                if (opts.visitedNumbers().contains(i)) {
                     //visitedNumbers.remove(num);//can remove the number; we'll never see it again. Saves space.
                 	continue;
                 }
             }
         	
-        	computeOneAvoidingModGrowthNumber(i, helper, avoidBase, opts, visitedNumbers);
+        	computeOneAvoidingModGrowthNumber(i, helper, avoidBase, opts);
         	
         }
         
         return helper;
-    }
+    }*/
     /**
-     * FOR NOW, going to make this do Longs instead of BigInts. Need to change other things later.
+     * This shouldn't be a separate method from the multi bases approach, if I fix my design correctly.
      * @param number Change this to BigInteger.
      * @param helper 
      * @param avoidBase 
      * @param opts
-     * @param visitedNumbers Change this to BigInteger.
      */
+    /*
     private static void computeOneAvoidingModGrowthNumber(long number, 
-    		AvoidingModGrowthHelper helper, int avoidBase, OptionsHelper opts,
-    		Set<Long> visitedNumbers) {
+    		AvoidingModGrowthHelper helper, int avoidBase, OptionsHelper opts) {
     
     	
     	List<Long> currentCollatzPath = new ArrayList<>(1000); //TODO: Change this to BigInt.
     	int index = 0;
     	int oddNumbers = 0; //counting odd numbers as another approach to hardness, but excluding last 1.
     	long currentNumber = number; //change this to BigInteger.
+        BigInteger currentBigInt = BigInteger.valueOf(currentNumber);
     	int oddNumbersInCurrentChain = 0;
     	
     	while (currentNumber > 1  && index < opts.getNumSteps()) {
-    		helper.checkIfNewLargestNumber(currentNumber);
+    		helper.checkIfNewLargestNumber(currentBigInt);
     		long modResult = currentNumber % opts.getOutputBase();//currentNumber.mod(opts.getBaseBigInt()).intValue();
     		currentCollatzPath.add(currentNumber);
     		if (modResult == avoidBase) {
-    			helper.compareCurrentChainToLongestChain(index, oddNumbersInCurrentChain);
+    			helper.compareCurrentChainToLongestChainWithOddNumbers(index, oddNumbersInCurrentChain);
     			oddNumbersInCurrentChain = 0;
     			
     		}
@@ -295,7 +306,7 @@ public class ComputeMods {
     			oddNumbersInCurrentChain++;
     		}
     		index++;
-    		currentNumber = computeCollatzForward(currentNumber, visitedNumbers, opts);
+    		currentNumber = computeCollatzForward(currentBigInt, opts).longValue(); //super hacky for now. One step at a time...
     		
     	}
     	//we'll add 1 to the end of this chain too.
@@ -304,12 +315,12 @@ public class ComputeMods {
     	currentCollatzPath.add(currentNumber);
     	oddNumbers++;
     	oddNumbersInCurrentChain++;
-    	helper.compareCurrentChainToLongestChain(index, oddNumbersInCurrentChain); //normally must subtract but we added an extra number in.
-    	helper.checkIfNewLongestChain(number, currentCollatzPath, index+1, oddNumbers); //index+1 is the total chain length.
+    	helper.compareCurrentChainToLongestChainWithOddNumbers(index, oddNumbersInCurrentChain); //normally must subtract but we added an extra number in.
+    	helper.checkIfNewChainWithOddNumbers(number, currentCollatzPath, index+1, oddNumbers); //index+1 is the total chain length.
     	helper.resetCounters();
     	
     }
-
+*/
     /*
     The following code is all of the new Mode 4 code. It'll be Mode 5 for now, until I verify that it in fact works.
      */
@@ -374,7 +385,7 @@ public class ComputeMods {
                 }
             }
             index++; //increment the counter for the collatzPath.
-            number = computeCollatzForward(number, visitedNumbers, opts);
+            number = computeCollatzForward(number, opts);
         }
         //NOW, we see if the new longest path exceeds the old ones, and reset the counters.
         //Also, check if our longest chain that converges to 1 ends up exceeding any other chain.

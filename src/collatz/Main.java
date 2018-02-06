@@ -7,6 +7,7 @@ import collatz.helpers.ListSizeHelper;
 import collatz.helpers.MultiBaseListSizeHelper;
 import collatz.output.PrintAvoidanceGrowthTable;
 import collatz.output.PrintPaths;
+import collatz.utils.ModAvoidanceWrapper;
 import collatz.utils.OptionsHelper;
 import collatz.compute.ComputeMods;
 
@@ -23,9 +24,10 @@ public class Main {
         //modularize everything to these modes, but modes are sufficiently different.
 
         //ModeOne uses the MultiBaseListSizeHelper which extends ListSizeHelper. Wildcard (?) used to allow
-        Map<Set<Integer>, ? extends ListSizeHelper> modeZeroResults = null;
+        Map<Set<Integer>, MultiBaseListSizeHelper>  modeZeroResults = null;
         ListSizeHelper modeOneTwoResults = null;
-        AvoidingModGrowthHelper modeFourResults = null;
+        Map<Set<Integer>, AvoidingModGrowthHelper> modeFourResults = null;
+        Set<Set<Integer>> avoidanceMods;
         
         long startTime = System.currentTimeMillis(); //want to time this just to get a sense of CPU hours.
 
@@ -33,7 +35,20 @@ public class Main {
         //depending on the mode, we run a specific Collatz Computation.
         switch(opts.getMode()) {
             case 0:
-                modeZeroResults = ComputeMods.computeModsAvoidingMultipleBases(opts);
+                //now building the mapping and passing that as a parameter, as well as avoidance mods.
+                //TODO: Change 1: All of this before the lowNum-highNum for loop needs to actually happen in MAIN.
+                //Then we pass this mapping into this method, which will handle methods for both mode 0 and 4 correctly.
+
+                modeZeroResults = new LinkedHashMap<>();
+                avoidanceMods = opts.getAvoidBases();
+
+                //this builds a map that, when an integer is fed into this object (w/ getMappedSets), any sets that have the integer in them are returned,
+                // and speeds up the computation significantly.
+
+                for (Set<Integer> s: avoidanceMods) {
+                    modeZeroResults.put(s, new MultiBaseListSizeHelper(opts, s));
+                }
+                ComputeMods.computeModsAvoidingMultipleBases(opts, modeZeroResults);
                 break;
             case 1:
                 modeOneTwoResults = ComputeMods.computeLongestList(opts);
@@ -45,7 +60,17 @@ public class Main {
                 UpDownComputation.computeUpDown(opts);
                 break;
             case 4:
-            	modeFourResults = ComputeMods.computeAvoidingModGrowth(opts);
+                modeFourResults = new LinkedHashMap<>();
+                avoidanceMods = opts.getAvoidBases();
+
+                //this builds a map that, when an integer is fed into this object (w/ getMappedSets), any sets that have the integer in them are returned,
+                // and speeds up the computation significantly.
+
+                for (Set<Integer> s: avoidanceMods) {
+                    modeFourResults.put(s, new AvoidingModGrowthHelper(opts));
+                }
+                ComputeMods.computeModsAvoidingMultipleBases(opts, modeFourResults);
+                //modeFourResults = ComputeMods.computeAvoidingModGrowth(opts);
                 break;
             default:
                 System.err.println("Mode does not exist.");
@@ -76,7 +101,11 @@ public class Main {
                 System.err.println("Run finished after time of " + stamp);
                 break;
             case 4:
-            	PrintAvoidanceGrowthTable.writeOutputFile(opts.getOutputFilePrefix() + opts.getOutputFileSuffix(), modeFourResults, opts, stamp);
+                Set<Set<Integer>> key2 = modeZeroResults.keySet();
+                for (Set<Integer> s : key2) {
+                    String filename2 = opts.getOutputFilePrefix() + OptionsHelper.avoidBasesSetToString(s) + opts.getOutputFileSuffix();
+                    PrintAvoidanceGrowthTable.writeOutputFile(filename2, modeFourResults.get(s), opts, stamp);
+                }
             	break;
         }
 

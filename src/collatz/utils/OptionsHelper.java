@@ -50,6 +50,8 @@ public class OptionsHelper {
     private int reverseLimit;
     private boolean reverseTickFlag;
 
+    private VisitedNumbers visitedNumbers;
+
 
     //I think this is the longest constructor I've ever written. It parses all the possible arguments that can be had.
     public OptionsHelper (String[] args) {
@@ -85,6 +87,8 @@ public class OptionsHelper {
         reverseLimit = 100; //just a guess at a reasonable reverse limit. This may change later.
 
         reverseTickFlag = false;
+
+        visitedNumbers = new VisitedNumbers();
 
         //these must be mutually exclusive, so we check if this is the case.
         boolean singleOutputFlag = false;
@@ -437,4 +441,7 @@ public class OptionsHelper {
         return s.toString();
     }
 
+    public VisitedNumbers visitedNumbers() {
+        return visitedNumbers;
+    }
 }

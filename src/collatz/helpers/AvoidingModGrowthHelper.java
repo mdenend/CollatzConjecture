@@ -14,27 +14,21 @@ import java.util.List;
  * Created by Matthew Denend on 10/25/17.
  */
 
-//TODO: I should probably just go ahead and have a method that converts a BigInteger to a long instead. This makes much more sense.
+//TODO: This class is going to extend MultiBaseListSizeHelper, and we'll delete the other class we created.
     //The only time that I'll ever have space issues is in the visitedNumbers Map. I can convert this...
-public class AvoidingModGrowthHelper{
-    private int currentLongestChain;
+public class AvoidingModGrowthHelper extends MultiBaseListSizeHelper{
+    private int currentLongestChainLength;
     
     private List<AvoidingModGrowthRow> modGrowthRows;
     
   //used to help count the current number only.
-    private int currentLowIndex = 0;
-
-    //for the current number, stores these numbers.
-    private int longestLowIndex = 0; //ex: Index 0 low, and Index 4 high. That's 5 elements. So... high - low + 1 to compare to the size of the top chain.
-    private int longestHighIndex = 0;
-    private int difference = 0;
     //private BigInteger currentLargestNumber; //TODO: Add this back in later.
-    private long currentLargestNumber;
+    //private long currentLargestNumber;
     private int numOddNumbersInChain = 0;
 
     public AvoidingModGrowthHelper(OptionsHelper opts) {
-    	modGrowthRows = new ArrayList<>();
-    	currentLargestNumber = 0;
+    	super(opts);
+        modGrowthRows = new ArrayList<>();
         
     }
 
@@ -44,10 +38,11 @@ public class AvoidingModGrowthHelper{
      * @param startingNumber Change to BigInt.
      * @param chain Change to List<BigInt>.
      */
-    public void checkIfNewLongestChain(long startingNumber, List<Long> chain, int totalChainLength, int numOddNumbers) {
-        if (difference > currentLongestChain) {
-            currentLongestChain = difference;
-            List<Long> chainToPrint = new ArrayList<Long>();
+    @Override
+    public void checkIfNewChainWithOddNumbers(long startingNumber, List<BigInteger> chain, int totalChainLength, int numOddNumbers) {
+        if (difference > currentLongestChainLength) {
+            currentLongestChainLength = difference;
+            List<BigInteger> chainToPrint = new ArrayList<>();
             for (int i = longestLowIndex; i <= longestHighIndex; i++) {
             	chainToPrint.add(chain.get(i));
             }
@@ -67,7 +62,8 @@ public class AvoidingModGrowthHelper{
      * @param highIndex The index in which we found that the current number in the Collatz Conjecture computation hits current number mod base equals the number
      *                  we're trying to avoid.
      */
-    public void compareCurrentChainToLongestChain(int highIndex, int oddNums) {
+    @Override
+    public void compareCurrentChainToLongestChainWithOddNumbers(int highIndex, int oddNums) {
         int newDifference = highIndex - currentLowIndex;
         if (newDifference  > difference) {
             difference = newDifference;
@@ -82,19 +78,13 @@ public class AvoidingModGrowthHelper{
      * Resets the dynamically changing counters longestLowIndex, longestHighIndex, currentLowIndex, and difference
      * every time we finish computing the Collatz Conjecture on an input number.
      */
+    @Override
     public void resetCounters() {
-        longestLowIndex = 0;
-        longestHighIndex = 0;
-        currentLowIndex = 0;
-        difference = 0;
+        super.resetCounters();
         numOddNumbersInChain = 0;
     }
     
-    public void checkIfNewLargestNumber(long other) {
-    	if (currentLargestNumber < other) {
-    		currentLargestNumber = other;
-    	}
-    }
+
     
     public List<AvoidingModGrowthRow> getModGrowthRows() {
     	return modGrowthRows;

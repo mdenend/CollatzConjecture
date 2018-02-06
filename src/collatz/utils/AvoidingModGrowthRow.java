@@ -5,13 +5,12 @@ import java.util.List;
 
 /**
  * Created by mad4672 on 10/25/17.
- * TODO: Need to change these to BigInteger later on.
  */
 public class AvoidingModGrowthRow {
     private long startingNumber;
     private int numSteps;
-    private long largestNumberInChain;
-    private List<Long> chain;
+    private BigInteger largestNumberInChain;
+    private List<BigInteger> chain;
     
     //newly added fields
     private int numStepsOverall;
@@ -20,7 +19,7 @@ public class AvoidingModGrowthRow {
     private int oddNumbersInChain;
 
 
-    public AvoidingModGrowthRow(long startingNumber, int numSteps, long largestNumberInChain, List<Long> chain, 
+    public AvoidingModGrowthRow(long startingNumber, int numSteps, BigInteger largestNumberInChain, List<BigInteger> chain,
     		int numStepsOverall, int numOddNumbers, int oddNumbersInCurrentChain) {
         this.chain = chain;
         this.largestNumberInChain = largestNumberInChain;
@@ -45,11 +44,11 @@ public class AvoidingModGrowthRow {
     public int getNumSteps() {
     	return numSteps;
     }
-    public long getLargestNumberInChain() {
+    public BigInteger getLargestNumberInChain() {
     	return largestNumberInChain;
     }
     
-    public List<Long> getChain() {
+    public List<BigInteger> getChain() {
     	return chain;
     }
     
