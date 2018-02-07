@@ -30,4 +30,6 @@
         ab. In mode 4, we store progressively growing chain records.
 3. LAST THING: Test this. Make sure both mode 0 and 4 with visitedNumbers work for numbers up to 1 million, and rigorously test to make sure results make sense between the modes, and compare to previous outputs.
         THEN, after fixing any bugs, I can get Marijn the results he wanted, and hopefully efficiently run from 1 to 1 billion on Condor! (I might not have to split into slices either now that I've cut required memory in half...)
-4. ONE OTHER THING: Fix the AvoidanceGrowthTable to output the correct hardness calculations.
+4. (DONE) ONE OTHER THING: Fix the AvoidanceGrowthTable to output the correct hardness calculations.
+
+5. (DONE) BIG BUG: I need to have OddNumbersPerChain PER Helper. I can't just have a count of odd numbers in the chain living in the ComputeMods method, because different chains will have different numbers.

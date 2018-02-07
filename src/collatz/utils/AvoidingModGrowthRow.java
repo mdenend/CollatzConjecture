@@ -14,18 +14,18 @@ public class AvoidingModGrowthRow {
     
     //newly added fields
     private int numStepsOverall;
-    private int numOddNumbers;
+    private int numTotalOddNumbers;
     
     private int oddNumbersInChain;
 
 
     public AvoidingModGrowthRow(long startingNumber, int numSteps, BigInteger largestNumberInChain, List<BigInteger> chain,
-    		int numStepsOverall, int numOddNumbers, int oddNumbersInCurrentChain) {
+    		int numStepsOverall, int numTotalOddNumbers, int oddNumbersInCurrentChain) {
         this.chain = chain;
         this.largestNumberInChain = largestNumberInChain;
         this.startingNumber = startingNumber;
         this.numSteps = numSteps;
-        this.numOddNumbers = numOddNumbers;
+        this.numTotalOddNumbers = numTotalOddNumbers;
         this.numStepsOverall = numStepsOverall;
         this.oddNumbersInChain = oddNumbersInCurrentChain;
     }
@@ -56,8 +56,8 @@ public class AvoidingModGrowthRow {
     	return numStepsOverall;
     }
     
-    public int getNumOddNumbers() {
-    	return numOddNumbers;
+    public int getNumTotalOddNumbers() {
+    	return numTotalOddNumbers;
     }
     
     

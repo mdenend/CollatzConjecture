@@ -30,31 +30,33 @@ public class PrintAvoidanceGrowthTable {
             writer.print("Log_2(starting number)" + CS);
             writer.print("Number of steps avoiding mod" + CS);
             writer.print("Hardness approximation" + CS);
+            writer.print("Percent Chain Odd Numbers" + CS);
             writer.print("Largest Number in Chain" + CS);
             writer.print("Total steps in overall chain" + CS);
             writer.print("Number of odd numbers visited" + CS);
             writer.print("Number of odd numbers in longest chain" + CS);
             writer.print("Chain" + CS);
-            //writer.print("Chain Reversed, Delimited");
+            writer.print("Chain Reversed, Delimited");
             writer.println();
             writer.flush();
             
             for (AvoidingModGrowthRow r : helper.getModGrowthRows()) {
             	double log2num = Math.log10(r.getStartingNumber()) / Math.log10(2);
-            	double hardnessApprox = r.getNumSteps() / log2num;
-            	writer.print(r.getStartingNumber() + CS + log2num + CS + r.getNumSteps() + CS + hardnessApprox + CS);
-            	writer.print(r.getLargestNumberInChain() + CS + r.getNumStepsOverall() + CS + r.getNumOddNumbers() + CS
-            				+ r.getOddNumbersInChain() + CS + r.getChain());
+            	double hardnessApprox = r.getOddNumbersInChain() / log2num;
+            	double percentageOddNumbersInChain = (double) r.getOddNumbersInChain() / r.getNumTotalOddNumbers();
+            	writer.print(r.getStartingNumber() + CS + log2num + CS + r.getNumSteps() + CS + hardnessApprox + CS + percentageOddNumbersInChain + CS);
+            	writer.print(r.getLargestNumberInChain() + CS + r.getNumStepsOverall() + CS + r.getNumTotalOddNumbers() + CS
+            				+ r.getOddNumbersInChain() + CS + r.getChain() + CS);
             	//reverse the chain, and output just numbers and tabs. This will help my analysis of chain similarity.
             	
-            	/*
-            	List<Long> chain = r.getChain();
+            	
+            	List<BigInteger> chain = r.getChain();
             	Collections.reverse(chain);
             	int i;
             	for (i = 0; i < chain.size()-1; i++) {
             		writer.print(chain.get(i) + CS);
             	}
-            	writer.print(chain.get(i));*/
+            	writer.print(chain.get(i));
             	writer.println();
             	writer.flush();
             }

@@ -1,7 +1,7 @@
 package collatz.compute;
 
-import collatz.helpers.AvoidingModGrowthHelper;
-import collatz.helpers.MultiBaseRecordTrackingListSizeHelper;
+//import collatz.helpers.AvoidingModGrowthHelper;
+//import collatz.helpers.MultiBaseRecordTrackingListSizeHelper;
 import collatz.helpers.ListSizeHelper;
 import collatz.helpers.MultiBaseListSizeHelper;
 import collatz.helpers.UntilDecayListSizeHelper;
@@ -38,7 +38,7 @@ public class ComputeMods {
 
         //Change 2.1 Add totolOddNumbers and oddNumbersInCurrentChain declaration here, used by mode 4.
         int totalOddNumbers = 0;
-        int oddNumbersInCurrentChain = 0;
+        
 
         //either the number is one, or we finish executing after a certain number of steps.
         while(number.compareTo(BigInteger.ONE) > 0 && index < opts.getNumSteps()) {
@@ -58,19 +58,20 @@ public class ComputeMods {
                     if (opts.getMode() == 0) {
                         m.compareCurrentChainToLongestChain(index);
                     } else if (opts.getMode() == 4) {
-                        m.compareCurrentChainToLongestChainWithOddNumbers(index, oddNumbersInCurrentChain);
+                        m.compareCurrentChainToLongestChain(index);
                     } else {
                         throw new IllegalStateException("Unsupported mode detected! Mode" + opts.getMode());
                     }
 
-                    //Change 2.2: Set oddNumbersInCurrentChain to 0 here.
-                    oddNumbersInCurrentChain = 0;
+                    
                 }
             }
-            //Change 2.3: Increment both odd number counts if number is odd.
-            if (number.mod(TWO).compareTo(BigInteger.ONE) == 0) {
+            //Change 2.3: Increment both odd number counts if number is odd, in mode 4 only.
+            if (opts.getMode() == 4 && number.mod(TWO).compareTo(BigInteger.ONE) == 0) {
                 totalOddNumbers++;
-                oddNumbersInCurrentChain++;
+                for (Set<Integer> s : basesMapping.keySet()) {
+                	basesMapping.get(s).incrementChainOddNumbers();
+                }
             }
             index++; //increment the counter for the collatzPath.
             number = computeCollatzForward(number, opts);
@@ -80,19 +81,29 @@ public class ComputeMods {
         //Change 5: Add in the final 1 to the collatz path too.
         currentCollatzPath.add(number);
 
+        //Check if odd number one more time, if mode 4...
+        if (opts.getMode() == 4 && number.mod(TWO).compareTo(BigInteger.ONE) == 0) {
+            totalOddNumbers++;
+            for (Set<Integer> s : basesMapping.keySet()) {
+            	basesMapping.get(s).incrementChainOddNumbers();
+            }
+        }
+        
+        
         //Change 4.2: If mode 0, call compareCurrentChainToLongestChain and checkIfNewChain.
         //Else, if mode 4, call compareCurrentChainToLongestChainWithOddNumbers and compareCurrentChainToLongestChainWithOddNumbers.
         //Else, throw exception.
 
+        
+        
 
         Set<Set<Integer>> baseKeySet = basesMapping.keySet();
         for (Set<Integer> s : baseKeySet) {
             MultiBaseListSizeHelper m = basesMapping.get(s);
+            m.compareCurrentChainToLongestChain(index); //check if we have a new chain one more time.
             if(opts.getMode() == 0) {
-                m.compareCurrentChainToLongestChain(index); //check if we have a new chain one more time.
                 m.checkIfNewChain(currentCollatzPath, num);
-            } else if (opts.getMode() == 4) {
-                m.compareCurrentChainToLongestChainWithOddNumbers(index, oddNumbersInCurrentChain);
+            } else if (opts.getMode() == 4) {                
                 m.checkIfNewChainWithOddNumbers(num, currentCollatzPath, index+1, totalOddNumbers);
             } else {
                 throw new IllegalStateException("Unsupported mode detected! Mode" + opts.getMode());
@@ -332,7 +343,7 @@ public class ComputeMods {
      * @return A Map that has keys that are sets of integers, which are the bases that were avoided, and these each point to a MultiBaseListSizeHelper,
      * which helps store and process our results. See MultiBaseListSizeHelper class for more details.
      */
-    public static Map<Set<Integer>, MultiBaseRecordTrackingListSizeHelper> computeModsAvoidingMultipleBasesAndTrackingRecords(OptionsHelper opts) {
+    /*public static Map<Set<Integer>, MultiBaseRecordTrackingListSizeHelper> computeModsAvoidingMultipleBasesAndTrackingRecords(OptionsHelper opts) {
 
         Map<Set<Integer>, MultiBaseRecordTrackingListSizeHelper> basesMapping = new LinkedHashMap<>();
         Set<Set<Integer>> avoidanceMods = opts.getAvoidBases();
@@ -360,12 +371,12 @@ public class ComputeMods {
             numModStepsMultipleNodesVisitedNumbersTrackingRecords(i, basesMapping, avModsHelp, visitedNumbers, opts);
         }
         return basesMapping;
-    }
+    }*/
 
     // takes an input number and runs the collatz conjecture on it until it converges to 1.
     // if we have timeeff flag and space is enough, then we can store values we've visited already to avoid visiting them again.
     //
-    private static void numModStepsMultipleNodesVisitedNumbersTrackingRecords(long num,
+    /*private static void numModStepsMultipleNodesVisitedNumbersTrackingRecords(long num,
                                                                               Map<Set<Integer>, MultiBaseRecordTrackingListSizeHelper> basesMapping,
                                                                ModAvoidanceWrapper avModsHelp, Set<BigInteger> visitedNumbers,
                                                                OptionsHelper opts) {
@@ -397,9 +408,10 @@ public class ComputeMods {
             m.checkIfNewChain(currentCollatzPath, num);
             m.resetCounters();
         }
-    }
+    }*/
 
 
 
 }
 
+//extra comment to check git

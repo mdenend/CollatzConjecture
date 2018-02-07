@@ -24,7 +24,11 @@ public class AvoidingModGrowthHelper extends MultiBaseListSizeHelper{
   //used to help count the current number only.
     //private BigInteger currentLargestNumber; //TODO: Add this back in later.
     //private long currentLargestNumber;
-    private int numOddNumbersInChain = 0;
+    
+    //first number keeps track of number of odd numbers in chain. 
+    //Second one keeps track what count of odd numbers is. It gets reset when we hit a mod number. 
+    private int oddNumbersInChain = 0;
+    private int currentOddChainCount = 0;
 
     public AvoidingModGrowthHelper(OptionsHelper opts) {
     	super(opts);
@@ -47,7 +51,7 @@ public class AvoidingModGrowthHelper extends MultiBaseListSizeHelper{
             	chainToPrint.add(chain.get(i));
             }
             modGrowthRows.add(new AvoidingModGrowthRow(startingNumber, difference, currentLargestNumber, chainToPrint, 
-            		totalChainLength, numOddNumbers, numOddNumbersInChain));
+            		totalChainLength, numOddNumbers, oddNumbersInChain));
         }
 
     }
@@ -63,15 +67,16 @@ public class AvoidingModGrowthHelper extends MultiBaseListSizeHelper{
      *                  we're trying to avoid.
      */
     @Override
-    public void compareCurrentChainToLongestChainWithOddNumbers(int highIndex, int oddNums) {
+    public void compareCurrentChainToLongestChain(int highIndex) {
         int newDifference = highIndex - currentLowIndex;
         if (newDifference  > difference) {
             difference = newDifference;
             longestHighIndex = highIndex;
             longestLowIndex = currentLowIndex;
-            numOddNumbersInChain = oddNums;
+            oddNumbersInChain = currentOddChainCount;
         }
         currentLowIndex = highIndex;
+        currentOddChainCount = 0;
     }
     
     /**
@@ -81,7 +86,8 @@ public class AvoidingModGrowthHelper extends MultiBaseListSizeHelper{
     @Override
     public void resetCounters() {
         super.resetCounters();
-        numOddNumbersInChain = 0;
+        oddNumbersInChain = 0;
+        currentOddChainCount = 0;
     }
     
 
@@ -90,6 +96,11 @@ public class AvoidingModGrowthHelper extends MultiBaseListSizeHelper{
     	return modGrowthRows;
     }
     
+    @Override
+    public void incrementChainOddNumbers() {
+    	currentOddChainCount++;
+    }
+
     
     
     

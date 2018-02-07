@@ -107,15 +107,6 @@ public class MultiBaseListSizeHelper extends ListSizeHelper{
     }
 
     /**
-     * Only exists for the subclass AvoidingModGrowthHelper to override. Calling this throws an exception.
-     * @param highIndex
-     * @param oddNums
-     */
-    public void compareCurrentChainToLongestChainWithOddNumbers(int highIndex, int oddNums) {
-        throw new UnsupportedOperationException("No need for odd numbers in mode 0");
-    }
-
-    /**
      * Resets the dynamically changing counters longestLowIndex, longestHighIndex, currentLowIndex, and difference
      * every time we finish computing the Collatz Conjecture on an input number.
      */
@@ -125,7 +116,11 @@ public class MultiBaseListSizeHelper extends ListSizeHelper{
         currentLowIndex = 0;
         difference = 0;
     }
+    
 
+    public void incrementChainOddNumbers() {
+    	throw new UnsupportedOperationException("No need for odd numbers in mode 0");
+    }
 
 
 
