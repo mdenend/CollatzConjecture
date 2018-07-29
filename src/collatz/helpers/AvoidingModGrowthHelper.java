@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is much like the MultiBaseListSizeHelper, except it was rewritten using Longs instead of BigIntegers, and includes odd number
- * counting as well.
+ * This is much like the MultiBaseListSizeHelper, except it tracks odd numbers, and stores rows instead of a single chain.
  *
  * Created by Matthew Denend on 10/25/17.
  */
@@ -33,11 +32,7 @@ public class AvoidingModGrowthHelper extends MultiBaseListSizeHelper{
     }
 
 
-    /**
-     * Need to change this to BigInteger sometime in the future.
-     * @param startingNumber Change to BigInt.
-     * @param chain Change to List<BigInt>.
-     */
+
     @Override
     public void checkIfNewChainWithOddNumbers(long startingNumber, List<BigInteger> chain, int totalChainLength, int numOddNumbers) {
         if (difference > currentLongestChainLength) {
