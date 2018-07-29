@@ -101,7 +101,7 @@ public class Main {
                 System.err.println("Run finished after time of " + stamp);
                 break;
             case 4:
-                Set<Set<Integer>> key2 = modeZeroResults.keySet();
+                Set<Set<Integer>> key2 = modeFourResults.keySet();
                 for (Set<Integer> s : key2) {
                     String filename2 = opts.getOutputFilePrefix() + OptionsHelper.avoidBasesSetToString(s) + opts.getOutputFileSuffix();
                     PrintAvoidanceGrowthTable.writeOutputFile(filename2, modeFourResults.get(s), opts, stamp);
