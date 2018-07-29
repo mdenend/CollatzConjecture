@@ -1,0 +1,245 @@
+\begin{
+@ARTICLE{2003mathLagrais,
+   author = {{Lagarias}, J.~C.},
+    title = "{The 3x+1 problem: An annotated bibliography (1963--1999) (sorted by author)}",
+  journal = {ArXiv Mathematics e-prints},
+   eprint = {math/0309224},
+ keywords = {Mathematics - Number Theory, Mathematics - Dynamical Systems, 11B37, 37A45, 39B12},
+     year = 2003,
+    month = sep,
+   adsurl = {http://adsabs.harvard.edu/abs/2003math......9224L},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+@ARTICLE{2006mathLagrias,
+   author = {{Lagarias}, J.~C.},
+    title = "{The 3x+1 Problem: An Annotated Bibliography, II (2000-2009)}",
+  journal = {ArXiv Mathematics e-prints},
+   eprint = {math/0608208},
+ keywords = {Mathematics - Number Theory, Mathematics - Dynamical Systems, 11B37, 37A45, 39B12},
+     year = 2006,
+    month = aug,
+   adsurl = {http://adsabs.harvard.edu/abs/2006math......8208L},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@online{EricRoose,
+  author = {Roosendaal, Eric},
+  title = {On the {3x+1} Problem},
+  year = 2017,
+  url = {http://www.ericr.nl/wondrous/},
+  urldate = {2017-11-21}
+}
+
+@article{Hofbauer:2006:TA:1142725.1711178,
+ author = {Hofbauer, Dieter and Waldmann, Johannes},
+ title = {Termination of $aa \rightarrow bc,bb \rightarrow ac,cc \rightarrow ab$},
+ journal = {Inf. Process. Lett.},
+ issue_date = {31 May 2006},
+ volume = {98},
+ number = {4},
+ month = may,
+ year = {2006},
+ issn = {0020-0190},
+ pages = {156--158},
+ numpages = {3},
+ url = {http://dx.doi.org/10.1016/j.ipl.2005.12.011},
+ doi = {10.1016/j.ipl.2005.12.011},
+ acmid = {1711178},
+ publisher = {Elsevier North-Holland, Inc.},
+ address = {Amsterdam, The Netherlands, The Netherlands},
+ keywords = {Automatic theorem proving, String rewriting, Termination},
+} 
+
+
+@Inbook{Hofbauer2006,
+author="Hofbauer, Dieter
+and Waldmann, Johannes",
+editor="Pfenning, Frank",
+title="Termination of String Rewriting with Matrix Interpretations",
+bookTitle="Term Rewriting and Applications: 17th International Conference, RTA 2006 Seattle, WA, USA, August 12-14, 2006 Proceedings",
+year="2006",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="328--342",
+abstract="A rewriting system can be shown terminating by an order-preserving mapping into a well-founded domain. We present an instance of this scheme for string rewriting where the domain is a set of square matrices of natural numbers, equipped with a well-founded ordering that is not total. The coefficients of the matrices can be found via a transformation to a boolean satisfiability problem. The matrix method also supports relative termination, thus it fits with the dependency pair method as well. Our implementation is able to automatically solve hard termination problems.",
+isbn="978-3-540-36835-9",
+doi="10.1007/11805618_25",
+url="https://doi.org/10.1007/11805618_25"
+}
+
+
+
+@Inbook{Endrullis2006,
+author="Endrullis, J{\"o}rg
+and Waldmann, Johannes
+and Zantema, Hans",
+editor="Furbach, Ulrich
+and Shankar, Natarajan",
+title="Matrix Interpretations for Proving Termination of Term Rewriting",
+bookTitle="Automated Reasoning: Third International Joint Conference, IJCAR 2006, Seattle, WA, USA, August 17-20, 2006. Proceedings",
+year="2006",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="574--588",
+abstract="We present a new method for automatically proving termination of term rewriting. It is based on the well-known idea of interpretation of terms where every rewrite step causes a decrease, but instead of the usual natural numbers we use vectors of natural numbers, ordered by a particular non-total well-founded ordering. Function symbols are interpreted by linear mappings represented by matrices. This method allows to prove termination and relative termination. A modification of the latter in which strict steps are only allowed at the top, turns out to be helpful in combination with the dependency pair transformation.",
+isbn="978-3-540-37188-5",
+doi="10.1007/11814771_47",
+url="https://doi.org/10.1007/11814771_47"
+}
+
+@article{DBLP:journals/corr/HeuleKM16,
+  author    = {Marijn J. H. Heule and
+               Oliver Kullmann and
+               Victor W. Marek},
+  title     = {Solving and Verifying the boolean Pythagorean Triples problem via
+               Cube-and-Conquer},
+  journal   = {CoRR},
+  volume    = {abs/1605.00723},
+  year      = {2016},
+  url       = {http://arxiv.org/abs/1605.00723},
+  archivePrefix = {arXiv},
+  eprint    = {1605.00723},
+  timestamp = {Wed, 07 Jun 2017 14:42:53 +0200},
+  biburl    = {https://dblp.org/rec/bib/journals/corr/HeuleKM16},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+@InProceedings{HeuleKWB12,
+author="Heule, Marijn J. H.
+and Kullmann, Oliver
+and Wieringa, Siert
+and Biere, Armin",
+editor="Eder, Kerstin
+and Louren{\c{c}}o, Jo{\~a}o
+and Shehory, Onn",
+title="Cube and Conquer: Guiding CDCL SAT Solvers by Lookaheads",
+booktitle="Hardware and Software: Verification and Testing",
+year="2012",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="50--65",
+abstract="Satisfiability (SAT) is considered as one of the most important core technologies in formal verification and related areas. Even though there is steady progress in improving practical SAT solving, there are limits on scalability of SAT solvers. We address this issue and present a new approach, called cube-and-conquer, targeted at reducing solving time on hard instances. This two-phase approach partitions a problem into many thousands (or millions) of cubes using lookahead techniques. Afterwards, a conflict-driven solver tackles the problem, using the cubes to guide the search. On several hard competition benchmarks, our hybrid approach outperforms both lookahead and conflict-driven solvers. Moreover, because cube-and-conquer is natural to parallelize, it is a competitive alternative for solving SAT problems in parallel.",
+isbn="978-3-642-34188-5"
+}
+
+@misc{Tseitin70,
+author="Tseitin, G.S.",
+title="On the complexity of derivation in propositional calculus.",
+howpublished="Presented at the Leningrad Seminar on Mathematical Logic held in September 1966."
+}
+
+
+@unpublished{HeuleAaronson,
+author="Heule, Marijn J. H.
+and Aaronson, Scott",
+title = "SPX: MaPaMaP: Massively Parallel Solving of Math Problems",
+note = "Unpublished"
+}
+
+@article{appel1977,
+author = "Appel, K. and Haken, W.",
+fjournal = "Illinois Journal of Mathematics",
+journal = "Illinois J. Math.",
+month = "09",
+number = "3",
+pages = "429--490",
+publisher = "University of Illinois at Urbana-Champaign, Department of Mathematics",
+title = "Every planar map is four colorable.",
+url = "https://projecteuclid.org:443/euclid.ijm/1256049011",
+volume = "21",
+year = "1977"
+}
+
+@article{Turing1936,
+author = {A. M. Turing},
+title = {On Computable Numbers, with an Application to the Entscheidungsproblem},
+journal = {Proceedings of the London Mathematical Society},
+volume = {s2-42},
+number = {1},
+pages = {230-265},
+doi = {10.1112/plms/s2-42.1.230},
+url = {https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/plms/s2-42.1.230},
+eprint = {https://londmathsoc.onlinelibrary.wiley.com/doi/pdf/10.1112/plms/s2-42.1.230}
+}
+
+@InProceedings{Conway72,
+author="Conway, J.H.",
+title="Unpredicatable Iterations",
+booktitle="Proceedings of the 1972 Number Theory Conference: University of Colorado",
+year="1972",
+publisher="University of Colorado",
+address="University of Colorado, Boulder, CO",
+pages="49--52",
+isbn="978-3-642-34188-5"
+}
+
+@article{Thain:2005:DCP:1064323.1064336,
+ author = {Thain, Douglas and Tannenbaum, Todd and Livny, Miron},
+ title = {Distributed Computing in Practice: The Condor Experience: Research Articles},
+ journal = {Concurr. Comput. : Pract. Exper.},
+ issue_date = {February 2005},
+ volume = {17},
+ number = {2-4},
+ month = feb,
+ year = {2005},
+ issn = {1532-0626},
+ pages = {323--356},
+ numpages = {34},
+ url = {http://dx.doi.org/10.1002/cpe.v17:2/4},
+ doi = {10.1002/cpe.v17:2/4},
+ acmid = {1064336},
+ publisher = {John Wiley and Sons Ltd.},
+ address = {Chichester, UK},
+ keywords = {Condor, Grid, community, history, planning, scheduling, split execution},
+} 
+
+@INPROCEEDINGS{Moskewicz:2001, 
+author={M. W. Moskewicz and C. F. Madigan and Y. Zhao and L. Zhang and S. Malik}, 
+booktitle={Proceedings of the 38th Design Automation Conference (IEEE Cat. No.01CH37232)}, 
+title={Chaff: engineering an efficient SAT solver}, 
+year={2001}, 
+pages={530-535}, 
+keywords={Boolean functions;computational complexity;constraint theory;electronic design automation;formal verification;Boolean constraint propagation;Boolean satisfiability;Chaff;SAT benchmarks;SAT solver;artificial intelligence;electronic design automation;low overhead decision strategy;Artificial intelligence;Business continuity;Design automation;Design engineering;Electronic design automation and methodology;Electronics packaging;Logic testing;NP-complete problem;Performance gain;Permission}, 
+doi={10.1145/378239.379017}, 
+ISSN={0738-100X}, 
+month={6}}
+
+@inproceedings{Silva:1999:IBH:645377.651196,
+ author = {Silva, Jo\~{a}o P. Marques},
+ title = {The Impact of Branching Heuristics in Propositional Satisfiability Algorithms},
+ booktitle = {Proceedings of the 9th Portuguese Conference on Artificial Intelligence: Progress in Artificial Intelligence},
+ series = {EPIA '99},
+ year = {1999},
+ isbn = {3-540-66548-X},
+ pages = {62--74},
+ numpages = {13},
+ url = {http://dl.acm.org/citation.cfm?id=645377.651196},
+ acmid = {651196},
+ publisher = {Springer-Verlag},
+ address = {London, UK, UK}
+}
+ 
+@article{Davis:1962:MPT:368273.368557,
+ author = {Davis, Martin and Logemann, George and Loveland, Donald},
+ title = {A Machine Program for Theorem-proving},
+ journal = {Commun. ACM},
+ issue_date = {July 1962},
+ volume = {5},
+ number = {7},
+ month = jul,
+ year = {1962},
+ issn = {0001-0782},
+ pages = {394--397},
+ numpages = {4},
+ url = {http://doi.acm.org/10.1145/368273.368557},
+ doi = {10.1145/368273.368557},
+ acmid = {368557},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+ 
+

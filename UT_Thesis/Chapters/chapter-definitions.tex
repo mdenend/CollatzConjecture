@@ -1,0 +1,21 @@
+\chapter{Definitions} \label{sec:defns}
+We will use the following terms throughout the paper to talk about the $3x+1$ problem:
+\begin{itemize}
+    \item $\boldsymbol{3x+1}$\textbf{ mapping}: A one step application of $Col(N)$ to some input number $N$.
+    \item $\boldsymbol{3x+1}$\textbf{ sequence}: Define this as follows: 
+    \begin{align*}
+        x_0 = x &= \text{ initial input number} \\
+        x_{i+1} &= \begin{cases} 
+        x_{i}/2 &\text{ if $x_i$ is even} \\
+        3 x_{i} + 1 &\text{ if $x_i$ is odd} \\
+        \end{cases}
+    \end{align*}
+    This sequence can continue for arbitrarily large values of $i$, but we are only interested in following the sequence until $x_i$ for some $i$ is 1, as any value after 1 follows the $1 \rightarrow 4 \rightarrow 2 \rightarrow 1$ cycle indefinitely.
+    \item \textbf{Collatz Variant:} For the context of this paper, when we say ``Collatz Subproblem,'' we use Algorithm~\ref{alg:ColSP}, which was defined in the introduction. The shorthand for this will be $Col_{sub}(N,A,b)$, where $A = \{a_1 \ldots a_s\}$ is all of the bases that cause termination of the algorithm. Note that for all $a \in A$, $0 \le a < b$, and $A = \emptyset$ is the same as Algorithm~\ref{alg:ColR}.
+    \item \textbf{Number of bits:} For an input number $x$, we say that, written in binary, it has $m$ bits.
+    \item \textbf{Binary shifts:} We often write numbers in binary in this Thesis and use shift operators used in C and many other programming languages. One difference is that in this paper, we deal with an arbitrary number of bits. We also never deal with negative numbers, so assume all shifts are logical. Here are the shift operators:
+    \begin{itemize}
+        \item $\boldsymbol{x<<i}$: This operator left shifts the binary representation of the number $x$ over $i$ indices. The lowest $i$ spots vacated by this shift are replaced by 0 bits. In other words, we are performing the operation $x\cdot 2^i$.
+        \item $\boldsymbol{x>>i}$: This operator right shifts the binary representation of the number $x$ over $i$ indices. The lowest $i$ spots disappear. In other words, we are performing the operation $\lfloor x / 2^i \rfloor$. Since all shifts in this paper are logical, any bits vacated by the shift are replaced with 0's.
+    \end{itemize}
+\end{itemize}

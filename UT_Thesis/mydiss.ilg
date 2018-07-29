@@ -1,0 +1,6 @@
+This is makeindex, version 2.15 [TeX Live 2015] (kpathsea + Thai support).
+Scanning input file ./mydiss.idx....done (3 entries accepted, 0 rejected).
+Sorting entries....done (5 comparisons).
+Generating output file ./mydiss.ind....done (13 lines written, 0 warnings).
+Output written in ./mydiss.ind.
+Transcript written in ./mydiss.ilg.

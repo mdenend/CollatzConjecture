@@ -1,0 +1,62 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: ./mydiss.aux
+A level-1 auxiliary file: Chapters/chapter-introduction.aux
+A level-1 auxiliary file: Chapters/chapter-definitions.aux
+A level-1 auxiliary file: Chapters/chapter-alternative-termination-conditions.aux
+A level-1 auxiliary file: Chapters/chapter-subproblem-hardness-prediction.aux
+A level-1 auxiliary file: Chapters/chapter-sat-solving-background.aux
+A level-1 auxiliary file: Chapters/chapter-srs-and-sat.aux
+A level-1 auxiliary file: Chapters/chapter-collatz-srs.aux
+A level-1 auxiliary file: Chapters/chapter-proving-collatz-results.aux
+A level-1 auxiliary file: Chapters/chapter-hardness-app-rewrite-rules.aux
+A level-1 auxiliary file: Chapters/chapter-conclusion.aux
+The style file: plain.bst
+Database file #1: bibliography.bib
+Warning--entry type for "EricRoose" isn't style-file defined
+--line 26 of file bibliography.bib
+Warning--can't use both author and editor fields in Endrullis2006
+Warning--can't use both author and editor fields in Hofbauer2006
+Warning--empty year in Turing1936
+You've used 17 entries,
+            2118 wiz_defined-function locations,
+            636 strings with 7890 characters,
+and the built_in function-call counts, 5800 in all, are:
+= -- 585
+> -- 235
+< -- 6
++ -- 94
+- -- 75
+* -- 384
+:= -- 936
+add.period$ -- 53
+call.type$ -- 17
+change.case$ -- 85
+chr.to.int$ -- 0
+cite$ -- 20
+duplicate$ -- 235
+empty$ -- 468
+format.name$ -- 75
+if$ -- 1246
+int.to.chr$ -- 0
+int.to.str$ -- 17
+missing$ -- 16
+newline$ -- 87
+num.names$ -- 36
+pop$ -- 98
+preamble$ -- 1
+purify$ -- 70
+quote$ -- 0
+skip$ -- 181
+stack$ -- 0
+substring$ -- 372
+swap$ -- 67
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 64
+warning$ -- 3
+while$ -- 61
+width$ -- 19
+write$ -- 188
+(There were 4 warnings)
