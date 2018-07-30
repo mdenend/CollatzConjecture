@@ -26,12 +26,12 @@
 \BOOKMARK [2][-]{subsection.5.4.2}{``Conquer'' phase}{section.5.4}% 26
 \BOOKMARK [0][-]{chapter.6}{Chapter 6. String Rewriting Systems \(SRS\) and SAT Solvers}{}% 27
 \BOOKMARK [0][-]{chapter.7}{Chapter 7. The Collatz Conjecture as a rewriting system}{}% 28
-\BOOKMARK [1][-]{section.7.1}{Proving Collatz Conjecture Results}{chapter.7}% 29
-\BOOKMARK [0][-]{chapter.8}{Chapter 8. Hardness of Application of Rewrite Rules}{}% 30
-\BOOKMARK [1][-]{subsection.8.0.1}{Modified Base 8 Rewrite System}{chapter.8}% 31
-\BOOKMARK [2][-]{subsection.8.0.2}{Defining Measures}{subsection.8.0.1}% 32
-\BOOKMARK [2][-]{subsection.8.0.3}{Computation}{subsection.8.0.1}% 33
-\BOOKMARK [2][-]{subsection.8.0.4}{Single SRR removal analysis}{subsection.8.0.1}% 34
-\BOOKMARK [0][-]{chapter.9}{Chapter 9. Conclusion}{}% 35
+\BOOKMARK [0][-]{chapter.8}{Chapter 8. Proving Collatz Conjecture Results}{}% 29
+\BOOKMARK [0][-]{chapter.9}{Chapter 9. Hardness of Application of Rewrite Rules}{}% 30
+\BOOKMARK [1][-]{subsection.9.0.1}{Modified Base 8 Rewrite System}{chapter.9}% 31
+\BOOKMARK [2][-]{subsection.9.0.2}{Defining Measures}{subsection.9.0.1}% 32
+\BOOKMARK [2][-]{subsection.9.0.3}{Computation}{subsection.9.0.1}% 33
+\BOOKMARK [2][-]{subsection.9.0.4}{Single SRR removal analysis}{subsection.9.0.1}% 34
+\BOOKMARK [0][-]{chapter.10}{Chapter 10. Conclusion}{}% 35
 \BOOKMARK [0][-]{chapter*.3}{Bibliography}{}% 36
 \BOOKMARK [0][-]{chapter*.4}{Vita}{}% 37

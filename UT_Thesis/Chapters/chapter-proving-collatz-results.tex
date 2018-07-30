@@ -1,4 +1,4 @@
-\section{Proving Collatz Conjecture Results} \label{sec:provingCollatzresults}
+\chapter{Proving Collatz Conjecture Results} \label{sec:provingCollatzresults}
 This section discusses some of the results from~\cite{HeuleAaronson}. Heule and Aaronson have not been able to prove termination of the Collatz SRS for all 11 rules, which is why this investigation for Collatz subproblems came about. This section describes the results thus far. \par
 Heule tried to run the Collatz SRS on state-of-the-art matrix interpretation solvers like AProVE. However, 4 of the 11 rules needed to be removed before the system could be solved. So a custom matrix interpretation solver was built by Heule specifically for this problem. 
 \marginnote{Should I follow the example from the Grant Proposal?}Unfortunately, Heule could not prove the entire 11 rule system with matrix interpretation after running the system for 1000 CPU hours. However, any combination of 10 of the 11 rules can be proven. Some were very easy (example: omitting rule $D_2$), others much more challenging.\par

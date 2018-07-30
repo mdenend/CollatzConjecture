@@ -32,12 +32,12 @@
 \contentsline {subsection}{\numberline {5.4.2}``Conquer'' phase}{41}{subsection.5.4.2}
 \contentsline {chapter}{Chapter 6.\hspace *{1em}String Rewriting Systems (SRS) and SAT Solvers}{43}{chapter.6}
 \contentsline {chapter}{Chapter 7.\hspace *{1em}The Collatz Conjecture as a rewriting system}{46}{chapter.7}
-\contentsline {section}{\numberline {7.1}Proving Collatz Conjecture Results}{51}{section.7.1}
-\contentsline {chapter}{Chapter 8.\hspace *{1em}Hardness of Application of Rewrite Rules}{52}{chapter.8}
-\contentsline {subsection}{\numberline {8.0.1}Modified Base 8 Rewrite System}{52}{subsection.8.0.1}
-\contentsline {subsection}{\numberline {8.0.2}Defining Measures}{54}{subsection.8.0.2}
-\contentsline {subsection}{\numberline {8.0.3}Computation}{55}{subsection.8.0.3}
-\contentsline {subsection}{\numberline {8.0.4}Single SRR removal analysis}{56}{subsection.8.0.4}
-\contentsline {chapter}{Chapter 9.\hspace *{1em}Conclusion}{59}{chapter.9}
+\contentsline {chapter}{Chapter 8.\hspace *{1em}Proving Collatz Conjecture Results}{51}{chapter.8}
+\contentsline {chapter}{Chapter 9.\hspace *{1em}Hardness of Application of Rewrite Rules}{52}{chapter.9}
+\contentsline {subsection}{\numberline {9.0.1}Modified Base 8 Rewrite System}{52}{subsection.9.0.1}
+\contentsline {subsection}{\numberline {9.0.2}Defining Measures}{54}{subsection.9.0.2}
+\contentsline {subsection}{\numberline {9.0.3}Computation}{55}{subsection.9.0.3}
+\contentsline {subsection}{\numberline {9.0.4}Single SRR removal analysis}{56}{subsection.9.0.4}
+\contentsline {chapter}{Chapter 10.\hspace *{1em}Conclusion}{59}{chapter.10}
 \contentsline {chapter}{Bibliography}{60}{chapter*.3}
 \contentsline {chapter}{Vita}{63}{chapter*.4}

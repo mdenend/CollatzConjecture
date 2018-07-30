@@ -14,5 +14,6 @@
 \addvspace {10pt}
 \addvspace {10pt}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {8.1}{\ignorespaces This graph visualizes how the $R$ values for $1 \ (\mathrm {mod}\ 8)$, $5 \ (\mathrm {mod}\ 8)$, and $7 \ (\mathrm {mod}\ 8)$ compare to each other. The log of the record holding numbers, or number of bits needed, is the x-axis, and the hardness measure $R$ as defined in section~\ref {subsec:rewritemeasuredefs} is the y-axis.}}{58}{figure.8.1}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {9.1}{\ignorespaces This graph visualizes how the $R$ values for $1 \ (\mathrm {mod}\ 8)$, $5 \ (\mathrm {mod}\ 8)$, and $7 \ (\mathrm {mod}\ 8)$ compare to each other. The log of the record holding numbers, or number of bits needed, is the x-axis, and the hardness measure $R$ as defined in section~\ref {subsec:rewritemeasuredefs} is the y-axis.}}{58}{figure.9.1}
 \addvspace {10pt}
