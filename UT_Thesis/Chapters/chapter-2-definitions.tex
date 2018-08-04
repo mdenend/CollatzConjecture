@@ -1,0 +1,16 @@
+\chapter{Definitions} \label{sec:defns}
+We will use the following terms throughout the paper to talk about the $3x+1$ problem:
+\begin{itemize}
+    \item $\boldsymbol{3x+1}$\textbf{ mapping}: A one step application of $Col(N)$ to some input number $N$.
+    \item $\boldsymbol{3x+1}$\textbf{ sequence}: Define this as follows: 
+    \begin{align*}
+        x_0 = x &= \text{ initial input number} \\
+        x_{i+1} &= \begin{cases} 
+        x_{i}/2 &\text{ if $x_i$ is even} \\
+        3 x_{i} + 1 &\text{ if $x_i$ is odd} \\
+        \end{cases}
+    \end{align*}
+    This sequence can continue for arbitrarily large values of $i$, but we are only interested in following the sequence until $x_i$ for some $i$ is 1, as any value after 1 follows the $1 \rightarrow 4 \rightarrow 2 \rightarrow 1$ cycle indefinitely.
+    \item \textbf{Collatz Variant:} For the context of this paper, when we say ``Collatz Variant,'' we use Algorithm~\ref{alg:ColSP}, which was defined in the introduction. The shorthand for this will be $\ColMod{N}{A}{b}$, where $A = \{a_1 \ldots a_s\}$ is all of the bases that cause termination of the algorithm. Note that for all $a \in A$, $0 \le a < b$, and $A = \emptyset$ is the same as Algorithm~\ref{alg:ColR}.
+    \item \textbf{Number of bits:} For an input number $x$, we say that, written in binary, it has $m$ bits.
+\end{itemize}
