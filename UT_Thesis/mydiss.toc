@@ -1,6 +1,7 @@
 \select@language {english}
-\contentsline {chapter}{Abstract}{v}{Doc-Start}
-\contentsline {chapter}{List of Figures}{viii}{chapter*.2}
+\contentsline {chapter}{Acknowledgments}{v}{chapter*.1}
+\contentsline {chapter}{Abstract}{vii}{chapter*.1}
+\contentsline {chapter}{List of Figures}{x}{chapter*.3}
 \contentsline {chapter}{Chapter 1.\hspace *{1em}Introduction}{1}{chapter.1}
 \contentsline {chapter}{Chapter 2.\hspace *{1em}Definitions}{4}{chapter.2}
 \contentsline {chapter}{Chapter 3.\hspace *{1em}Alternative Termination Conditions}{6}{chapter.3}
@@ -34,5 +35,5 @@
 \contentsline {section}{\numberline {6.3}Computation}{49}{section.6.3}
 \contentsline {section}{\numberline {6.4}Single SRR removal analysis}{50}{section.6.4}
 \contentsline {chapter}{Chapter 7.\hspace *{1em}Conclusion}{53}{chapter.7}
-\contentsline {chapter}{Bibliography}{54}{chapter*.3}
-\contentsline {chapter}{Vita}{57}{chapter*.4}
+\contentsline {chapter}{Bibliography}{54}{chapter*.4}
+\contentsline {chapter}{Vita}{57}{chapter*.5}
