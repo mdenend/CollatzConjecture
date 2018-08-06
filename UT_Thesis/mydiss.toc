@@ -7,29 +7,32 @@
 \contentsline {section}{\numberline {3.1}Defining a Collatz base \textit {b} graph}{6}{section.3.1}
 \contentsline {section}{\numberline {3.2}Lemmas that hold for any base \textit {b} Collatz Graph}{7}{section.3.2}
 \contentsline {section}{\numberline {3.3}Base 4 Graph and Variants}{12}{section.3.3}
-\contentsline {subsubsection}{\numberline {3.3.0.1}Proof that base 4 graph is correct}{12}{subsubsection.3.3.0.1}
-\contentsline {subsubsection}{\numberline {3.3.0.2}Base 4 variants}{13}{subsubsection.3.3.0.2}
+\contentsline {subsection}{\numberline {3.3.1}Base 4 graph construction}{12}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Base 4 variants}{13}{subsection.3.3.2}
 \contentsline {section}{\numberline {3.4}Base 8 Graph and Variants}{15}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Proof that base 8 graph is correct}{16}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Base 8 variants}{18}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Cycle analysis}{19}{subsection.3.4.3}
-\contentsline {chapter}{Chapter 4.\hspace *{1em}Variant Hardness Prediction}{21}{chapter.4}
-\contentsline {section}{\numberline {4.1}Defining Measures}{21}{section.4.1}
-\contentsline {section}{\numberline {4.2}Generating Results}{23}{section.4.2}
-\contentsline {section}{\numberline {4.3}Single Base Avoidance Analysis}{25}{section.4.3}
-\contentsline {subsubsection}{\numberline {4.3.0.1}Hardness Function Results and Analysis}{25}{subsubsection.4.3.0.1}
-\contentsline {subsubsection}{\numberline {4.3.0.2}Percentage of Sequence Function Results and Analysis}{27}{subsubsection.4.3.0.2}
-\contentsline {subsubsection}{\numberline {4.3.0.3}Sequence similarity analysis}{29}{subsubsection.4.3.0.3}
-\contentsline {section}{\numberline {4.4}Paired Base Avoidance Analysis}{30}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}Hardness Function Results and Analysis}{31}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {4.4.2}Percentage of Sequence Function Results and Analysis}{31}{subsection.4.4.2}
-\contentsline {chapter}{Chapter 5.\hspace *{1em}String Rewriting Systems (SRS) and SAT Solvers}{35}{chapter.5}
-\contentsline {chapter}{Chapter 6.\hspace *{1em}The Collatz Conjecture as a rewriting system}{38}{chapter.6}
-\contentsline {chapter}{Chapter 7.\hspace *{1em}Hardness of Application of Rewrite Rules}{43}{chapter.7}
-\contentsline {subsection}{\numberline {7.0.1}Modified Base 8 Rewrite System}{43}{subsection.7.0.1}
-\contentsline {subsection}{\numberline {7.0.2}Defining Measures}{45}{subsection.7.0.2}
-\contentsline {subsection}{\numberline {7.0.3}Computation}{46}{subsection.7.0.3}
-\contentsline {subsection}{\numberline {7.0.4}Single SRR removal analysis}{47}{subsection.7.0.4}
-\contentsline {chapter}{Chapter 8.\hspace *{1em}Conclusion}{50}{chapter.8}
-\contentsline {chapter}{Bibliography}{51}{chapter*.3}
-\contentsline {chapter}{Vita}{54}{chapter*.4}
+\contentsline {subsection}{\numberline {3.4.1}Base 8 graph construction}{16}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Cycle analysis}{17}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Base 8 variants}{20}{subsection.3.4.3}
+\contentsline {chapter}{Chapter 4.\hspace *{1em}Variant Hardness Prediction}{22}{chapter.4}
+\contentsline {section}{\numberline {4.1}Defining Measures}{22}{section.4.1}
+\contentsline {section}{\numberline {4.2}Generating Results}{24}{section.4.2}
+\contentsline {section}{\numberline {4.3}Single Base Avoidance Analysis}{26}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Hardness Function Results and Analysis}{26}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Percentage of Sequence Function Results and Analysis}{28}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Sequence similarity analysis}{31}{subsection.4.3.3}
+\contentsline {section}{\numberline {4.4}Paired Base Avoidance Analysis}{32}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Hardness Function Results and Analysis}{32}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Percentage of Sequence Function Results and Analysis}{34}{subsection.4.4.2}
+\contentsline {chapter}{Chapter 5.\hspace *{1em}Using SAT Solvers with String Rewriting Systems}{36}{chapter.5}
+\contentsline {section}{\numberline {5.1}SAT Solvers}{36}{section.5.1}
+\contentsline {section}{\numberline {5.2}String Rewrite Systems}{37}{section.5.2}
+\contentsline {section}{\numberline {5.3}The Collatz Conjecture as a rewriting system}{39}{section.5.3}
+\contentsline {section}{\numberline {5.4}Proving Collatz Conjecture Results}{43}{section.5.4}
+\contentsline {chapter}{Chapter 6.\hspace *{1em}Hardness of Application of Rewrite Rules}{45}{chapter.6}
+\contentsline {section}{\numberline {6.1}Modified Base 8 Rewrite System}{45}{section.6.1}
+\contentsline {section}{\numberline {6.2}Defining Measures}{48}{section.6.2}
+\contentsline {section}{\numberline {6.3}Computation}{49}{section.6.3}
+\contentsline {section}{\numberline {6.4}Single SRR removal analysis}{50}{section.6.4}
+\contentsline {chapter}{Chapter 7.\hspace *{1em}Conclusion}{53}{chapter.7}
+\contentsline {chapter}{Bibliography}{54}{chapter*.3}
+\contentsline {chapter}{Vita}{57}{chapter*.4}

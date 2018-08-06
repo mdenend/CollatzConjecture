@@ -1,7 +1,11 @@
 %MENTION SAT SOLVERS VERY BRIEFLY HERE.
 
-\chapter{String Rewriting Systems (SRS) and SAT Solvers} \label{sec:SRSandSAT}
-A string rewriting system (SRS), at a high level, takes a input string of an alphabet, and applies string rewriting rules (SRRs) in an arbitrary order on the input string to see if the string can be transformed further. An example SRS is given.
+\chapter{Using SAT Solvers with String Rewriting Systems} \label{sec:SRSandSAT}
+In this chapter, we talk briefly about SAT solvers, string rewrite systems, how we can use SAT solving to determine if a string rewrite systems terminates for any input, and a string rewrite system that Aaronson built, which, if this system terminates, we believe it is equivalent to showing that the Collatz Conjecture holds. We then present results of an attempt that Heule built using Aaronson's rewrite system.
+\section{SAT Solvers}
+SAT solvers are powerful devices that can solve some incredibly complex problems, such as those found in hardware verification, software verification, and combinatorics. SAT solvers leverage the fact that $k$-SAT, where $k$ is the maximum number of literals per clause, is a decision problem derived from SAT that is NP-Complete when $k > 2$, meaning that if $P \ne NP$, the worst case runtime is exponential. However, with clever heuristics, we can actually make any propositional logic formulas run in linear time for many interesting cases. Knowing SAT solving background is not important for this Thesis, but there is a great deal of literature talking about SAT solving background, so one can check, for instance,~\cite{Biere:2009:HSV:1550723}.
+\section{String Rewrite Systems}
+A string rewriting system (SRS), at a high level, takes a input string of an alphabet, and applies string rewriting rules (SRRs) in an arbitrary order on the input string to see if the string can be transformed further.  An example SRS is given.
 \begin{definition}{SRS A:} 
 The alphabet is $\Sigma = \{a, b, c\}$ and the SRRs are as follows:
 \begin{enumerate}
@@ -14,7 +18,7 @@ A problem, called Zantema's Other Problem~\cite{Hofbauer:2006:TA:1142725.1711178
 \begin{question}{Zantema's Other Problem:}
 Does the system laid out in SRS $A$ terminate for any input string $(a|b|c)*$?
 \end{question}
-If one thinks about this problem a little, it would seem that a proof to show that this problem terminates for all input strings should be easy to show. \marginnote{I'm unsure of whether I should go into more detail for this section.} Surprisingly, both humans and computers struggled to come up with a proof for this problem when initially presented.  However, Hofbuaer and Waldmann came up with a proof for determining that it terminates~\cite{Hofbauer:2006:TA:1142725.1711178}, and from this, found that, for any rewriting rules in any rewrite system, if they are transformed into functions that causes all inputs to decrease, then the rewrite system will terminate.~\cite{Hofbauer2006}. \par
+If one thinks about this problem a little, it would seem that a proof to show that this problem terminates for all input strings should be easy to show.  Surprisingly, both humans and computers struggled to come up with a proof for this problem when initially presented.  However, Hofbuaer and Waldmann came up with a proof for determining that it terminates~\cite{Hofbauer:2006:TA:1142725.1711178}, and from this, found that, for any rewriting rules in any rewrite system, if they are transformed into functions that causes all inputs to decrease, then the rewrite system will terminate.~\cite{Hofbauer2006}. \par
 The matrices are built using SAT solving to determine if a $d \times d$ matrix is large enough to ensure that the matrix functions for the set of rewrite rules always decrease for all inputs. The process of building these matrices is described in a paper by Endrullis, Waldmann and Zantema~\cite{Endrullis2006}. An example using Zantema's Other Problem will be explained here.\par
 Here are the matrices computed by SAT from ~\cite{Hofbauer:2006:TA:1142725.1711178}:
 %FIX THIS OVERFULL PROBLEM HERE AND IN THE NEXT SET.
@@ -53,7 +57,7 @@ c(\Vec{x}) = \begin{pmatrix}
 0
 \end{pmatrix}
 \]
-We will show an example string to show that it is always decreasing, but first, we need to define an appropriate operator. Define the $\succ$ operator to show that, for vectors $(x_1 \ldots x_d)$ and $(y_1 \ldots y_d)$, $(x_1 \ldots x_d) \succ (y_1 \ldots y_d)$ if $x_1 > y_1$ and $x_i \geq y_i$ for $i \in \{2, \ldots, d\}$. In other words, the first element of a vector must be always decreasing, while the other $d-1$ elements must either be the same or decrease. \par
+We will show an example string to show that it is always decreasing, but first, define the $\succ$ operator to show that, for vectors $(x_1 \ldots x_d)$ and $(y_1 \ldots y_d)$, $(x_1 \ldots x_d) \succ (y_1 \ldots y_d)$ if $x_1 > y_1$ and $x_i \geq y_i$ for $i \in \{2, \ldots, d\}$. In other words, the first element of a vector must be always decreasing, while the other $d-1$ elements must either be the same or decrease. \par
 Let our sample string be $bbaa$. Here is a possible set of rules that can be applied to it as well as the vector representations of the symbols:
 %FIX THIS OVERFULL PROBLEM HERE
 \begin{align*}
@@ -70,3 +74,56 @@ Let our sample string be $bbaa$. Here is a possible set of rules that can be app
     \begin{pmatrix}2\\0\\3\\0\end{pmatrix}
 \end{align*}
 The vector representation of the strings are always decreasing as defined by the $\succ$ operator. We could apply any string with symbols $a$, $b$, and $c$ and apply rules until termination and the vectors representing the strings would always decrease.
+\section{The Collatz Conjecture as a rewriting system} \label{subsec:CollatzSRS}
+Aaronson built an SRS representing the Collatz Conjecture~\cite{HeuleAaronson}. We'll call this the Collatz SRS throughout the remainder of this Thesis. \par
+Let the alphabet of the Collatz SRS consist of the symbols $a, b, c, d, e, f, g$. The symbols can be written as these linear functions:
+\[
+a(x) = 2x, b(x) = 2x+1, c(x) = 1, d(x) = x, e(x) = 3x, f(x) = 3x+1, g(x) = 3x+2
+\]
+%the binary symbols and ternary symbols part is a bit awkward, but decided to come back to it later.
+The symbols $a$ and $b$ are binary symbols. They represent  a binary system: $a$ is 0 and $b$ is 1.  The symbols $e$, $f$, and $g$ are ternary symbols. They represent a ternary system: $e$ is 0, $f$ is 1, and $g$ is 2. $c$ and $d$ are placeholder symbols to represent the leading 1 and the end of the string, respectively. They help this rewrite system know where the beginning and end of the string are. \par
+Note that in order to correctly compute the values that the strings represent using the above linear functions, one needs to read the functions from left to right. That is to say, the string $cabad$, which is equal to 10, is not equal to $ c \circ a \circ b \circ a \circ d$, where $\circ$ is the composition of functions. Instead, $cabad = d \circ a \circ b \circ a \circ c$. Aaronson chose to write the strings like this since they follow the way we would write numbers. \par
+Using the provided alphabet, Aaronson created the following series of SRRs:
+\begin{align*}
+    D_1 : ad &\rightarrow d\ & \ A_1 : ae &\rightarrow ea\ & \ B_1 : be &\rightarrow fb\ & \ C_1 : ce &\rightarrow cb \\
+    D_2 : bd &\rightarrow gd\ & \ A_2 : af &\rightarrow eb\ & \ B_2 : bf &\rightarrow ga\ & \ C_2 : cf &\rightarrow caa \\
+    &\ &\ A_3 : ag &\rightarrow fa\ &\ B_3 : bg &\rightarrow gb\ &\ C_3 : cg &\rightarrow cab
+\end{align*}
+The SRRs provided here allow for Aaronson's SRS to be equivalent to the $3x+1$ mapping, but a formal proof showing this is the case is difficult, because we have yet to find a proof showing that the rewrite rules can be applied in arbitrary order. However, we can explain how the rules work, and show that any valid input string correctly follows the $3x+1$ mapping for the number the string represents, and after this, we will show the ordering we follow, and why this ordering is correct. \par
+Each of the rules denotes how to handle the symbols $a-g$, or the combination of binary and placeholder strings. The $D$ rules represent the two steps taken by the Collatz Conjecture in a binary system. $D_1$ is how we handle an even number. It computes division of $x$ by 2 by removing the $a$ symbol that represents a binary 0. $D_2$ is actually a combination of several steps. If we were to represent $3x+1$, we could just write $bd \rightarrow bfd$, meaning take all previous symbols and multiply the result by 3 and add 1. The problem with this rule is that it increases the size of the resulting string, making the system more difficult to prove. However, $bfd \rightarrow gad$ is a valid rule,  as $d \circ f \circ b = 3(2x+1)+1 = 6x+4$ and $d \circ a \circ g = 2(3x+2) = 6x+4$, and from here, we can apply the rule $ad \rightarrow d$ to allow us to do $gad \rightarrow gd$. Since $3x+1$ always results in an even number, we can just make rule $D_2$ compute $(3x+1)/2$ without growing the string size, ultimately making rule $D_2$ into $bd \rightarrow gd$. $D_2$ is the rule that makes termination of our system hard to prove. Without it, we would not need the $A$, $B$, or $C$ rules.\par
+The $A$, $B$ and $C$ rules all deal with the handling of the ternary symbols and the eventual conversion of these ternary symbols into the binary symbols. The $A$ and $B$ rules deal with the case when a ternary symbol is to the right of the binary symbol, and how to switch the ternary symbol and the binary symbol without changing the number the string represents. We will show that all 6 of these rules preserve the same number by showing that the string represents the same value after each rule has been applied:
+\begin{itemize}
+    \item $\boldsymbol{ae \rightarrow ea}$: $ae = e \circ a = e(a(x)) = 2(3x) = 6x$, and $ea = a
+    \circ e = a(e(x)) = 3(2x) = 6x$.
+    \item $\boldsymbol{af \rightarrow eb}$: $af = f \circ a = f(a(x)) = 3(2x)+1 = 6x+1$, and $eb =
+    b \circ e = b(e(x)) = 2(3x)+1 = 6x+1$.
+    \item $\boldsymbol{ag \rightarrow fa}$: $ag = g \circ a = g(a(x)) = 3(2x)+2 = 6x+2$, and $fa = a \circ f = a(f(x)) = 2(3x+1) = 6x+2$.
+    \item $\boldsymbol{be \rightarrow fb}$: $be = e \circ b = e(b(x)) = 3(2x+1) = 6x+3$, and $fb = b \circ f = b(f(x)) = 2(3x+1)+1 = 6x+3$.
+    \item $\boldsymbol{bf \rightarrow ga}$: $bf = f \circ b = f(b(x)) = 3(2x+1)+1 = 6x+4$, and $ga =  a \circ g = a(g(x)) = 2(3x+2) = 6x+4$.
+    \item $\boldsymbol{bg \rightarrow gb}$: $bg = g \circ b = g(b(x)) = 3(2x+1)+2 = 6x+5$, and $gb = b \circ g = b(g(x)) = 2(3x+2)+1 = 6x+5$.
+\end{itemize}
+Hence, these rules are all correct. \par
+The $C$ rules take advantage of the fact that the $c$ symbol is a binary 1, and, in a strictly binary string, it is the most significant bit of the corresponding number $x$. When the ternary symbol is adjacent to the $c$ symbol, we apply one of the three $c$ rules to convert the ternary symbol into binary symbol(s). These rules also preserve the number the string represents, and the proofs showing this is the case for each of these rules are shown here:
+\begin{itemize}
+    \item $\boldsymbol{ce \rightarrow cb}$: $ce = e \circ c = e(c(x)) = 3(1) = 3$, and $cb = b
+    \circ c = b(c(x)) = 2(1)+1 = 3$.
+    \item $\boldsymbol{cf \rightarrow caa}$: $cf = f \circ c = f(c) = 3(1)+ 1 = 4$, and $caa = a \circ a \circ c = a(a(c(x))) = 2(2(1)) = 4$.
+    \item $\boldsymbol{cg \rightarrow cab}$: $cg = g \circ c = g(c) = 3(1)+ 2 = 5$, and $cab = b \circ a \circ c = b(a(c(x))) = 2(2(1))+1 = 5$.
+\end{itemize}
+Hence, we have shown that the $A$, $B$, and $C$ rules all preserve value, and the $D$ rules correctly apply the $3x+1$ mapping. \par
+Here is how one can run the SRS and preserve an ordering we know to be valid:
+\begin{enumerate}
+    \item Take the initial input number, and convert it to binary. Make the leading 1 a $c$ symbol, and all 0's and other 1's $a$'s and $b$'s, respectively.
+    \item Until we have the string $cd$: 
+    \begin{itemize}
+        \item Apply the appropriate $D$ rule.
+        \item If $D_2$ is applied, apply $A$ and $B$ rules until the ternary symbol and the $c$ are adjacent, then apply the appropriate $C$ rule.
+    \end{itemize}
+\end{enumerate}
+This order of applying the SRRs is correct, because one takes a string that is strictly in binary symbols and applies the correct $D$ rules until rule $D_2$ is applied, then it handles the ternary symbol immediately by applying $A$, $B$, and $C$ rules until it is converted into binary symbol(s). The number is not changed during application of these rules, making the ordering correct. This ordering was used in building the system that investigated the number of steps needed in the rewrite system, which will be talked about in section~\ref{sec:hardnessrewriterules}. \par
+If we take this SRS and model matrix functions for all symbols that cause all inputs to decrease, then we believe we can prove the Collatz Conjecture. We don't have an absolute link, but we strongly believe that termination of the Collatz SRS implies termination of Algorithm~\ref{alg:ColR}, since the rewrite system operates on input strings the same way as would Algorithm~\ref{alg:ColR} operate on positive integers.
+\section{Proving Collatz Conjecture Results} \label{subsec:provingCollatzresults}
+This section discusses some of the results mentioned in~\cite{HeuleAaronson}. Heule and Aaronson have not been able to prove termination of the Collatz SRS for all 11 rules, which is why this investigation for Collatz subproblems came about. This section describes the results thus far. \par
+Heule tried to run the Collatz SRS on state-of-the-art matrix interpretation solvers like AProVE. However, 4 of the 11 rules needed to be removed before the system could be solved. So a custom matrix interpretation solver was built by Heule specifically for this problem. 
+Unfortunately, Heule could not prove the entire 11 rule system with matrix interpretation. However, any combination of 10 of the 11 rules can be proven. Some were very easy (example: omitting rule $D_2$), others much more challenging.\par
+Hence, the motivation for simplifying the problem by creating the Collatz Variants derived from~\ref{alg:ColSP}, came about, as did the motivation for writing this thesis. Chapter~\ref{sec:hardnessrewriterules} investigates alterations of the SRR's for the Collatz SRS, which we call  to try and make the problem simpler for the matrix interpretation solver, and see how difficult these alternate forms ought to be to prove.

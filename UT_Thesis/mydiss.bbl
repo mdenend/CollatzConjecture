@@ -5,6 +5,12 @@ K.~Appel and W.~Haken.
 \newblock Every planar map is four colorable.
 \newblock {\em Illinois J. Math.}, 21(3):429--490, 09 1977.
 
+\bibitem{Biere:2009:HSV:1550723}
+A.~Biere, A.~Biere, M.~Heule, H.~van Maaren, and T.~Walsh.
+\newblock {\em Handbook of Satisfiability: Volume 185 Frontiers in Artificial
+  Intelligence and Applications}.
+\newblock IOS Press, Amsterdam, The Netherlands, The Netherlands, 2009.
+
 \bibitem{Conway72}
 J.H. Conway.
 \newblock Unpredicatable iterations.
@@ -31,8 +37,7 @@ Marijn J.~H. Heule and Scott Aaronson.
 \bibitem{DBLP:journals/corr/HeuleKM16}
 Marijn J.~H. Heule, Oliver Kullmann, and Victor~W. Marek.
 \newblock Solving and verifying the boolean pythagorean triples problem via
-  cube-and-conquer.
-\newblock {\em CoRR}, abs/1605.00723, 2016.
+  cube-and-conquer, 2016.
 
 \bibitem{HeuleKWB12}
 Marijn J.~H. Heule, Oliver Kullmann, Siert Wieringa, and Armin Biere.
@@ -56,13 +61,12 @@ Dieter Hofbauer and Johannes Waldmann.
 \bibitem{2003mathLagrais}
 J.~C. {Lagarias}.
 \newblock {The 3x+1 problem: An annotated bibliography (1963--1999) (sorted by
-  author)}.
-\newblock {\em ArXiv Mathematics e-prints}, September 2003.
+  author)}, September 2003.
 
 \bibitem{2006mathLagrias}
 J.~C. {Lagarias}.
-\newblock {The 3x+1 Problem: An Annotated Bibliography, II (2000-2009)}.
-\newblock {\em ArXiv Mathematics e-prints}, August 2006.
+\newblock {The 3x+1 Problem: An Annotated Bibliography, II (2000-2009)}, August
+  2006.
 
 \bibitem{Moskewicz:2001}
 M.~W. Moskewicz, C.~F. Madigan, Y.~Zhao, L.~Zhang, and S.~Malik.
@@ -93,13 +97,13 @@ Douglas Thain, Todd Tannenbaum, and Miron Livny.
 G.S. Tseitin.
 \newblock On the complexity of derivation in propositional calculus.
 \newblock Presented at the Leningrad Seminar on Mathematical Logic held in
-  September 1966.
+  September 1966., 1966.
 
 \bibitem{Turing1936}
 A.~M. Turing.
 \newblock On computable numbers, with an application to the
   entscheidungsproblem.
 \newblock {\em Proceedings of the London Mathematical Society},
-  s2-42(1):230--265.
+  s2-42(1):230--265, 1936.
 
 \end{thebibliography}

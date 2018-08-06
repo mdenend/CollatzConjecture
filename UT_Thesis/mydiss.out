@@ -6,24 +6,32 @@
 \BOOKMARK [1][-]{section.3.1}{Defining a Collatz base b graph}{chapter.3}% 6
 \BOOKMARK [1][-]{section.3.2}{Lemmas that hold for any base b Collatz Graph}{chapter.3}% 7
 \BOOKMARK [1][-]{section.3.3}{Base 4 Graph and Variants}{chapter.3}% 8
-\BOOKMARK [1][-]{section.3.4}{Base 8 Graph and Variants}{chapter.3}% 9
-\BOOKMARK [2][-]{subsection.3.4.1}{Proof that base 8 graph is correct}{section.3.4}% 10
-\BOOKMARK [2][-]{subsection.3.4.2}{Base 8 variants}{section.3.4}% 11
-\BOOKMARK [2][-]{subsection.3.4.3}{Cycle analysis}{section.3.4}% 12
-\BOOKMARK [0][-]{chapter.4}{Chapter 4. Variant Hardness Prediction}{}% 13
-\BOOKMARK [1][-]{section.4.1}{Defining Measures}{chapter.4}% 14
-\BOOKMARK [1][-]{section.4.2}{Generating Results}{chapter.4}% 15
-\BOOKMARK [1][-]{section.4.3}{Single Base Avoidance Analysis}{chapter.4}% 16
-\BOOKMARK [1][-]{section.4.4}{Paired Base Avoidance Analysis}{chapter.4}% 17
-\BOOKMARK [2][-]{subsection.4.4.1}{Hardness Function Results and Analysis}{section.4.4}% 18
-\BOOKMARK [2][-]{subsection.4.4.2}{Percentage of Sequence Function Results and Analysis}{section.4.4}% 19
-\BOOKMARK [0][-]{chapter.5}{Chapter 5. String Rewriting Systems \(SRS\) and SAT Solvers}{}% 20
-\BOOKMARK [0][-]{chapter.6}{Chapter 6. The Collatz Conjecture as a rewriting system}{}% 21
-\BOOKMARK [0][-]{chapter.7}{Chapter 7. Hardness of Application of Rewrite Rules}{}% 22
-\BOOKMARK [1][-]{subsection.7.0.1}{Modified Base 8 Rewrite System}{chapter.7}% 23
-\BOOKMARK [2][-]{subsection.7.0.2}{Defining Measures}{subsection.7.0.1}% 24
-\BOOKMARK [2][-]{subsection.7.0.3}{Computation}{subsection.7.0.1}% 25
-\BOOKMARK [2][-]{subsection.7.0.4}{Single SRR removal analysis}{subsection.7.0.1}% 26
-\BOOKMARK [0][-]{chapter.8}{Chapter 8. Conclusion}{}% 27
-\BOOKMARK [0][-]{chapter*.3}{Bibliography}{}% 28
-\BOOKMARK [0][-]{chapter*.4}{Vita}{}% 29
+\BOOKMARK [2][-]{subsection.3.3.1}{Base 4 graph construction}{section.3.3}% 9
+\BOOKMARK [2][-]{subsection.3.3.2}{Base 4 variants}{section.3.3}% 10
+\BOOKMARK [1][-]{section.3.4}{Base 8 Graph and Variants}{chapter.3}% 11
+\BOOKMARK [2][-]{subsection.3.4.1}{Base 8 graph construction}{section.3.4}% 12
+\BOOKMARK [2][-]{subsection.3.4.2}{Cycle analysis}{section.3.4}% 13
+\BOOKMARK [2][-]{subsection.3.4.3}{Base 8 variants}{section.3.4}% 14
+\BOOKMARK [0][-]{chapter.4}{Chapter 4. Variant Hardness Prediction}{}% 15
+\BOOKMARK [1][-]{section.4.1}{Defining Measures}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.2}{Generating Results}{chapter.4}% 17
+\BOOKMARK [1][-]{section.4.3}{Single Base Avoidance Analysis}{chapter.4}% 18
+\BOOKMARK [2][-]{subsection.4.3.1}{Hardness Function Results and Analysis}{section.4.3}% 19
+\BOOKMARK [2][-]{subsection.4.3.2}{Percentage of Sequence Function Results and Analysis}{section.4.3}% 20
+\BOOKMARK [2][-]{subsection.4.3.3}{Sequence similarity analysis}{section.4.3}% 21
+\BOOKMARK [1][-]{section.4.4}{Paired Base Avoidance Analysis}{chapter.4}% 22
+\BOOKMARK [2][-]{subsection.4.4.1}{Hardness Function Results and Analysis}{section.4.4}% 23
+\BOOKMARK [2][-]{subsection.4.4.2}{Percentage of Sequence Function Results and Analysis}{section.4.4}% 24
+\BOOKMARK [0][-]{chapter.5}{Chapter 5. Using SAT Solvers with String Rewriting Systems}{}% 25
+\BOOKMARK [1][-]{section.5.1}{SAT Solvers}{chapter.5}% 26
+\BOOKMARK [1][-]{section.5.2}{String Rewrite Systems}{chapter.5}% 27
+\BOOKMARK [1][-]{section.5.3}{The Collatz Conjecture as a rewriting system}{chapter.5}% 28
+\BOOKMARK [1][-]{section.5.4}{Proving Collatz Conjecture Results}{chapter.5}% 29
+\BOOKMARK [0][-]{chapter.6}{Chapter 6. Hardness of Application of Rewrite Rules}{}% 30
+\BOOKMARK [1][-]{section.6.1}{Modified Base 8 Rewrite System}{chapter.6}% 31
+\BOOKMARK [1][-]{section.6.2}{Defining Measures}{chapter.6}% 32
+\BOOKMARK [1][-]{section.6.3}{Computation}{chapter.6}% 33
+\BOOKMARK [1][-]{section.6.4}{Single SRR removal analysis}{chapter.6}% 34
+\BOOKMARK [0][-]{chapter.7}{Chapter 7. Conclusion}{}% 35
+\BOOKMARK [0][-]{chapter*.3}{Bibliography}{}% 36
+\BOOKMARK [0][-]{chapter*.4}{Vita}{}% 37
