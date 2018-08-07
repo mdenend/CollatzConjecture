@@ -1,7 +1,7 @@
 \chapter{Definitions} \label{sec:defns}
-We will use the following terms throughout the paper to talk about the $3x+1$ problem:
+We will use the following terms throughout this Thesis:
 \begin{itemize}
-    \item $\boldsymbol{3x+1}$\textbf{ mapping}: A one step application of $Col(N)$ to some input number $N$.
+    \item $\boldsymbol{3x+1}$\textbf{ mapping}: A one step application of $\Col{N}$ to some input number $N$.
     \item $\boldsymbol{3x+1}$\textbf{ sequence}: Define this as follows: 
     \begin{align*}
         x_0 = x &= \text{ initial input number} \\
@@ -10,9 +10,13 @@ We will use the following terms throughout the paper to talk about the $3x+1$ pr
         3 x_{i} + 1 &\text{ if $x_i$ is odd} \\
         \end{cases}
     \end{align*}
-    This sequence can continue for arbitrarily large values of $i$, but we are only interested in following the sequence until $x_i$ for some $i$ is 1, as any value after 1 follows the $1 \rightarrow 4 \rightarrow 2 \rightarrow 1$ cycle indefinitely.
-    \item \textbf{Collatz Variant $\boldsymbol A$:} When we say ``Collatz Variant $A$,'' we use Algorithm~\ref{alg:ColSP}, which was defined in the introduction. A shorthand for referring to Algorithm~\ref{alg:ColSP} is $\ColMod{N}{A}{b}$, where $A = \{a_1 \ldots a_s\}$ is all of the numbers modulo $b$ that cause termination of the algorithm. Note that for all $a \in A$, $0 \le a < b$, and $A = \emptyset$ is the same as Algorithm~\ref{alg:ColR}.
-    \item \textbf{Collatz Variant A:} The vast majority of our analyis is when $b = 8$, so when we say Collatz Variant $A$, it is shorthand for $\ColMod{N}{A}{8}$  For singleton sets $A$, we omit the braces normally around sets. We can list several Collatz Variants together, for instance, Collatz Variants, 1, 5, 7, and $\{1,5\}$ we mean the three variants $\ColMod{N}{\{1\}}{8}$, $\ColMod{N}{\{5\}}{8}$, $\ColMod{N}{\{7\}}{8}$, and $\ColMod{N}{\{1,5\}}{8}$.
-    \item \textbf{Collatz String Rewrite System(SRS):} Created by Aaronson~\ref{HeuleAaronson}, and introduced in chapter~\ref{sec:SRSandSAT}, along with background of string rewrite systems, this is used in the latter portion of this paper as an alternative way of expressing the Collatz Conjecture.
-    \item \textbf{Number of bits:} For an input number $x$, we say that, written in binary, it has $m$ bits.
+    This sequence can continue for arbitrarily large values of $i$, but we are only interested in following the sequence until $x_i$ for some $i$ is 1, as any value after 1 follows the $1 \rightarrow 4 \rightarrow 2 \rightarrow 1$ cycle infinitely.
+    \item \textbf{Avoidance set $\boldsymbol A$:} The second parameter of Algorithm~\ref{alg:ColSP}, which was defined in the introduction. $A = \{a_1 \ldots a_s\}$ is all of the numbers modulo the positive integer $b$ (the third parameter of Algorithm~\ref{alg:ColSP}) that cause termination of the algorithm. This termination condition is in addition to the sole termination condition of Algorithm~\ref{alg:ColR}: when the input number $N$ reaches 1. Note that for all $a \in A$, $0 \le a < b$, and $A = \varnothing$ turns Algorithm~\ref{alg:ColSP} into Algorithm~\ref{alg:ColR}.
+    \item \textbf{Collatz Variant:} When we say ``Collatz Variant'' we are referring to Algorithm~\ref{alg:ColSP}, for some positive integer $N$, avoidance set $A$, and positive integer $b$. There are a couple of shorthands we use throughout this Thesis:
+      \begin{itemize}
+      \item $\boldsymbol{\ColMod{N}{A}{b}:}$ Parameters are the same as Algorithm~\ref{alg:ColSP}.
+      \item \textbf{Collatz Variant A:} The vast majority of our analysis is when $b = 8$, so when we say Collatz Variant $A$, it is shorthand for $\ColMod{N}{A}{8}$. For singleton sets $A$, we omit the braces normally around sets. We often list several Collatz Variants together, so for instance, if we say Collatz Variants, 1, 5, 7, and $\{1,5\}$, we mean the three variants $\ColMod{N}{\{1\}}{8}$, $\ColMod{N}{\{5\}}{8}$, $\ColMod{N}{\{7\}}{8}$, and $\ColMod{N}{\{1,5\}}{8}$, respectively.
+      \end{itemize}
+\item \textbf{Collatz String Rewrite System(SRS):} Created by Aaronson~\cite{HeuleAaronson}, and introduced in chapter~\ref{sec:SRSandSAT}, along with background on string rewrite systems, this is used in the latter portion of this paper as an alternative way of expressing the Collatz Conjecture.
+\item \textbf{Number of bits:} For an input number $x$, we say that, written in binary, it has $m$ bits.
 \end{itemize}
