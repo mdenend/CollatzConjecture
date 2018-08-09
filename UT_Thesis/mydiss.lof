@@ -1,0 +1,17 @@
+\select@language {english}
+\addvspace {10pt}
+\addvspace {10pt}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces The long multiplication corresponding to $3x + 1$. Note how, in the addition step, the $1_{+1}$ is in place of a zero, and the addition is just $x + 2x + 1$.}}{9}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces The Collatz Base $b$ Graph when $b = 4$. There are 4 nodes, each one corresponding to a value mod 4.}}{13}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces The Collatz Base $b$ Graph when $b = 8$. There are 8 nodes, each one corresponding to a value mod 8.}}{16}{figure.3.3}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces This graph visualizes how the $H$ values for Collatz Variants 1, 3, 5, and 7 compare to each other, and to classical hardness. The log of the record holding numbers, or number of bits needed, is the x-axis, and the hardness measure $H$ as defined in subsection~\ref {subsec:algdefinemeasure} is the y-axis.}}{29}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces This graph visualizes how the $P$ values for Collatz Variants 1, 5, and 7 compare to each other. The log of the record holding numbers, or number of bits needed, is the x-axis, and the percentage measure $P$ as defined in subsection~\ref {subsec:algdefinemeasure} is the y-axis.}}{31}{figure.4.2}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces This graph visualizes the $H$ measure for the three Collatz Variants $\{1,5\}$, $\{1,7\}$, and $\{5,7\}$. The log of the record holding numbers, or number of bits needed, is the x-axis, and the hardness measure $H$ as defined in subsection~\ref {subsec:algdefinemeasure} is the y-axis. Classical Hardness was omitted from this graph to eliminate distortion.}}{34}{figure.4.3}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces This graph visualizes the $P$ measure for variants $\{1,5\}$, $\{1,7\}$, and $\{5,7\}$. The log of the record holding numbers, or number of bits needed, is the x-axis, and the hardness measure $P$ as defined in subsection~\ref {subsec:algdefinemeasure} is the y-axis.}}{36}{figure.4.4}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces The three matrix functions found from SAT solving in~\cite {Hofbauer:2006:TA:1142725.1711178} to solve Zantema's other problem.}}{40}{figure.5.1}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces This graph visualizes how the $R$ values for subproblems 1, 5, and 7 compare to each other. The log of the record holding numbers, or number of bits needed, is the x-axis, and the hardness measure $R$ as defined in section~\ref {subsec:rewritemeasuredefs} is the y-axis.}}{54}{figure.6.1}
+\addvspace {10pt}

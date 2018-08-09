@@ -58,19 +58,19 @@ c(\Vec{x}) &= \begin{pmatrix}
 \end{figure}
 We will show an example string to show that it is always decreasing, but first, define the $\succ$ operator to show that, for vectors $(x_1 \ldots x_d)$ and $(y_1 \ldots y_d)$, $(x_1 \ldots x_d) \succ (y_1 \ldots y_d)$ if $x_1 > y_1$ and $x_i \geq y_i$ for $i \in \{2, \ldots, d\}$. In other words, the first element of a vector must be always decreasing, while the other $d-1$ elements must either be the same or decrease. \par
 Let our sample string be $bbaa$. Figure a possible set of rules that can be applied to it as well as the vector representations of the symbols:
-%YUCK!!! Looks like alignat*  is a good idea. Look at: https://tex.stackexchange.com/questions/56627/multiple-alignment
-{\tiny
-\begin{alignat*}
-    bb\underline{aa} &\rightarrow b\underline{bb}c &\rightarrow ba\underline{cc} &\rightarrow b\underline{aa}b &\rightarrow \underline{bb}cb &\rightarrow a\underline{cc}b &\rightarrow aa\underline{bb} &\rightarrow a\underline{aa}c &\rightarrow ab\underline{cc} &\rightarrow abab\\
-    \begin{pmatrix}18\\14\\6\\0\end{pmatrix} &\succ
-    \begin{pmatrix}17\\14\\6\\0\end{pmatrix} &\succ
-    \begin{pmatrix}15\\14\\6\\0\end{pmatrix} &\succ
-    \begin{pmatrix}14\\14\\6\\0\end{pmatrix} &\succ
-    \begin{pmatrix}13\\14\\6\\0\end{pmatrix} &\succ
-    \begin{pmatrix}7\\14\\5\\0\end{pmatrix} &\succ
-    \begin{pmatrix}6\\14\\5\\0\end{pmatrix} &\succ
-    \begin{pmatrix}4\\14\\3\\0\end{pmatrix} &\succ
-    \begin{pmatrix}3\\0\\3\\0\end{pmatrix} &\succ
+%Made text small to have it all fit in one line.
+{\small
+\begin{alignat*}{10}
+    &bb\underline{aa}\  &&\rightarrow\  b\underline{bb}c\  &&\rightarrow\  ba\underline{cc}\  &&\rightarrow\  b\underline{aa}b\  &&\rightarrow\  \underline{bb}cb\  &&\rightarrow\  a\underline{cc}b\  &&\rightarrow\  aa\underline{bb}\  &&\rightarrow\  a\underline{aa}c\  &&\rightarrow\  ab\underline{cc}\  &&\rightarrow\  abab\\
+    &\begin{pmatrix}18\\14\\6\\0\end{pmatrix} &&\succ
+    \begin{pmatrix}17\\14\\6\\0\end{pmatrix} &&\succ
+    \begin{pmatrix}15\\14\\6\\0\end{pmatrix} &&\succ
+    \begin{pmatrix}14\\14\\6\\0\end{pmatrix} &&\succ
+    \begin{pmatrix}13\\14\\6\\0\end{pmatrix} &&\succ
+    \begin{pmatrix}7\\14\\5\\0\end{pmatrix} &&\succ
+    \begin{pmatrix}6\\14\\5\\0\end{pmatrix} &&\succ
+    \begin{pmatrix}4\\14\\3\\0\end{pmatrix} &&\succ
+    \begin{pmatrix}3\\0\\3\\0\end{pmatrix} &&\succ
     \begin{pmatrix}2\\0\\3\\0\end{pmatrix}
 \end{alignat*}
 }%
@@ -78,20 +78,24 @@ The vector representation of the strings are always decreasing as defined by the
 \section{The Collatz Conjecture as a rewriting system} \label{subsec:CollatzSRS}
 Aaronson built an SRS representing the Collatz Conjecture~\cite{HeuleAaronson}. We'll call this the Collatz SRS throughout the remainder of this Thesis. \par
 Let the alphabet of the Collatz SRS consist of the symbols $a, b, c, d, e, f, g$. The symbols can be written as these linear functions:
-\[
-a(x) = 2x, b(x) = 2x+1, c(x) = 1, d(x) = x, e(x) = 3x, f(x) = 3x+1, g(x) = 3x+2
-\]
+\begin{align*}
+  a(x) &= 2x & e(x) &= 3x \\
+  b(x) &= 2x+1 & f(x) &= 3x+1 \\
+  c(x) &= 1 & g(x) &= 3x+2 \\
+  d(x) &= x & & 
+\end{align*}
+
 %the binary symbols and ternary symbols part is a bit awkward, but decided to come back to it later.
 The symbols $a$ and $b$ are binary symbols. They represent  a binary system: $a$ is 0 and $b$ is 1.  The symbols $e$, $f$, and $g$ are ternary symbols. They represent a ternary system: $e$ is 0, $f$ is 1, and $g$ is 2. $c$ and $d$ are placeholder symbols to represent the leading 1 and the end of the string, respectively. They help this rewrite system know where the beginning and end of the string are. \par
 Note that in order to correctly compute the values that the strings represent using the above linear functions, one needs to read the functions from left to right. That is to say, the string $cabad$, which is equal to 10, is not equal to $ c \circ a \circ b \circ a \circ d$, where $\circ$ is the composition of functions. Instead, $cabad = d \circ a \circ b \circ a \circ c$. Aaronson chose to write the strings like this since they follow the way we would write numbers. \par
 Using the provided alphabet, Aaronson created the following series of SRRs:
-\begin{align*}
-    D_1 : ad &\rightarrow d\ & \ A_1 : ae &\rightarrow ea\ & \ B_1 : be &\rightarrow fb\ & \ C_1 : ce &\rightarrow cb \\
-    D_2 : bd &\rightarrow gd\ & \ A_2 : af &\rightarrow eb\ & \ B_2 : bf &\rightarrow ga\ & \ C_2 : cf &\rightarrow caa \\
-    &\ &\ A_3 : ag &\rightarrow fa\ &\ B_3 : bg &\rightarrow gb\ &\ C_3 : cg &\rightarrow cab
-\end{align*}
+\begin{alignat*}{8}
+    &D_1 : ad &&\rightarrow d\ \ && \ \ A_1 : ae &&\rightarrow ea\ \ && \ \ B_1 : be &&\rightarrow fb\ \ && \ \ C_1 : ce &&\rightarrow cb \\
+    &D_2 : bd &&\rightarrow gd\ \ && \ \ A_2 : af &&\rightarrow eb\ \ && \ \ B_2 : bf &&\rightarrow ga\ \ && \ \ C_2 : cf &&\rightarrow caa \\
+    &\ \ && \ \ && \ \  A_3 : ag &&\rightarrow fa\ \ && \ \  B_3 : bg &&\rightarrow gb\ \ && \ \ C_3 : cg &&\rightarrow cab
+\end{alignat*}
 The SRRs provided here allow for Aaronson's SRS to be equivalent to the $3x+1$ mapping, but a formal proof showing this is the case is difficult, because we have yet to find a proof showing that the rewrite rules can be applied in arbitrary order. However, we can explain how the rules work, and show that any valid input string correctly follows the $3x+1$ mapping for the number the string represents, and after this, we will show the ordering we follow, and why this ordering is correct. \par
-Each of the rules denotes how to handle the symbols $a-g$, or the combination of binary and placeholder strings. The $D$ rules represent the two steps taken by the Collatz Conjecture in a binary system. $D_1$ is how we handle an even number. It computes division of $x$ by 2 by removing the $a$ symbol that represents a binary 0. $D_2$ is actually a combination of several steps. If we were to represent $3x+1$, we could just write $bd \rightarrow bfd$, meaning take all previous symbols and multiply the result by 3 and add 1. The problem with this rule is that it increases the size of the resulting string, making the system more difficult to prove. However, $bfd \rightarrow gad$ is a valid rule,  as $d \circ f \circ b = 3(2x+1)+1 = 6x+4$ and $d \circ a \circ g = 2(3x+2) = 6x+4$, and from here, we can apply the rule $ad \rightarrow d$ to allow us to do $gad \rightarrow gd$. Since $3x+1$ always results in an even number, we can just make rule $D_2$ compute $(3x+1)/2$ without growing the string size, ultimately making rule $D_2$ into $bd \rightarrow gd$. $D_2$ is the rule that makes termination of our system hard to prove. Without it, we would not need the $A$, $B$, or $C$ rules.\par
+Each of the rules denotes how to handle the symbols $a-g$, or the combination of binary, ternary, and placeholder strings. The $D$ rules represent the two steps taken by the Collatz Conjecture in a binary system. $D_1$ is how we handle an even number. It computes division of $x$ by 2 by removing the $a$ symbol that represents a binary 0. $D_2$ is actually a combination of several steps. If we were to represent $3x+1$, we could just write $bd \rightarrow bfd$, meaning take all previous symbols and multiply the result by 3 and add 1. The problem with this rule is that it increases the size of the resulting string, making the system more difficult to prove. However, $bfd \rightarrow gad$ is a valid rule,  as $d \circ f \circ b = 3(2x+1)+1 = 6x+4$ and $d \circ a \circ g = 2(3x+2) = 6x+4$, and from here, we can apply the rule $ad \rightarrow d$ to allow us to do $gad \rightarrow gd$. Since $3x+1$ always results in an even number, we can just make rule $D_2$ compute $(3x+1)/2$ without growing the string size, ultimately making rule $D_2$ into $bd \rightarrow gd$. $D_2$ is the rule that makes termination of our system hard to prove. Without it, we would not need the $A$, $B$, or $C$ rules.\par
 The $A$, $B$ and $C$ rules all deal with the handling of the ternary symbols and the eventual conversion of these ternary symbols into the binary symbols. The $A$ and $B$ rules deal with the case when a ternary symbol is to the right of the binary symbol, and how to switch the ternary symbol and the binary symbol without changing the number the string represents. We will show that all 6 of these rules preserve the same number by showing that the string represents the same value after each rule has been applied:
 \begin{itemize}
     \item $\boldsymbol{ae \rightarrow ea}$: $ae = e \circ a = e(a(x)) = 2(3x) = 6x$, and $ea = a
@@ -124,7 +128,7 @@ Here is how one can run the SRS and preserve an ordering we know to be valid:
 This order of applying the SRRs is correct, because one takes a string that is strictly in binary symbols and applies the correct $D$ rules until rule $D_2$ is applied, then it handles the ternary symbol immediately by applying $A$, $B$, and $C$ rules until it is converted into binary symbol(s). The number is not changed during application of these rules, making the ordering correct. This ordering was used in building the system that investigated the number of steps needed in the rewrite system, which will be talked about in section~\ref{sec:hardnessrewriterules}. \par
 If we take this SRS and model matrix functions for all symbols that cause all inputs to decrease, then we believe we can prove the Collatz Conjecture. We don't have an absolute link, but we strongly believe that termination of the Collatz SRS implies termination of Algorithm~\ref{alg:ColR}, since the rewrite system operates on input strings the same way as would Algorithm~\ref{alg:ColR} operate on positive integers.
 \section{Proving Collatz Conjecture Results} \label{subsec:provingCollatzresults}
-This section discusses some of the results mentioned in~\cite{HeuleAaronson}. Heule and Aaronson have not been able to prove termination of the Collatz SRS for all 11 rules, which is why this investigation for Collatz subproblems came about. This section describes the results thus far. \par
+This section discusses some of the results mentioned in~\cite{HeuleAaronson}. Heule and Aaronson have not been able to prove termination of the Collatz SRS for all 11 rules, which is why this investigation for Collatz Variants came about. This section describes the results thus far. \par
 Heule tried to run the Collatz SRS on state-of-the-art matrix interpretation solvers like AProVE. However, 4 of the 11 rules needed to be removed before the system could be solved. So a custom matrix interpretation solver was built by Heule specifically for this problem. 
 Unfortunately, Heule could not prove the entire 11 rule system with matrix interpretation. However, any combination of 10 of the 11 rules can be proven. Some were very easy (example: omitting rule $D_2$), others much more challenging.\par
-Hence, the motivation for simplifying the problem by creating the Collatz Variants derived from~\ref{alg:ColSP}, came about, as did the motivation for writing this thesis. Chapter~\ref{sec:hardnessrewriterules} investigates alterations of the SRR's for the Collatz SRS, which we call  to try and make the problem simpler for the matrix interpretation solver, and see how difficult these alternate forms ought to be to prove.
+Hence, the motivation for simplifying the problem by creating the Collatz Variants derived from Algorithm~\ref{alg:ColSP}, came about, as did the motivation for writing this thesis. Chapter~\ref{sec:hardnessrewriterules} investigates alterations of the SRR's for the Collatz SRS, which we call to try and make the problem simpler for the matrix interpretation solver, and see how difficult these alternate forms ought to be to prove.

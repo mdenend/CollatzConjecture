@@ -26,3 +26,13 @@
 \BOOKMARK [0][-]{chapter.5}{Chapter 5. Using SAT Solvers with String Rewriting Systems}{}% 26
 \BOOKMARK [1][-]{section.5.1}{SAT Solvers}{chapter.5}% 27
 \BOOKMARK [1][-]{section.5.2}{String Rewrite Systems}{chapter.5}% 28
+\BOOKMARK [1][-]{section.5.3}{The Collatz Conjecture as a rewriting system}{chapter.5}% 29
+\BOOKMARK [1][-]{section.5.4}{Proving Collatz Conjecture Results}{chapter.5}% 30
+\BOOKMARK [0][-]{chapter.6}{Chapter 6. Hardness of Application of Rewrite Rules}{}% 31
+\BOOKMARK [1][-]{section.6.1}{Modified Base 8 Rewrite System}{chapter.6}% 32
+\BOOKMARK [1][-]{section.6.2}{Defining Measures}{chapter.6}% 33
+\BOOKMARK [1][-]{section.6.3}{Computation}{chapter.6}% 34
+\BOOKMARK [1][-]{section.6.4}{Single SRR removal analysis}{chapter.6}% 35
+\BOOKMARK [0][-]{chapter.7}{Chapter 7. Conclusion}{}% 36
+\BOOKMARK [0][-]{chapter*.4}{Bibliography}{}% 37
+\BOOKMARK [0][-]{chapter*.5}{Vita}{}% 38
