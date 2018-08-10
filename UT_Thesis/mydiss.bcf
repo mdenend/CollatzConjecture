@@ -40,7 +40,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>labelalpha</bcf:key>
-      <bcf:value>1</bcf:value>
+      <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="multivalued">
       <bcf:key>labelnamespec</bcf:key>
@@ -81,7 +81,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxbibnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>999</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
@@ -97,11 +97,11 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>minbibnames</bcf:key>
-      <bcf:value>1</bcf:value>
+      <bcf:value>3</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>mincitenames</bcf:key>
-      <bcf:value>1</bcf:value>
+      <bcf:value>3</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>minitems</bcf:key>
@@ -310,6 +310,7 @@
     <bcf:option datatype="boolean">doi</bcf:option>
     <bcf:option datatype="boolean">eprint</bcf:option>
     <bcf:option datatype="boolean">related</bcf:option>
+    <bcf:option datatype="boolean">subentry</bcf:option>
     <bcf:option datatype="integer">mincrossrefs</bcf:option>
     <bcf:option datatype="integer">maxnames</bcf:option>
     <bcf:option datatype="integer">minnames</bcf:option>
@@ -2046,27 +2047,51 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1">Turing1936</bcf:citekey>
-    <bcf:citekey order="2">Conway72</bcf:citekey>
-    <bcf:citekey order="3">2003mathLagrais</bcf:citekey>
-    <bcf:citekey order="4">2003mathLagrais</bcf:citekey>
-    <bcf:citekey order="5">2006mathLagrias</bcf:citekey>
-    <bcf:citekey order="6">EricRoose</bcf:citekey>
-    <bcf:citekey order="7">HeuleAaronson</bcf:citekey>
-    <bcf:citekey order="8">Thain:2005:DCP:1064323.1064336</bcf:citekey>
-    <bcf:citekey order="9">Tseitin70</bcf:citekey>
-    <bcf:citekey order="10">Silva:1999:IBH:645377.651196</bcf:citekey>
-    <bcf:citekey order="11">Moskewicz:2001</bcf:citekey>
-    <bcf:citekey order="12">DBLP:journals/corr/HeuleKM16</bcf:citekey>
-    <bcf:citekey order="13">HeuleKWB12</bcf:citekey>
-    <bcf:citekey order="14">DBLP:journals/corr/HeuleKM16</bcf:citekey>
-    <bcf:citekey order="15">Davis:1962:MPT:368273.368557</bcf:citekey>
-    <bcf:citekey order="16">Hofbauer:2006:TA:1142725.1711178</bcf:citekey>
-    <bcf:citekey order="17">Hofbauer:2006:TA:1142725.1711178</bcf:citekey>
-    <bcf:citekey order="18">Hofbauer2006</bcf:citekey>
-    <bcf:citekey order="19">Endrullis2006</bcf:citekey>
-    <bcf:citekey order="20">Hofbauer:2006:TA:1142725.1711178</bcf:citekey>
-    <bcf:citekey order="21">HeuleAaronson</bcf:citekey>
-    <bcf:citekey order="22">HeuleAaronson</bcf:citekey>
-    <bcf:citekey order="23">HeuleAaronson</bcf:citekey>
-    <bcf:citekey order="24">HeuleAaronson</bcf:citekey>
+    <bcf:citekey order="2">2003mathLagrais</bcf:citekey>
+    <bcf:citekey order="3">2006mathLagrias</bcf:citekey>
+    <bcf:citekey order="4">EricRoose</bcf:citekey>
+    <bcf:citekey order="5">HeuleAaronson</bcf:citekey>
+    <bcf:citekey order="6">HeuleAaronson</bcf:citekey>
+    <bcf:citekey order="7">Thain:2005:DCP:1064323.1064336</bcf:citekey>
+    <bcf:citekey order="8">Biere:2009:HSV:1550723</bcf:citekey>
+    <bcf:citekey order="9">Hofbauer:2006:TA:1142725.1711178</bcf:citekey>
+    <bcf:citekey order="10">Hofbauer:2006:TA:1142725.1711178</bcf:citekey>
+    <bcf:citekey order="11">Hofbauer2006</bcf:citekey>
+    <bcf:citekey order="12">Endrullis2006</bcf:citekey>
+    <bcf:citekey order="13">Hofbauer:2006:TA:1142725.1711178</bcf:citekey>
+    <bcf:citekey order="14">Hofbauer:2006:TA:1142725.1711178</bcf:citekey>
+    <bcf:citekey order="15">Hofbauer:2006:TA:1142725.1711178</bcf:citekey>
+    <bcf:citekey order="16">HeuleAaronson</bcf:citekey>
+    <bcf:citekey order="17">HeuleAaronson</bcf:citekey>
+    <bcf:citekey order="18">HeuleAaronson</bcf:citekey>
+    <bcf:citekey order="19">HeuleAaronson</bcf:citekey>
     <bcf:citekey order="0">*</bcf:citekey>
+  </bcf:section>
+  <bcf:sortlist section="0" name="ynt/global" type="entry" sortscheme="ynt" sortnamekeyscheme="global">
+  <bcf:sorting>
+    <bcf:sort order="1">
+      <bcf:sortitem order="1">presort</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="2" final="1">
+      <bcf:sortitem order="1">sortkey</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="3">
+      <bcf:sortitem order="1">sortyear</bcf:sortitem>
+      <bcf:sortitem order="2">year</bcf:sortitem>
+      <bcf:sortitem order="3">9999</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="4">
+      <bcf:sortitem order="1">sortname</bcf:sortitem>
+      <bcf:sortitem order="2">author</bcf:sortitem>
+      <bcf:sortitem order="3">editor</bcf:sortitem>
+      <bcf:sortitem order="4">translator</bcf:sortitem>
+      <bcf:sortitem order="5">sorttitle</bcf:sortitem>
+      <bcf:sortitem order="6">title</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="5">
+      <bcf:sortitem order="1">sorttitle</bcf:sortitem>
+      <bcf:sortitem order="2">title</bcf:sortitem>
+    </bcf:sort>
+  </bcf:sorting>
+  </bcf:sortlist>
+</bcf:controlfile>
