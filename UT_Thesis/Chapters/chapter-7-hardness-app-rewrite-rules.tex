@@ -25,18 +25,20 @@ The input is either a single number, or a batch that is a list of interesting nu
 
 \section{Estimated rewrite steps needed} \label{subsec:estrwsteps}
 Looking at how the Collatz SRS operates, one can establish a reasonable bound on the number of steps. Starting with a number that is purely in binary symbols $a$ and $b$, plus the placeholder symbols $c$ and $d$, there are two different paths that occur: one where $a$ is the symbol next to the $d$, meaning we divide by 2. So, it only takes one step to divide by 2. On the other hand, when we compute an odd number, we turn the $b$ symbol into a $g$ symbol, and, following the establised order, apply $A$, $B$, and $C$ rules to conver the ternary symbol to binary. This adds $\Theta(m)$ rewrite steps for the odd number. \par
+Since odd rules add hardness to the rewrite system, what we can do is compare the number of steps that the rewrite system takes on Classical Hardness records from chapter~\ref{sec:subhrdnspred}, divide the number of steps that odd terms in the Collatz Sequence take by $\log^2{m}$, and compare it to our Classical Hardness measure to see if the rewrite system asymptotically adds $\Theta(m)$ rewrite steps for each odd term. We have done so, and the results are presented in Figure\#. From this graph, it appears that dividing the odd number of rewrite steps by $\log{m}$ creates a reasonably tight bound against Classical Hardness, so given the numbers we measures, adding a factor or $\Theta(m)$ rewrite steps per odd number appears to be correct, so the number of rewrite steps needed for a $m$ bit input number appears to be $O(m^2)$.
 
 %%%%OK. This stuff about Gamma is NOT needed. Why? Because the Classical Hardness ALREADY IS THE QUANTITY I'M LOOKING FOR!!! IT IS LITERALLY ODD NUMBERS DIVIDED BY BITS!
 %So what do I need to do? Just take the rewrite system, divide it by $\log{m}$ TWICE, and see how it trends compared to classical hardness!!!!
-Therefore, we need to know what is the number of odd numbers we expect to hit. We can look at Lagrias's surveys to see that he defined some quantity called ``gamma value'', or $\gamma$ for short:
-\[
-\gamma(x) := \frac{\sigma_{\inf}(x)}{\log{x}}
-\] 
-where $\sigma_{\inf}(x)$ is the number of steps it takes for $x$ to reach 1 in $\Col{x}$, except when $x_i$ is odd, the $3x+1$ then immediate division after 2 is counted as one step. Therefore, $\sigma_{\inf}(x) = f_{\text{even}}(x),$ which was defined in section~\ref{subsec:algdefinemeasure}.
+%Therefore, we need to know what is the number of odd numbers we expect to hit. We can look at Lagrias's surveys to see that he defined some quantity called ``gamma value'', or $\gamma$ for short:
+%\[
+%\gamma(x) := \frac{\sigma_{\inf}(x)}{\log{x}}
+%\] 
+%where $\sigma_{\inf}(x)$ is the number of steps it takes for $x$ to reach 1 in $\Col{x}$, except when $x_i$ is odd, the $3x+1$ then immediate division after 2 is counted as one step. Therefore, $\sigma_{\inf}(x) = f_{\text{even}}(x),$ which was defined in section~\ref{subsec:algdefinemeasure}.
 
-
-\section{Modified Base 8 Rewrite System} \label{subsec:base8rewrite}
-Recall the Collatz SRS, and the $D$ rules: the rules that handle the even and odd numbers:
+\section{Collatz SRS Subproblem Analysis} \label{subsec:collatzsubproblemananalysis}
+Although it appears that the rewrite system adds a factor of $\log{m}$ steps to solving the Collatz Conjecture, and that the rewrite system takes $O(m^2)$ steps, this does not mean that the hardness of the Collatz Variants will not differentiate, given the fact that certain variants may deal with different sized numbers. This section takes the Collatz SRS and modifies it to have it effectively compute Algorithm~\ref{alg:SP}
+\subsection{Modified Base 8 Rewrite System} \label{subsec:base8rewrite}
+Now we have established a reasonable bound of how many more steps the rewrite system adds, let us explore how we can modify the Collatz SRS to make it tie into our variants. Recall the $D$ rules of the Collatz SRS: the rules that handle the even and odd numbers:
 \begin{align*}
     D_1: ad &\rightarrow d &\text{$0\Mod{2}$}\\
     D_2: bd &\rightarrow gd &\text{$1\Mod{2}$}\\
@@ -69,8 +71,8 @@ Because these rules were constructed using only SRRs in the Collatz SRS that we 
 \end{align*}
 Since we removed the SRR that corresponds to input $1 \Mod{8}$, termination of this SRS implies termination of Collatz Variant 1, as removing a rule causes any string with this input to terminate the system. Note how removing an SRR is equivalent to adding the corresponding termination condition in Algorithm~\ref{alg:SP}. Any derived Collatz SRS that alters the base 8 modification of the Collatz SRS will henceforth be referred to as a Collatz Subproblem $A$, where $A$ will bethe same base avoidance set as used in $\ColMod{N}{A}{b}$. For singleton sets $A$, we just write the number. Collatz Subprolem $A$ denotes which rewrite rule(s) are dropped, and that subproblem $A$ would imply termination of Collatz Variant $A$.\par
 The rest of this chapter describes the investigation we took to determine the number of steps that Collatz Subproblems 1, 5, and 7 need before terminating.
-\section{Defining Measures} \label{subsec:rewritemeasuredefs}
-Instead of defining hardness by number of odd numbers, for the SRS, we define hardness based off of the total steps applied. This is because an odd number adds a significant more number of rewrite steps... $\Theta(m)$ for the odd number, compared to just 1 for an even number. Define the following numbers, given some input number $x$:
+\subsection{Defining Measures for Subproblem Analysis} \label{subsec:rewritemeasuredefs}
+Instead of defining hardness by number of odd numbers, for the SRS, we define hardness based off of the total steps applied, because of the fact that odd numbers add significantly more steps. Define the following numbers, given some input number $x$:
 \begin{itemize}
     \item $f_r(x)$: The total number of rewrite steps in the sequence for $x$ before it converges to 1.
     \item $A$: The base avoidance set, same as used in Algorithm~\ref{Col:SP} and chapter~\ref{sec:subhrdnspred}. As before, $A \subseteq \{1, 5, 7\}$ and $A \ne \varnothing$. Dropping an SRR that corresponds to avoiding $a \Mod{8}$  effectively adds $a$ to $A$.
@@ -79,9 +81,7 @@ Instead of defining hardness by number of odd numbers, for the SRS, we define ha
 \end{itemize}
 We define only one hardness measure: $H_{SRS}$, where $H_{SRS} = \frac{R(x, A, b)}{\log_2{x}}$. This effectively computes the hardness of the SRRs that corresponds to determining termination of Collatz Variant $A$.
 
-
-
-\section{Single SRR removal analysis} \label{subsec:rewritehardness}
+\subsection{Single SRR removal analysis} \label{subsec:rewritehardness}
 Figure~\ref{fig:rvslog} shows the anaylsis of hardness for the modified SRS with removal on one of three different rules. Note that the hardness tends to grow for all three cases, as opposed to the analysis for $H(x,A)$ for each of these three cases, which tend to stay flat. This shows, that as the number of bits increases, the number of steps for the rewrite system tend to increase logarithmically. The best explanation for why this is the case is because for each odd rule, we add $\Theta(\log{n})$ steps, so as discussed in the algebraic case, hardness is determined by odd numbers.
 \begin{figure}
     \centering
