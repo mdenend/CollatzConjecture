@@ -47,7 +47,7 @@
 \usepackage[english]{babel}
 %\usepackage[
 %backend=biber,
-%style=alphabetic,
+%style=ieee,
 %sorting=ynt
 %]{biblatex}
 \usepackage{tikz}
@@ -96,7 +96,7 @@
 %
 \supervisor
 	[Scott Aaronson]
-	{Marijn Heule}
+	{Marienus Heule}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -153,8 +153,8 @@
 % (remove the % in front of) the following two command lines (the ones
 % that have the \ as their second character).
 %
-\degree{MASTER OF SCIENCE}
-\degreeabbr{M.S.}
+\degree{MASTER OF SCIENCE IN COMPUTER SCIENCE}
+\degreeabbr{M.S. Comp.Sci.}
 
 % Uncomment the line below that corresponds to the type of master's
 % document you are writing.
@@ -301,8 +301,8 @@
 %
 \begin{dedication}
 \index{Dedication@\emph{Dedication}}%
-Dedicated to my late mother, who never
-let her three battles with cancer stop her from loving her two sons and
+Dedicated to my late mother, who passed away earlier this year, yet never
+let her three battles with cancer stop her from endlessly loving her sons and
 her husband.
 \end{dedication}
 
@@ -310,7 +310,7 @@ her husband.
 \begin{acknowledgments}		% Optional
 \index{Acknowledgments@\emph{Acknowledgments}}%
 I want to give a huge thank you to both of my advisors for this project: Scott Aaronson and Marijn Heule. \par
-Scott Aaronson came to UT Austin from MIT in fall 2016. I knew that I wanted to write a Master's Thesis from pretty much the time I started my Master's Degree, and I heard he might be a great person to work on a Master's Thesis with. We come from very different backgrounds. He is well-renowned for his work in Theoretical Quantum Computing. I came into UT's CS program with virtually no Math/CS theory background, as my undergrad degree was in Electrical Engineering. At one point, he suggested that I talk to Marijn Heule, and hence, this project was born. I got a chance to witness firsthand the enthusiasm that Scott had for CS and Math theory, and it's no wonder that Scott has done so much work in Theoretical Computer Science... he just keeps going and going! This entire project would not have been possible without him and he is as much, if not more, of an author of this Thesis as I am. I'm also deeply thankful to him for his support as I had to go through the challenge of losing my mom.\par
+Scott Aaronson came to UT Austin from MIT in fall 2016. I knew that I wanted to write a Master's Thesis from pretty much the time I started my Master's Degree, and I heard he might be a great person to work on a Master's Thesis with. We come from very different backgrounds. He is well-renowned for his work in Theoretical Quantum Computing. I came into UT's CS program with virtually no Math/CS theory background, as my undergrad degree was in Electrical Engineering. At one point, he suggested that I talk to Marijn Heule, and hence, this project was born. I got a chance to witness firsthand the enthusiasm that Scott has for CS and Math theory, and it's no wonder that Scott has done so much work in Theoretical Computer Science... he just keeps going and going! This entire project would not have been possible without him and he is as much, if not more, of an author of this Thesis as I am. I'm also deeply thankful to him for his support as I had to go through the challenge of losing my mom.\par
 Marijn Heule became an Assistant Research Professor at UT in fall 2017. He was a Research Scientist at UT Austin when I first met him. Marijn is a master at SAT Solving, and is famous for his proof of the Boolean Pythagorean Triples problem that was the largest proof ever at the time at 100 TB. Much like Scott, Marijn has a great deal of enthusiasm for mathematical problems. This entire project is originally Marijn's idea, so I am thankful that he had this idea, and I am very happy to have written a Thesis with such a cool topic. Without his advice and direction and his many read-overs and edits, this Thesis would have not been possible to finish, so he is as much, if not more, of an author of this Thesis as I am. I am also deeply thankful of the support he gave me as I had to go through the challenge of losing my mom.\par
 When Scott and Marijn first met each other, they raced each other to solve several proofs related to this project: Scott by hand, Marijn using computation. I happened to be in the middle of it all, unable to keep up with the blazing speed of these two brilliant minds. It took me some time but I can now confidently read through these original thoughts that Scott and Marijn had and understand most of them much better now than when they first occurred. \par
 I am forever indebted to these two men and can only hope to someday achieve the greatness and brilliance of them.
@@ -325,7 +325,13 @@ I am forever indebted to these two men and can only hope to someday achieve the 
 \utabstract
 \index{Abstract}%
 \indent
-This hasn't been written by me yet. Going to do this last.
+%Should not exceed 350 words. Looks like I have a good amount.
+The Collatz Conjecture ($3x+1$ problem) is a simple problem to explain, yet a proof showing that all positive integers following the $3x+1$ mapping must converge to 1 has eluded mathematicians for over half a century. Aaronson and Heule attempted to solve the Collatz Conjecture using an approach involving string rewrite systems: Aaronson designed the string rewrite system whereas Heule ran computation on it. The approach had been applied successfully to other mathematical problems, but has been unable to prove the Collatz Conjecture so far.\par
+As a result, we started investigating variants of the problem in an attempt to simplify the computation needed for the system. This thesis defines some of these variants and investigates both easily provable variants and unsolved variants. We attempt to figure out how hard the unsolved variants are by running computation on input numbers up to 1 billion. We also explore Aaronson's string rewrite system computationally on certain input numbers up to 1 billion.
+%Text from Conclusion. Build Abstract off of this.
+%In this Thesis, we analyzed the Collatz Conjecture and simpler, yet still challenging variants, and propose a hardness prediction for determining the answers to these variants. We started by building a program that investigates Collatz Variants by running many $3x+1$ sequences for all odd numbers up to 1 billion, and seeing how many odd numbers occur in record breaking sequences that avoid the Collatz Variants. \par
+%We also investigated the Collatz SRS that Aaronson came up with in~\cite{HeuleAaronson} and that Heule tried to prove with Matrix Interpretation. Even though this methodology was not able to solve the Collatz Conjecture, we still think it has promise. We also built a simple program that ran the Collatz SRS and determine the hardness for variants, finding out that the hardness varies more than in the algebraic case.\par
+%As described in ~\cite{HeuleAaronson}, we believe this approach for trying to solve the Collatz Conjecture, as well as Collatz Variants, has merit and needs further investigation, so we hope to continue to do so in the future.
 
 
 
@@ -398,9 +404,10 @@ This hasn't been written by me yet. Going to do this last.
                 % the bibliography, even if they are not 	     %
                 % explicitly cited in the text. 		     %
 		%						     %
-\bibliographystyle{plain}  % Here the bibliography 		     %
+\bibliographystyle{ieeetr}  % Here the bibliography 		     %
 \bibliography{bibliography}        % is inserted.			     %
 \index{Bibliography@\emph{Bibliography}}%			     %
+%\printbibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -423,7 +430,7 @@ This hasn't been written by me yet. Going to do this last.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{vita}
-Matthew Alexander Denend was born in Spokane, Washington. He received the Bachelor of Science degree in Electrical Engineering, cum laude, from The University of Washington, Seattle, in 2012. He worked as a Packet Core Performance and Handset Engineer at T-Mobile in Bellevue, Washington for 3 years. He decided to pursue a Master of Science in Computer Science degree, and after he was accepted to The University of Texas at Austin in 2015, he left his job at T-Mobile to move to Austin, Texas and become a full-time student.
+Matthew Alexander Denend was born in Spokane, Washington. He received the Bachelor of Science degree in Electrical Engineering, cum laude, from The University of Washington, Seattle, in 2012. He worked as a Packet Core Performance and Handset Engineer at T-Mobile in Bellevue, Washington for 3 years. He decided to pursue a Master of Science in Computer Science degree, and after he was accepted to The University of Texas at Austin in 2015, he left his job at T-Mobile to move to Austin, Texas and became a full-time student.
 \end{vita}
 
 \end{document}
