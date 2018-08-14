@@ -29,10 +29,15 @@
 \BOOKMARK [1][-]{section.5.3}{The Collatz Conjecture as a rewriting system}{chapter.5}% 29
 \BOOKMARK [1][-]{section.5.4}{Proving Collatz Conjecture Results}{chapter.5}% 30
 \BOOKMARK [0][-]{chapter.6}{Chapter 6. Hardness of Application of Rewrite Rules}{}% 31
-\BOOKMARK [1][-]{section.6.1}{Modified Base 8 Rewrite System}{chapter.6}% 32
-\BOOKMARK [1][-]{section.6.2}{Defining Measures}{chapter.6}% 33
-\BOOKMARK [1][-]{section.6.3}{Computation}{chapter.6}% 34
-\BOOKMARK [1][-]{section.6.4}{Single SRR removal analysis}{chapter.6}% 35
-\BOOKMARK [0][-]{chapter.7}{Chapter 7. Conclusion}{}% 36
-\BOOKMARK [0][-]{chapter*.4}{Bibliography}{}% 37
-\BOOKMARK [0][-]{chapter*.5}{Vita}{}% 38
+\BOOKMARK [1][-]{section.6.1}{Computation}{chapter.6}% 32
+\BOOKMARK [1][-]{section.6.2}{Estimated rewrite steps needed}{chapter.6}% 33
+\BOOKMARK [1][-]{section.6.3}{Collatz SRS Subproblem Analysis}{chapter.6}% 34
+\BOOKMARK [2][-]{subsection.6.3.1}{Modified Base 8 Rewrite System}{section.6.3}% 35
+\BOOKMARK [2][-]{subsection.6.3.2}{Defining Measures for Subproblem Analysis}{section.6.3}% 36
+\BOOKMARK [2][-]{subsection.6.3.3}{SRR removal analysis}{section.6.3}% 37
+\BOOKMARK [1][-]{section.6.4}{Further SRS rule modifications}{chapter.6}% 38
+\BOOKMARK [2][-]{subsection.6.4.1}{Removing even rule from the Collatz SRS}{section.6.4}% 39
+\BOOKMARK [2][-]{subsection.6.4.2}{Change in Rewrite Steps}{section.6.4}% 40
+\BOOKMARK [0][-]{chapter.7}{Chapter 7. Conclusion}{}% 41
+\BOOKMARK [0][-]{chapter*.4}{Bibliography}{}% 42
+\BOOKMARK [0][-]{chapter*.5}{Vita}{}% 43
