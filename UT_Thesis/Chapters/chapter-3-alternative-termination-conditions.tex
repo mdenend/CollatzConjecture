@@ -1,17 +1,17 @@
 \chapter{Alternative Termination Conditions} \label{sec:alttercdns}
  This chapter explores the possible variants of Algorithm~\ref{alg:ColSP}. Before we investigate them, we define a graph paradigm that transforms the $3x+1$ problem into directed graphs that depict the flow for all input numbers modulo base $b$, where $b$ is a power of 2. Using this paradigm, we can show that some variants are easily provable. However, others are not.
 \section{Defining a Collatz Base \textit{b} Graph} \label{subsec:colgraph}
-Define $G_b=(V,E)$ to be a ``Collatz Base $b$ Graph'', where $b = 2^k$, and $k$ is nonnegative. Choosing a power of 2 for $b$ allows us to easily reason with binary numbers, which is useful for both several proofs in this chapter and the String Rewrite System that we will discuss starting in chapter~\ref{sec:SRSandSAT}. $V$ has $b$ vertices in it, where each vertex is labeled a unique integer in the interval $[0, b-1]$. Vertex $v \in V$ corresponds to $v \Mod{b}$. This paper uses the term ``node $v$'' as shorthand to correspond to the number $v$ in $v \Mod{b}$, as opposed to ``vertex $v$'' which corresponds to the actual vertex of the graph. Let $x_i$ be the $i$\textsuperscript{th} step of the $3x+1$ sequence for input number $x$, and $x_{i+1}$ be the step after. $E = V \times V$ is a set of directed edges, where, for nodes $u, v \in V$, $(u,v) \in E$ if and only if $x_i \equiv u \Mod{b}$ and $x_{i+1} \equiv v \Mod{b}$ for some $x_i$ and $x_{i+1}$. \par
+Define $G_b=(V,E)$ to be a ``Collatz Base $b$ Graph'', where $b = 2^k$, and $k$ is nonnegative. Choosing a power of 2 for $b$ allows us to easily reason with binary numbers, which is useful for both several proofs in this chapter and the Collatz SRS that we will discuss starting in chapter~\ref{sec:SRSandSAT}. $V$ has $b$ vertices in it, where each vertex is labeled a unique integer in the interval $[0, b-1]$. Vertex $v \in V$ corresponds to $v \Mod{b}$. This thesis uses the term ``node $v$'' as shorthand to correspond to the number $v$ in $v \Mod{b}$, as opposed to ``vertex $v$'' which corresponds to the actual vertex of the graph. Let $x_i$ be the $i$\textsuperscript{th} step of the $3x+1$ sequence for input number $x$, and $x_{i+1}$ be the step after. $E = V \times V$ is a set of directed edges, where, for nodes $u, v \in V$, $(u,v) \in E$ if and only if $x_i \equiv u \Mod{b}$ and $x_{i+1} \equiv v \Mod{b}$ for some $x_i$ and $x_{i+1}$. \par
 
 \section{Lemmas that hold for any base \textit{b} Collatz Graph}
-This section contains some lemmas that are used throughout this Thesis. First, we start with a lemma about the number of node transitions in any Collatz Base $b$ Graph $G_b= (V,E)$.
+This section contains some lemmas that are used throughout this chapter. First, we start with a lemma about the number of node transitions in any Collatz Base $b$ Graph $G_b= (V,E)$.
 \begin{lemma}
 \label{lem:numOutEdges}
 Given a Collatz Base $b$ Graph, for all $v \in V$, if node $v$ is even, then the vertex $v$ has two outgoing edges. Otherwise, if node $v$ is odd, then the vertex $v$ has only one outgoing edge.
 \end{lemma}
 \begin{proof}
-Take a number $x_i$ that corresponds to node $v$. First, let us consider the case where node $v$ is even. When we divide by 2, we just remove the lowest 0. The new bit at index $k-1$ can be either a 0 or a 1, allowing for two options for even nodes. \par
-Now, take $x_i$ that corresponds to a node $v$ that is odd. Multiplying $x_i$ by 3 and adding 1 will make the binary string grow at least one bit longer (since $3\cdot x_i = 2 \cdot x_i + x_i$), giving us only one option for the least significant $k$ bits, meaning $x_{i+1}$ can only correspond to one node $w \in V$, and only one such outgoing edge from $v$ exists.
+Take a number $x_i$ that corresponds to node $v$. First, let us consider the case where node $v$ is even. When we divide by 2, we just remove the lowest 0 to get $x_{i+1}$. The bit at index $k-1$ of $x_{i+1}$ can be either a 0 or a 1, allowing for two options for even nodes. \par
+Now, take $x_i$ that corresponds to a node $v$ that is odd. Multiplying $x_i$ by 3 and adding 1 will give us a $x_{i+1}$ where the binary string grow at least one bit longer that $x_i$ (since $3\cdot x_i = 2 \cdot x_i + x_i$), giving us only one option for the least significant $k$ bits, meaning $x_{i+1}$ can only correspond to one node $w \in V$, and only one such outgoing edge from $v$ exists.
 \end{proof}
 Now, we have a couple of important properties about cycles that exist in any Collatz Base $b$ Graph, and the fact that these cycles cannot continue indefinitely. First, we introduce the ``0 cycle'' Lemma.
 \begin{lemma}
@@ -19,17 +19,17 @@ Now, we have a couple of important properties about cycles that exist in any Col
 For any Collatz Base $b$ Graph (where $b$ is a positive power of 2), a self-loop occurs on a 0 node. This cycle cannot continue indefinitely.
 \end{lemma}
 \begin{proof}
-Assume we have an input number $N$ such that $N \equiv 0 \Mod{b}$. This means that the $k$ least significant bits are all 0. Apply the $3x+1$ mapping once to this string. We remove a 0 from the end, since we divide the input number by 2. We now look at the new number $N/2$ and the $k$ least significant bits. The $k-1$ least significant bits are all 0. But what is the value of the bit in the most significant of the $k$ bits? If it is a 0, then our new number $N/2 \equiv 0 \Mod{b}$, and we have a self-loop. \par
-To show that the self loop cannot continue indefinitely: every time we follow the self-loop, remove a 0. Since we also know that $N > 1$ in order for the algorithm to continue running, we also know that at least one binary digit is a 1. So as we continue dividing by 2 and removing 0 bits, we eventually reach a point where the least $k$ significant bits are $1000\ldots 0$, meaning we transition to node $b/2$ instead, ending the cycle.
+Assume we have an input number $x_i$ such that $x_i \equiv 0 \Mod{b}$. This means that the $k$ least significant bits are all 0. Apply the $3x+1$ mapping once to this string. We remove a 0 from the end, since we divide the input number by 2. We now look at the new number $x_{i+1}$ and the $k$ least significant bits. The $k-1$ least significant bits are all 0. But what is the value of the bit in the most significant of the $k$ lowest bits of $x_{i+1}$? If it is a 0, then $x_{i+1} \equiv 0 \Mod{b}$, and we have a self-loop. \par
+To show that the self loop cannot continue indefinitely: every time we follow the self-loop, remove a 0. Since we also know that $x_i > 1$ in order for the algorithm to continue running, we also know that at least one binary digit is a 1. So as we continue dividing by 2 and removing 0 bits, we eventually reach a point where the least $k$ significant bits are $1000\ldots 0$, meaning we transition to node $b/2$ instead, ending the cycle.
 \end{proof}
-Now, we introduce another important lemma about cycles: the fact that we will always have a cycle between nodes $b-2$ and $b-1$. We call this the ``1 Consumption'' Lemma.
+Now, we introduce another important lemma about cycles: the fact that we will always have a cycle between nodes $b-2$ and $b-1$, and it cannot continue indefinitely. We call this the ``1 Consumption'' Lemma.
 \begin{lemma}
 \label{lem:oneConsumption}
  For any Collatz Base $b$ Graph, a cycle between exists between nodes $b-2$ and $b-1$. This cycle cannot continue indefinitely.
 \end{lemma}
 \begin{proof}
 In this proof, we will show first that a $b-1 \rightarrow b-2 \rightarrow b-1$ cycle exists, and second, that this cycle cannot continue indefinitely; more precisely, that some number congruent modulo to $b-2 \Mod{b}$, after division by 2, actually becomes $b/2-1 \Mod{b}$ instead. We will do so using long multiplication in binary, adding the 1 in as well for shorthand. \par
-Let $x$ be a arbitrary number congruent modulo to $b-1 \Mod{b}$. We want to express $x$ in binary, so let $x$ have $m$ bits. We know that since $x$ is congruent modulo to $b-1 \Mod{b}$, all bits from indices 0 to $k-1$ are 1. Let $x_j$ denote the $j$\textsuperscript{th} bit of $x$, $k \leq j \leq m$. These indices correspond to unknown bits. Let $1_{+1}$ correspond to the adding of 1 after multiplying by 3, which is added to the 0\textsuperscript{th} index of $x$. Let $c_j$ denote the unknown carry for the $j$\textsuperscript{th} index of bits being added. Let $y$ be the result after $3x+1$ is computed, and let the $j$\textsuperscript{th} index of $y$ be the same index as $x$. The multiplication is referenced in Figure~\ref{fig:mul}. \par
+Let $x$ be a arbitrary number\footnote{Normally, we use the notation $x_i$ to denote an arbitrary number in the $3x+1$ sequence, but the $i$ is omitted here as we use $x_j$ to denote the $j$\textsuperscript{th} bit of $x$. Variable $y$ is used in place of what is normally $x_{i+1}$ as well. } congruent modulo to $b-1 \Mod{b}$. We want to express $x$ in binary, so let $x$ have $m$ bits. We know that since $x$ is congruent modulo to $b-1 \Mod{b}$, all bits from indices 0 to $k-1$ are 1. Let $x_j$ denote the $j$\textsuperscript{th} bit of $x$, $k \leq j \leq m$. These indices correspond to unknown bits. Let $1_{+1}$ correspond to the adding of 1 after multiplying by 3, which is added to the 0\textsuperscript{th} index of $x$. Let $c_j$ denote the unknown carry for the $j$\textsuperscript{th} index of bits being added. Let $y$ be the result after $3x+1$ is computed, and let the $j$\textsuperscript{th} index of $y$ be the same index as $x$. The multiplication is referenced in Figure~\ref{fig:mul}. \par
 \begin{figure}
 \begin{tabular}{*{16}c}%{c*{15}{@{\,}c}}
  & & $ x_{n}$  & $ x_{n-1}$  & \ldots & $ x_{j+1}$  & $ x_{j}$  & \ldots & $ x_{k+1}$  & $ x_{k}$  & 1 & 1 & \ldots & 1 & 1 & 1 \\
@@ -44,15 +44,15 @@ $\times$ & & & & & & & & & & & & & & 1 & 1 \\
 \caption{The long multiplication corresponding to $3x + 1$. Note how, in the addition step, the $1_{+1}$ is in place of a zero, and the addition is just $x + 2x + 1$.}
 \label{fig:mul}
 \end{figure}
-Observe that, in binary, multiplication of a binary number $x$ by 3 is just $x + 2x$, and $2x$ is just placing all bits of $x$ one index to the left. In the multiplication we show in Figure~\ref{fig:mul}, we replace the extra 0 vacated by $2x$ with the addition of 1, $1_{+1}$, allowing us to perform $3x+1$ with just one addition instead of two. \par
-Observe that all bits in the resulting binary number $y$ from indices 0 to $k-1$ are 1, except for index 0, which is 0. This is because all bits of $y$, save index 0, are computed by adding $1+1$ and carrying over the 1 from the previous addition. As a result, $y$ is congruent modulo to $b-2 \Mod{b}$, meaning an edge from node $b-1 \Mod{b}$ to node $b-2 \Mod{b}$ exists in our graph.\par
-When we divide $y$ by 2, we just remove the lowest 0 from $y$. Hence, bit $y_k$ is now in position $k-1$. If $y_k$ is 1, our number is now congruent modulo to $b-1 \Mod{b}$. This means an edge also exists from node $b-2 \Mod{b}$ to node $b-1 \Mod{b}$, proving the existence of the cycle. \par
+Observe that, in binary, multiplication of a binary number $x$ by 3 is just $x + 2x$, and $2x$ is just placing all bits of $x$ one index to the left. In the multiplication we show in Figure~\ref{fig:mul}, we replace the extra 0 added to the least significant bit of $2x$ with the addition of 1, $1_{+1}$, allowing us to perform $3x+1$ with just one addition instead of two. \par
+Notice that all bits in the resulting binary number $y$ from indices 0 to $k-1$ are 1, except for index 0, which is 0. This is because all bits of $y$, save index 0, are computed by adding $1+1$ and carrying over the 1 from the previous addition. As a result, $y$ is congruent modulo to $b-2 \Mod{b}$, meaning an edge from node $b-1 \Mod{b}$ to node $b-2 \Mod{b}$ exists in our graph.\par
+When we divide $y$ by 2, we just remove the lowest 0 from $y$, decreasing the indices of all bits in $y$ by 1. Hence, bit $y_k$ is now in position $k-1$. If $y_k$ is 1, our number is now congruent modulo to $b-1 \Mod{b}$. This means an edge also exists from node $b-2 \Mod{b}$ to node $b-1 \Mod{b}$, proving the existence of the cycle. \par
 Now we show that this $b-2 \rightarrow b-1 \rightarrow b-2$ cycle will always eventually terminate. This happens when, after dividing a number congruent modulo to $b-2 \Mod{b}$ by 2, bit $y_{k-1}$ is 0. So we need to show this eventually occurs for any arbitrary $x$. There are two cases for this:
 \begin{enumerate}
     \item Some bit in $x$ is 0. Let $x_j$ be the least significant bit of $x$ that is 0 (all bits which have indices lower than $j$ are 1). Look back at Figure~\ref{fig:mul}, and replace $x_j = 0$, and have all bits at indices less than $j$ be 1. After taking the $3x+1$ step, all indices of $y$ between 1 and $j-1$ will be 1, as each time, we add $1 + 1$ and carry over a 1. However, when we get to index $i$, we add $1 + 0$ plus a carry of 1, making bit $y_j = 0$. Since after we divide by 2 we move all bits one index to the right, bit $y_j$ now moves to index $j-1$. We repeat this process a total of $j-k+1$ steps. After this, the 0 bit will be in position $y_{k-1}$, making $y$ congruent modulo to $b/2 - 1 \Mod{b}$ instead, breaking the cycle.
-    \item No bit in $x$ is 0. In this case, again looking at Figure~\ref{fig:mul}, all bits in $y$ from indices 1 to $m$ will be 1. However, bit $y_{m+1}$ will be 0, as we carry over a 1, and add only one other 1, since bit $x_{m+1}$ is an implied 0. Since bit $y_{m+1} = 0$ we right shift it to index $m$ after dividing by 2. We then follow case 1, where $j = m$, and the cycle will also break in this case.
+    \item No bit in $x$ is 0. In this case, again looking at Figure~\ref{fig:mul}, all bits in $y$ from indices 1 to $m$ will be 1. However, bit $y_{m+1}$ will be 0, as we carry over a 1, and add only one other 1, since bit $x_{m+1}$ is an implied 0. Since bit $y_{m+1} = 0$ we move it over one index to index $m$ after dividing by 2. We then follow case 1, where $j = m$, and the cycle will also break in this case.
  \end{enumerate}
- Hence, no $b-2 \rightarrow b-1 \rightarrow b-2$ cycle for any legal value of $b = 2^k$ can have an indefinite cycle. 
+ Hence, no input number can follow the $b-2 \rightarrow b-1 \rightarrow b-2$ cycle indefinitely. 
 \end{proof}
 We introduce one more lemma that shows that cycles where the magnitude of divisions by 2 outweigh the magnitude of multiplications by 3. We call this the ``Even Node Dominance Lemma''.
 \begin{lemma}
@@ -60,10 +60,10 @@ We introduce one more lemma that shows that cycles where the magnitude of divisi
 Given a cycle in any Collatz Base $b$ Graph $G$, let $v_{e}$ be the number of even nodes in the cycle, and $v_{o}$ be the number of odd nodes. If $2^{|V_e|} > 3^{|V_o|}$, then the cycle cannot continue indefinitely.
 \end{lemma}
 \begin{proof}
-Let $2^{|V_e|} > 3^{|V_o|}$, and let $x$ be the number at some point in the cycle. Run through the cycle once, back to the same vertex that we started at with $x$. We visited $|V_e|$ vertices in the cycle, so we divided $x$ by $2^{|V_e|}$ after one trip around the cycle. We also visited $|V_o|$ vertices in the cycle, so each time we multiplied $x$ by 3, and overall, multiplied $x$ by about $3^{|V_o|}$. (We also added one to $x$, but this is asymptotically insignificant compared to multiplying by 3 or dividing by 2, so ignored in this proof.)\par
-So after we visited the cycle once, we computed a number approximately equal to $\frac{3^{|V_o|}}{2^{|V_e|}}x$. Since $2^{|V_e|} > 3^{|V_o|}$, $\frac{3^{|V_o|}}{2^{|V_e|}}x < x$. Therefore, one of two things must happen:
+Let $2^{|V_e|} > 3^{|V_o|}$, and let $x_i$ be the number at some point in the cycle. Run through the cycle of $j$ steps once to get $x_{i+j}$, back to the same vertex that we started at with $x_i$. We visited $|V_e|$ vertices in the cycle, so we divided $x_i$ by $2^{|V_e|}$ after one trip around the cycle. We also visited $|V_o|$ vertices in the cycle, so each time we multiplied by 3, and overall, multiplied $x_i$ by about $3^{|V_o|}$.\footnote{We also added one each time we visit an odd node, but this is asymptotically insignificant compared to multiplying by 3 or dividing by 2, so we ignore it in this proof.}\par
+Hence, after we visited the cycle once, we computed $x_{i+j} \approx \frac{3^{|V_o|}}{2^{|V_e|}}x_i$. Since $2^{|V_e|} > 3^{|V_o|}$, $x_{i+j} < x_i$. Therefore, one of two things must happen:
 \begin{enumerate}
-\item $x$ eventually becomes 1, which means the cycle no longer can be repeated.
+\item $x_i$ eventually becomes 1, which means the cycle no longer can be repeated.
 \item The cycle is eventually broken.
 \end{enumerate}
 In both cases, the cycle cannot continue indefinitely.
@@ -100,15 +100,15 @@ Now, the odd nodes:
     \item Node 3 corresponds to the number ending with binary string ``11''. Multiplying this by 3 and adding 1 results in the binary number ending in ``$y_3y_210$'', which is still $2\Mod{4}$.
 \end{itemize}
 \subsection{Base 4 variants} \label{subsubsec:base4variants}
-We introduced the Base 4 case for nodes because we can prove that we need to visit all of the nodes in this graph. This is equivalent to saying that each of the Collatz Variants, $\ColMod{N}{A}{4}$ terminates for nonempty $A \subseteq \{0,1,2,3\}$, and for any input number $N$. 
+We introduced the Base 4 case for nodes because we can prove that we need to visit all of the nodes in this graph. This is equivalent to saying that each of the Collatz Variants, $\ColMod{N}{A}{4}$ terminates for nonempty $A \subseteq \{0,1,2,3\}$, and for any input number $x_i$. 
 \begin{theorem}
 $\ColMod{N}{A}{4}$ terminates for nonempty $A \subseteq \{0,1,2,3\}$.
 \end{theorem}
 \begin{proof}
-We will start with proving that $\ColMod{N}{\{2\}}{4}$ will terminate for any input number $N$, because the 2 node is central to the Base 4 graph.\par
+We will start with proving that $\ColMod{N}{\{2\}}{4}$ will terminate for any input number $x_i$, because the 2 node is central to the Base 4 graph.\par
 \begin{lemma}
 \label{lem:collatzSubTwoModFour}
-$\ColMod{N}{\{2\}}{4}$ terminates for any $N$.
+$\ColMod{N}{\{2\}}{4}$ terminates for any $x_i$.
 \end{lemma} 
 \begin{proof}
 We use the graph to help in this proof. An equivalent question is this: Can we show that node 2 must be visited for all input numbers? To show that this is the case, we have to show that all other nodes must visit node 2. 
@@ -117,34 +117,34 @@ We use the graph to help in this proof. An equivalent question is this: Can we s
     \item 3: This must, by definition, transition after the $3x+1$ mapping has been applied in one step.
     \item 1 and 0: 1 must transition to 0 after applying the $3x+1$ mapping once. For 0, use Lemma~\ref{lem:zeroCycle} (the ``0 cycle'' lemma) for $b = 4$, and the number will eventually transition to the 2 node.
 \end{itemize}
-Since all other nodes must visit node 2, it means that for all $N$, $\ColMod{N}{\{2\}}{4}$ terminates.
+Since all other nodes must visit node 2, it means that for all $x_i$, $\ColMod{N}{\{2\}}{4}$ terminates.
 \end{proof} \par
 
 \begin{lemma}
 \label{lem:collatzSubOneModFour}
-$\ColMod{N}{\{1\}}{4}$ terminates for any $N$.
+$\ColMod{N}{\{1\}}{4}$ terminates for any $x_i$.
 \end{lemma}
 \begin{proof}
 We use Lemma~\ref{lem:collatzSubTwoModFour} to show that node 2 must be visited, and Lemma~\ref{lem:oneConsumption} to show that the cycle between nodes 2 and 3 cannot continue indefinitely, so node 2 must eventually transition to 1, proving termination of this variant.
 \end{proof}
 \begin{lemma}
 \label{lem:collatzSubZeroModFour}
-$\ColMod{N}{\{0\}}{4}$ terminates for any $N$.
+$\ColMod{N}{\{0\}}{4}$ terminates for any $x_i$.
 \end{lemma}
 \begin{proof}
 Given Lemma~\ref{lem:collatzSubOneModFour}, we know we must visit node 1, and given Lemma~\ref{lem:numOutEdges}, an odd node can only have one outgoing edge, so it must transition to node 0.
 \end{proof}
 \begin{lemma}
 \label{lem:collatzSubThreeModFour}
-$\ColMod{N}{\{3\}}{4}$ terminates for any $N$.
+$\ColMod{N}{\{3\}}{4}$ terminates for any $x_i$.
 \end{lemma}
 \begin{proof}
 Given the ``Even Node Dominance Lemma'',~\ref{lem:EvenDom}, the $2 \rightarrow 1 \rightarrow 0 \rightarrow 2$ cycle cannot continue forever because, if we assume that the 0 node never self-cycles, $2^2 > 3^1$. The 0 self-cycle makes even nodes dominate even more. So either $\ColMod{N}{\{3\}}{4}$ terminates by eventually becoming 1, or the cycle is broken, and the only other node to visit outside this cycle is node 3,  causing $\ColMod{N}{\{3\}}{4}$ to always terminate.
 \end{proof}
-Since all of these lemmas hold, it follows that any singleton set from $A \subseteq \{0,1,2,3\}$ causes $\ColMod{N}{A}{4}$ to terminate. Also, by definition of Algorithm~\ref{alg:ColSP}, any larger size sets for $A$ also terminate as larger set sizes add more termination conditions. So any nonempty set $A$ will cause $\ColMod{N}{A}{4}$ to terminate for any input $N$.
+Since all of these lemmas hold, it follows that any singleton set from $A \subseteq \{0,1,2,3\}$ causes $\ColMod{N}{A}{4}$ to terminate. Also, by definition of Algorithm~\ref{alg:ColSP}, any larger size sets for $A$ also terminate as larger set sizes add more termination conditions. So any nonempty set $A$ will cause $\ColMod{N}{A}{4}$ to terminate for any input $x_i$.
 \end{proof}
 \section{Base 8 Graph and Variants} \label{subsec:base8graphsubpblms}
-We showed that, using the Base 4 graph, $\ColMod{N}{A}{4}$ terminates for any nonempty base set $A$ and input number $N$. We decided to see what would happen if we expanded to $k = 3$ bits. We ran into a problem, and could not prove all variants of $\ColMod{N}{A}{8}$. This will motivate further computation undertaken in chapter~\ref{sec:subhrdnspred}, as we try to determine how hard figuring out these unproven variants are. \par
+We showed that, using the Base 4 graph, $\ColMod{N}{A}{4}$ terminates for any nonempty base set $A$ and input number $x_i$. We decided to see what would happen if we expanded to $k = 3$ bits. We ran into a problem, and could not prove all variants of $\ColMod{N}{A}{8}$. This will motivate further computation undertaken in chapter~\ref{sec:subhrdnspred}, as we try to determine how hard figuring out these unproven variants are. \par
 Figure~\ref{fig:base_8_graph} shows the base 8 graph.
 \begin{figure}
     \centering
