@@ -16,9 +16,7 @@ A problem, called Zantema's Other Problem~\cite{Hofbauer:2006:TA:1142725.1711178
 \textbf{Zantema's Other Problem:}
 Does the system laid out in SRS $A$ terminate for any input string $(a|b|c)*$?\par
 If one thinks about this problem a little, it would seem that a proof to show that this problem terminates for all input strings should be easy to show.  Surprisingly, both humans and computers struggled to come up with a proof for this problem when initially presented.  However, Hofbuaer and Waldmann came up with a proof for determining that it terminates~\cite{Hofbauer:2006:TA:1142725.1711178}, and from this, found that, for any rewriting rules in any rewrite system, if they are transformed into functions that causes all inputs to decrease, then the rewrite system will terminate.~\cite{Hofbauer2006}. \par
-These functions are typically built with matrices. A SAT solver can check if a $d \times d$ matrix is large enough to ensure that the matrix functions for the set of rewrite rules always decrease for all inputs. The process of building these matrices is described in a paper by Endrullis, Waldmann and Zantema~\cite{Endrullis2006}. An example using Zantema's Other Problem will be explained here. The matrices computed by SAT from ~\cite{Hofbauer:2006:TA:1142725.1711178} are shown in Figure 5.1. \par%change this later. It's being really weird and I don't know why.
-\begin{figure}
-\label{fig:zantmats}
+These functions are typically built with matrices. A SAT solver can check if a $d \times d$ matrix is large enough to ensure that the matrix functions for the set of rewrite rules always decrease for all inputs. The process of building these matrices is described in a paper by Endrullis, Waldmann and Zantema~\cite{Endrullis2006}. An example using Zantema's Other Problem will be explained here. The matrices computed by SAT from ~\cite{Hofbauer:2006:TA:1142725.1711178} are the following:
 \begin{align*}
 a(\Vec{x}) &= \begin{pmatrix}
 1&0&0&3\\
@@ -54,10 +52,8 @@ c(\Vec{x}) &= \begin{pmatrix}
 0
 \end{pmatrix}
 \end{align*}
-\caption{The three matrix functions found from SAT solving in~\cite{Hofbauer:2006:TA:1142725.1711178} to solve Zantema's other problem.}
-\end{figure}
 We will show an example string to show that it is always decreasing, but first, define the $\succ$ operator to show that, for vectors $(x_1 \ldots x_d)$ and $(y_1 \ldots y_d)$, $(x_1 \ldots x_d) \succ (y_1 \ldots y_d)$ if $x_1 > y_1$ and $x_i \geq y_i$ for $i \in \{2, \ldots, d\}$. In other words, the first element of a vector must be always decreasing, while the other $d-1$ elements must either be the same or decrease. \par
-Let our sample string be $bbaa$. Figure a possible set of rules that can be applied to it as well as the vector representations of the symbols:
+Let our sample string be $bbaa$. The following is possible set of rules that can be applied to it as well as the vector representations of the symbols: \par
 %Made text small to have it all fit in one line.
 {\small
 \begin{alignat*}{10}
@@ -73,7 +69,8 @@ Let our sample string be $bbaa$. Figure a possible set of rules that can be appl
     \begin{pmatrix}3\\0\\3\\0\end{pmatrix} &&\succ
     \begin{pmatrix}2\\0\\3\\0\end{pmatrix}
 \end{alignat*}
-}%
+}%x 
+\par
 The vector representation of the strings are always decreasing as defined by the $\succ$ operator. We could apply any string with symbols $a$, $b$, and $c$ and apply rules until termination and the vectors representing the strings would always decrease.
 \section{The Collatz Conjecture as a rewriting system} \label{subsec:CollatzSRS}
 Aaronson built an SRS representing the Collatz Conjecture~\cite{HeuleAaronson}. We'll call this the Collatz SRS throughout the remainder of this Thesis. \par
