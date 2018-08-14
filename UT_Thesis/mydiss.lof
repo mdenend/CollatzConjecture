@@ -13,5 +13,7 @@
 \addvspace {10pt}
 \contentsline {figure}{\numberline {5.1}{\ignorespaces The three matrix functions found from SAT solving in~\cite {Hofbauer:2006:TA:1142725.1711178} to solve Zantema's other problem.}}{40}{figure.5.1}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {6.1}{\ignorespaces This graph visualizes how the $R$ values for subproblems 1, 5, and 7 compare to each other. The log of the record holding numbers, or number of bits needed, is the x-axis, and the hardness measure $R$ as defined in section~\ref {subsec:rewritemeasuredefs} is the y-axis.}}{54}{figure.6.1}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces This graph compares, on the same set of input numbers, Classical Hardness as defined in chapter~\ref {sec:subhrdnspred}, and Rewrite Hardness, which is the number of steps divided by the number of input bits squared. The log of the record holding numbers, or number of bits needed, is the x-axis, and the hardness is the y-axis.}}{50}{figure.6.1}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces This graph visualizes how the $R$ values for subproblems 1, 5, and 7 compare to each other. The log of the record holding numbers, or number of bits needed, is the x-axis, and the hardness measure $R$ as defined in section~\ref {subsec:rewritemeasuredefs} is the y-axis.}}{56}{figure.6.2}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces This graph shows what percentage the odd rules decrease the rewrite steps, from the original Collatz SRS. The log of the record holding numbers, or number of bits needed, is the x-axis, and the percent decrease is the y-axis.}}{58}{figure.6.3}
 \addvspace {10pt}
