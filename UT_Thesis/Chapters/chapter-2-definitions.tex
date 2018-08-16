@@ -17,10 +17,17 @@ We will use the following terms throughout this Thesis:
       \item $\boldsymbol{\ColMod{N}{A}{b}:}$ Parameters are the same as Algorithm~\ref{alg:ColSP}.
       \item \textbf{Collatz Variant A:} The vast majority of our analysis is when $b = 8$, so when we say Collatz Variant $A$, it is shorthand for $\ColMod{N}{A}{8}$. For singleton sets $A$, we omit the braces normally around sets. We often list several Collatz Variants together, so for instance, if we say Collatz Variants 1, 5, 7, and $\{1,5\}$, we mean the variants $\ColMod{N}{\{1\}}{8}$, $\ColMod{N}{\{5\}}{8}$, $\ColMod{N}{\{7\}}{8}$, and $\ColMod{N}{\{1,5\}}{8}$, respectively.
       \end{itemize}
-\item \textbf{Collatz String Rewrite System (SRS):} Created by Aaronson~\cite{HeuleAaronson}, and introduced in chapter~\ref{sec:SRSandSAT}, along with background on string rewrite systems, this is used in the latter portion of this paper as an alternative way of expressing the Collatz Conjecture. Also called Aaronson's SRS.
+
 \item \textbf{Number of bits:} For an input number $x$, we say that, written in binary, it has $m$ bits.
 \end{itemize}
-We also have definitions within Chapter~\ref{sec:subhrdnspred} and~\ref{sec:hardnessrewriterules}. See sections~\ref{subsec:algdefinemeasure} and~\ref{subsec:rewritemeasuredefs}, respectively.
+We also have definitions for concepts more relevant to their respective chapters. A couple of these terms used more broadly throughout this thesis are mentioned here, along with the respective section they are more clearly defined:
+\begin{itemize}
+\item \textbf{Collatz base $\boldsymbol b$ graph:} Section~\ref{subsec:colgraph}
+\item \textbf{Node $\boldsymbol a$:} Section~\ref{subsec:colgraph}
+\item \textbf{Classical Hardness $\boldsymbol {H_C}$:} Section~\ref{subsec:algcomp}
+\item \textbf{Collatz String Rewrite System (SRS):} Section~\ref{subsec:CollatzSRS}
+\item \textbf{Collatz Subproblem $\boldsymbol A$:} Section~\ref{subsec:base8rewrite} and ~\ref{subsec:rewritemeasuredefs} 
+\end{itemize}
 %INSTEAD OF DEFINING SEVERAL THINGS HERE, LET'S DO THE FOLLOWING INSTEAD: Say that these terms will also be used throughout the paper, but will be defined more formally in (give section number)
 %Collatz base b Graph
 %"Node a:"

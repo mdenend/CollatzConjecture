@@ -16,9 +16,10 @@ We define hardness off of the notion that odd numbers make the Collatz Conjectur
     \item Record: any number $r$ in the range that has $g(r,A)$ higher than all numbers measured so far in the slice. More formally, any new record $r_\text{new}$ must have the properties compared to the current record $r_\text{current}$: $r_\text{new} > r_\text{current}$, and $g(r_\text{new},A) > g(r_\text{current},A)$ for a specific $A$. Note that we measure records off of total steps, \textit{not} total number of odd numbers.
       
 \end{itemize}
-Using these numbers, two different measures are defined, and the intuition behind why they were chosen is given as well: \par
+Using these numbers, three different measures are defined, and the intuition behind why they were chosen is given as well: \par
 \textbf{Hardness}: Defined to be $H(x,A) = \frac{g_\text{odd}(x,A)}{\log_2{x}}$. This assesses whether or not increasing the number of bits needed to represent the number $x$ changes the difficulty of determining a proof for Collatz Variants  1, 5, or 7, or $\{5,7\}$.  \par
-Also define ``Classical Hardness'' as a comparison: $H_C(x) = \frac{f_\text{odd}(x)}{\log_2{x}}$. This computes $H$ with respect to the whole sequence, instead of trying to avoid specific numbers. Records for Classical Hardness occur when $r_\text{new} > r_\text{current}$ and $f(r_\text{new}) > f(r_\text{current})$. \par
+\textbf{Classical Hardness}: Defined to be $H_C(x) = \frac{f_\text{odd}(x)}{\log_2{x}}$. This is a comparison to our hardness measure, but we compute $H$ with respect to the whole sequence, instead of trying to avoid specific numbers. Records for Classical Hardness occur when $r_\text{new} > r_\text{current}$ and $f(r_\text{new}) > f(r_\text{current})$. \par
+Note that Classical Hardness is much like the gamma value mentioned by Lagrias~\cite{2003mathLagrais}~\cite{2006mathLagrias} and Roosendaal~\cite{EricRoose}, except that $\gamma(x) = \frac{f_\text{even}(x)}{\log{x}}$. We chose to define our measure based on odd numbers for purposes of this thesis, given that odd numbers seem to make the Collatz Conjecture harder to prove. To the best of our knowledge, we are unaware of any literature that uses odd numbers in lieu of even numbers, like we do in this thesis.\par
 \textbf{Percentage of Sequence}: Defined to be $P(x,A) = \frac{g_\text{odd}(x,A)}{f_\text{odd}(x)}$. This assesses what percentage of all odd numbers lie within the longest sequence for Collatz Variants 1, 5, 7, or $\{5,7\}$.
 
 \section{Generating Results} \label{subsec:algcomp}
