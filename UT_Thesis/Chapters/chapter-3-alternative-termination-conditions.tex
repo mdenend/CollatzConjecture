@@ -69,7 +69,7 @@ Hence, after we visited the cycle once, we computed $x_{i+j} \approx \frac{3^{|V
 In both cases, the cycle cannot continue indefinitely.
 \end{proof}
 \section{Base 4 Graph and Variants} \label{subsec:base4graph}
-In this section, we build a simple example of a Base 4 graph and show that we can prove $\ColMod{N}{A}{4}$ terminates for any nonempty $A \subseteq \{0,1,2,3\}$. There are 4 different nodes: one for each integer between 0 and 3. Because $4 = 2^2$, we are looking at the last 2 bits of each number. For example, a number congruent modulo to $0\Mod{4}$ has 00 as the 2 least significant bits, while a number congruent modulo to $2\Mod{4}$ has 10 as its 2 least significant bits. 
+In this section, we build a simple example of a Base 4 graph and show that we can prove $\ColMod{N}{A}{4}$ terminates for any nonempty $A \subseteq \{0,1,2,3\}$. There are 4 different nodes: one for each integer between 0 and 3. Because $4 = 2^2$, we are looking at the last 2 bits of each input number. For example, an input number congruent modulo to $0\Mod{4}$ has 00 as the 2 least significant bits, while an input number congruent modulo to $2\Mod{4}$ has 10 as its 2 least significant bits. 
  \subsection{Base 4 graph construction} \label{subsubsec:proofbase4graph}
 Figure~\ref{fig:base_4_graph} shows the Base 4 Collatz Graph, and this subsection describes the construction of it. First, we will start with the even nodes, then the odd nodes:
 \begin{figure}
@@ -100,15 +100,15 @@ Now, the odd nodes:
     \item Node 3 corresponds to the number ending with binary string ``11''. Multiplying this by 3 and adding 1 results in the binary number ending in ``$y_3y_210$'', which is still $2\Mod{4}$.
 \end{itemize}
 \subsection{Base 4 variants} \label{subsubsec:base4variants}
-We introduced the Base 4 case for nodes because we can prove that we need to visit all of the nodes in this graph. This is equivalent to saying that each of the Collatz Variants, $\ColMod{N}{A}{4}$ terminates for nonempty $A \subseteq \{0,1,2,3\}$, and for any input number $x_i$. 
+We introduced the Base 4 case for nodes because we can prove that we need to visit all of the nodes in this graph. This is equivalent to saying that each of the Collatz Variants, $\ColMod{N}{A}{4}$ terminates for nonempty $A \subseteq \{0,1,2,3\}$, and for any input number $N$. 
 \begin{theorem}
 $\ColMod{N}{A}{4}$ terminates for nonempty $A \subseteq \{0,1,2,3\}$.
 \end{theorem}
 \begin{proof}
-We will start with proving that $\ColMod{N}{\{2\}}{4}$ will terminate for any input number $x_i$, because the 2 node is central to the Base 4 graph.\par
+We will start with proving that $\ColMod{N}{\{2\}}{4}$ will terminate for any input number $N$, because the 2 node is central to the Base 4 graph.\par
 \begin{lemma}
 \label{lem:collatzSubTwoModFour}
-$\ColMod{N}{\{2\}}{4}$ terminates for any $x_i$.
+$\ColMod{N}{\{2\}}{4}$ terminates for any $N$.
 \end{lemma} 
 \begin{proof}
 We use the graph to help in this proof. An equivalent question is this: Can we show that node 2 must be visited for all input numbers? To show that this is the case, we have to show that all other nodes must visit node 2. 
@@ -117,34 +117,34 @@ We use the graph to help in this proof. An equivalent question is this: Can we s
     \item 3: This must, by definition, transition after the $3x+1$ mapping has been applied in one step.
     \item 1 and 0: 1 must transition to 0 after applying the $3x+1$ mapping once. For 0, use Lemma~\ref{lem:zeroCycle} (the ``0 cycle'' lemma) for $b = 4$, and the number will eventually transition to the 2 node.
 \end{itemize}
-Since all other nodes must visit node 2, it means that for all $x_i$, $\ColMod{N}{\{2\}}{4}$ terminates.
+Since all other nodes must visit node 2, it means that for all $N$, $\ColMod{N}{\{2\}}{4}$ terminates.
 \end{proof} \par
 
 \begin{lemma}
 \label{lem:collatzSubOneModFour}
-$\ColMod{N}{\{1\}}{4}$ terminates for any $x_i$.
+$\ColMod{N}{\{1\}}{4}$ terminates for any $N$.
 \end{lemma}
 \begin{proof}
 We use Lemma~\ref{lem:collatzSubTwoModFour} to show that node 2 must be visited, and Lemma~\ref{lem:oneConsumption} to show that the cycle between nodes 2 and 3 cannot continue indefinitely, so node 2 must eventually transition to 1, proving termination of this variant.
 \end{proof}
 \begin{lemma}
 \label{lem:collatzSubZeroModFour}
-$\ColMod{N}{\{0\}}{4}$ terminates for any $x_i$.
+$\ColMod{N}{\{0\}}{4}$ terminates for any $N$.
 \end{lemma}
 \begin{proof}
 Given Lemma~\ref{lem:collatzSubOneModFour}, we know we must visit node 1, and given Lemma~\ref{lem:numOutEdges}, an odd node can only have one outgoing edge, so it must transition to node 0.
 \end{proof}
 \begin{lemma}
 \label{lem:collatzSubThreeModFour}
-$\ColMod{N}{\{3\}}{4}$ terminates for any $x_i$.
+$\ColMod{N}{\{3\}}{4}$ terminates for any $N$.
 \end{lemma}
 \begin{proof}
 Given the ``Even Node Dominance Lemma'',~\ref{lem:EvenDom}, the $2 \rightarrow 1 \rightarrow 0 \rightarrow 2$ cycle cannot continue forever because, if we assume that the 0 node never self-cycles, $2^2 > 3^1$. The 0 self-cycle makes even nodes dominate even more. So either $\ColMod{N}{\{3\}}{4}$ terminates by eventually becoming 1, or the cycle is broken, and the only other node to visit outside this cycle is node 3,  causing $\ColMod{N}{\{3\}}{4}$ to always terminate.
 \end{proof}
-Since all of these lemmas hold, it follows that any singleton set from $A \subseteq \{0,1,2,3\}$ causes $\ColMod{N}{A}{4}$ to terminate. Also, by definition of Algorithm~\ref{alg:ColSP}, any larger size sets for $A$ also terminate as larger set sizes add more termination conditions. So any nonempty set $A$ will cause $\ColMod{N}{A}{4}$ to terminate for any input $x_i$.
+Since all of these lemmas hold, it follows that any singleton set from $A \subseteq \{0,1,2,3\}$ causes $\ColMod{N}{A}{4}$ to terminate. Also, by definition of Algorithm~\ref{alg:ColSP}, any larger size sets for $A$ also terminate as larger set sizes add more termination conditions. So any nonempty set $A$ will cause $\ColMod{N}{A}{4}$ to terminate for any input $N$.
 \end{proof}
 \section{Base 8 Graph and Variants} \label{subsec:base8graphsubpblms}
-We showed that, using the Base 4 graph, $\ColMod{N}{A}{4}$ terminates for any nonempty base set $A$ and input number $x_i$. We decided to see what would happen if we expanded to $k = 3$ bits. We ran into a problem, and could not prove all variants of $\ColMod{N}{A}{8}$. This will motivate further computation undertaken in chapter~\ref{sec:subhrdnspred}, as we try to determine how hard figuring out these unproven variants are. \par
+We showed that, using the Base 4 graph, $\ColMod{N}{A}{4}$ terminates for any nonempty base set $A$ and input number $N$. We decided to see what would happen if we expanded to $k = 3$ bits. We ran into a problem, and could not prove all variants of $\ColMod{N}{A}{8}$ for singleton $A$. This will motivate further computation undertaken in chapter~\ref{sec:subhrdnspred}, as we try to determine how hard figuring out these unproven variants are. \par
 Figure~\ref{fig:base_8_graph} shows the base 8 graph.
 \begin{figure}
     \centering
@@ -189,7 +189,7 @@ Now, the odd nodes. Let $y_3$ and $y_4$ be unknown bits.
     \item Node 5 corresponds to the binary string ``101''. Multiplying this by 3 and adding 1 results in the string ``$y_4y_3000$'', which is $0\Mod{8}$.
     \item Node 7 corresponds to the binary string ``111''. Multiplying this by 3 and adding 1 results in the string ``$y_4y_3110$'', which is $6\Mod{8}$.
 \end{itemize}
-\subsection{Cycle analysis} \label{subsubsec:cycleanalysis}
+\subsection{Base 8 cycle analysis} \label{subsubsec:cycleanalysis}
 Since we do not have proofs for all Collatz Variants of base 8 with singleton $A$, we analyzed whether certain cycles can last indefinitely. Some of these analyses can be used in proving some Collatz Variants, whereas others that are unknown can be tied to variants we have not proven yet.
 \begin{itemize}
     \item The 0 self-cycle, ($0  \rightarrow \ldots$) cannot continue forever, as per Lemma~\ref{lem:zeroCycle}.
@@ -204,28 +204,28 @@ Since we do not have proofs for all Collatz Variants of base 8 with singleton $A
   \begin{proof}
     If we start some number $x$ such that $x \equiv 4\Mod{8}$, and follow the $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 1 \rightarrow 4$ cycle once, we turn $x$ into $(9x+20)/8 = \frac{9}{8}(x+20)-20$. If we were to repeat the cycle $k$ times, we would turn $x$ into $\frac{9}{8}^k(x+20)-20$. This quantity must be an integer for all $k$ if the cycle is to continue forever. However, $x+20$ will only have a finite number of factors of 8, so the cycle must terminate.
   \end{proof}
-  \item Transition allowed between $4 \rightarrow 2$: This creates a conflict between two different cycles: one that causes growth by approximately a factor of $9/8$ ($4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 1 \rightarrow 4$), and another that causes the cycle to decay by a factor of $4/3$ ($4 \rightarrow 2 \rightarrow 1 \rightarrow 4$). Even though we can prove that both of these cycles terminate independently, it has been a challenge to show that the combination of them cannot continue indefinitely, as we cannot prove that one cycle must stop transitioning to the other. Hence, no proof, by hand or machine, is known that we must break out of this combination of cycles, by visiting either node 5 or 7. Naturally, a proof that this cycle must be broken would prove termination of Collatz Variant $\{5,7\}$, which we explore in chapter~\ref{sec:subhrdnspred}.
-  \item Building on the prior point, we can also consider visits to the node 7 as well in this cycle. This adds the $6 \rightarrow 7 \rightarrow 6$ cycle to the already challenging two cycle case. Naturally, if we can't prove that the smaller combination of cycles $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 1 \rightarrow 4$ and $4 \rightarrow 2 \rightarrow 1 \rightarrow 4$ cannot terminate, it would be far more difficult to add a third cycle, even though all three cycles must terminate individually. A proof of this cycle would solve Collatz Variant 5, also explored in chapter~\ref{sec:subhrdnspred}.
+  \item Transition allowed between $4 \rightarrow 2$: This creates a conflict between two different cycles: one that causes growth by approximately a factor of $9/8$ ($4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 1 \rightarrow 4$), and another that causes the cycle to decay by a factor of $4/3$ ($4 \rightarrow 2 \rightarrow 1 \rightarrow 4$). Even though we can prove that both of these cycles terminate independently, it has been a challenge to show that the combination of them cannot continue indefinitely, as we cannot prove that one cycle must stop transitioning to the other. Hence, no proof, by hand or machine, is known that we must break out of this combination of cycles, by visiting either node 5 or 7. A proof that this combination of cycles must be broken would prove termination of Collatz Variant $\{5,7\}$, which we explore in chapter~\ref{sec:subhrdnspred}.
+  \item Building on the prior point, we can also consider visits to the node 7 as well in this cycle. This adds the $6 \rightarrow 7 \rightarrow 6$ cycle to the already challenging two cycle case. If we can't prove that the smaller combination of cycles $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 1 \rightarrow 4$ and $4 \rightarrow 2 \rightarrow 1 \rightarrow 4$ cannot terminate, it would be far more difficult to add a third cycle, even though all three cycles must terminate individually. A proof of this cycle would solve Collatz Variant 5, also explored in chapter~\ref{sec:subhrdnspred}.
 \end{itemize}
 \item $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 5 \rightarrow 0 \rightarrow \ldots \rightarrow 4$ cycle: There are three different variations to showing this cycle cannot continue forever: keeping both nodes 1 and 7 omitted, or omitting one node or the other. Adding in both nodes yields the entire base 8 graph. The variant where both 1 and 7 are omitted is proven, the other two are not.
     \begin{itemize}
         \item Strictly following this cycle, no changes: assuming no zero-cycles, there are 4 distinct even nodes in this cycle, and 2 distinct odd nodes. $2^4 > 3^2$, so according to the ``Even Node Dominiance Lemma'',~\ref{lem:EvenDom}, this cycle cannot continue forever. The nodes that must be visited to break this cycle are either 1 or 7, so this is a proof that Collatz Variant $\{1,7\}$ terminates.
         \item Allowing 7 but avoiding 1: Like variant $\{5,7\}$, we have two conflicting cycles: the $6 \rightarrow 7 \rightarrow 6$ cycle which cause the number to grow by approximately $\frac{3}{2}$ every time it takes this cycle, and the base cycle $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 5 \rightarrow 0 \rightarrow \ldots \rightarrow 4$ that reduces it by approximately $\frac{16}{9}$, depending on number of zero self cycles. These two cycles are interesting in that they clash the fastest growing part of the graph: the $6 \rightarrow 7 \rightarrow 6$ cycle, and the fastest decaying part of the graph: the 0 self-cycle, followed by two more even numbers. We also are not aware of a proof for this case either. Such a proof that these two cycles cannot continue combined forever would be equivalent to proving terminaton of Collatz Variant 1. We present analysis of hardness of this cycle in chapter~\ref{sec:subhrdnspred}.
-        \item Allowing 1 but avoiding 7: Adding back in 1 actually allows for three different cycles: $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 5 \rightarrow 0 \rightarrow \ldots \rightarrow 4$, $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 1 \rightarrow 4$, and $4 \rightarrow 2 \rightarrow 1 \rightarrow 4$.  Finding a proof for this case is expected to be harder than the unsolved two cycle case of $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 1 \rightarrow 4$, and $4 \rightarrow 2 \rightarrow 1 \rightarrow 4$. Solving that the combination of these three cycles must terminate is equivalent to proving termination of Collatz Variant 7.
+        \item Allowing 1 but avoiding 7: Adding back in node 1 but disallowing node 7 actually allows for three different cycles: $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 5 \rightarrow 0 \rightarrow \ldots \rightarrow 4$, $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 1 \rightarrow 4$, and $4 \rightarrow 2 \rightarrow 1 \rightarrow 4$.  Finding a proof for this case is expected to be harder than the unsolved two cycle case of $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 1 \rightarrow 4$, and $4 \rightarrow 2 \rightarrow 1 \rightarrow 4$. Solving that the combination of these three cycles must terminate is equivalent to proving termination of Collatz Variant 7.
     \end{itemize}
 \end{itemize}
 \subsection{Base 8 variants} \label{subsubsec:base8subprob}
-As for which nodes we are forced to visit during the computation of a $3x+1$ sequence, we can prove these four following Collatz Variants 2, 3, 4 and 6 terminate. Variant 0 can be shown to terminate if another unproven variant terminates. It will still be mentioned here. The following will explain how these five variants terminate. We present them in an order to build arguments off of one another.
+As for which nodes we are forced to visit during the computation of a $3x+1$ sequence, we can prove Collatz Variants 2, 3, 4 and 6 terminate, meaning nodes 2, 3, 4, and 6 must be visited in the base 8 graph. Variant 0 can be shown to terminate if another unproven variant terminates. It will still be mentioned here. The following will explain how these five variants terminate. We present them in an order to build arguments off of one another.
 \begin{itemize}
-    \item \textbf{$\boldsymbol{\ColMod{N}{\{6\}}{8}}$:} In the graph, not visiting node $6$, means the Collatz Sequence would have to traverse one of two cycles: $4 \rightarrow 2 \rightarrow 1$ or $4 \rightarrow 2 \rightarrow 5 \rightarrow 0 \rightarrow \ldots \rightarrow 4$, both of which are cycles that cannot continue forever, because of the ``Even Node Dominance Lemma''. Even though some combinations of cycles are difficult to prove, these two are not: since both cycles decay, they must visit another node not in the cycle to cause growth. The only option is node 6. Hence, the combination of these two cycles cannot continue forever, and $\ColMod{N}{\{6\}}{8}$ must terminate.
+    \item \textbf{$\boldsymbol{\ColMod{N}{\{6\}}{8}}$:} In the graph, not visiting node $6$, means the Collatz Sequence would have to traverse one of two cycles: $4 \rightarrow 2 \rightarrow 1$ or $4 \rightarrow 2 \rightarrow 5 \rightarrow 0 \rightarrow \ldots \rightarrow 4$, both of which are cycles that cannot continue forever, because of the ``Even Node Dominance Lemma''. Even though some combinations of cycles are difficult to prove, these two are not: since both cycles decay, they must visit another node not in the cycle to cause growth, or reach 1 and terminate. The only option is node 6. Hence, the combination of these two cycles cannot continue forever, and $\ColMod{N}{\{6\}}{8}$ must terminate.
     \item \textbf{$\boldsymbol{\ColMod{N}{\{3\}}{8}}$:} We know that $\ColMod{N}{\{6\}}{8}$ terminates, so as a result, we know that node 6 must be visited in our base 8 graph.  Given Lemma~\ref{lem:oneConsumption}, the $6 \rightarrow 7 \rightarrow 6$ cycle cannot continue forever. Hence, node 6 must transition to node 3 eventually, meaning $\ColMod{N}{\{3\}}{8}$ must terminate.
     \item \textbf{$\boldsymbol{\ColMod{N}{\{2\}}{8}}$:} Since we know that we must visit node 3, this transitions to node 2, proving $\ColMod{N}{\{2\}}{8}$ must terminate.
-    \item \textbf{$\boldsymbol{\ColMod{N}{\{4\}}{8}}$:} Given that we know we need to visit node 2, we look at the graph and see two possible paths, both which lead to node 4: Either visit node 1 then 4, or visit node 5 then 0. From Lemma~\ref{lem:zeroCycle}, the 0 cycle cannot continue forever, so the path taken must traverse to node 4. Hence, $\ColMod{N}{\{4\}}{8}$ terminates.
+    \item \textbf{$\boldsymbol{\ColMod{N}{\{4\}}{8}}$:} Given that we know we need to visit node 2, we look at the graph and see two possible paths, both which lead to node 4: Either visit node 1 then 4, or visit node 5 then 0. From Lemma~\ref{lem:zeroCycle}, the 0 cycle cannot continue forever, so either way, the path taken must traverse to node 4. Hence, $\ColMod{N}{\{4\}}{8}$ terminates.
     \item \textbf{$\boldsymbol{\ColMod{N}{\{0\}}{8}}$:} In the graph, we can see that to visit node 0, we must come from node 5. So we cannot prove this yet unless we prove termination for $\ColMod{N}{\{5\}}{8}$.
 \end{itemize}
 We do not have proofs for $\ColMod{N}{\{1\}}{8}$, $\ColMod{N}{\{5\}}{8}$, $\ColMod{N}{\{7\}}{8}$, but we can prove a couple of combined variants of them:
 \begin{itemize}
-    \item \textbf{$\boldsymbol{\ColMod{N}{\{1,5\}}{8}}$:} We already know that Collatz Variant 2 must terminate. Looking at the base 8 graph, 2 must traverse to either node 1 or 5. Clearly, $\ColMod{N}{\{1,5\}}{8}$ must terminate.
-    \item \textbf{$\boldsymbol{\ColMod{N}{\{1,7\}}{8}}$:} This was discussed in the prior subsection, but repeated here: Since the $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 5 \rightarrow 0 \rightarrow \ldots \rightarrow 4$ cannot continue forever, either node 1 or 7 must be visited. Hence, $\ColMod{N}{\{1,7\}}{8}$ must terminate.
+    \item \textbf{$\boldsymbol{\ColMod{N}{\{1,5\}}{8}}$:} We already know that Collatz Variant 2 must terminate. Looking at the base 8 graph, 2 must traverse to either node 1 or 5. Hence, $\ColMod{N}{\{1,5\}}{8}$ must terminate.
+    \item \textbf{$\boldsymbol{\ColMod{N}{\{1,7\}}{8}}$:} This was discussed in subsection~\ref{subsubsec:cycleanalysis}, but repeated here: Since the $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 5 \rightarrow 0 \rightarrow \ldots \rightarrow 4$ cannot continue forever, either node 1 or 7 must be visited. Hence, $\ColMod{N}{\{1,7\}}{8}$ must terminate.
 \end{itemize}
 However, the combination $\ColMod{N}{\{5,7\}}{8}$ has not been proven. Hence, we've run some computational experiments to try and better understand the difficulty of coming up with a proof for termination of these variants. 
