@@ -1,5 +1,6 @@
+%THOUGHT: I think it would be far cleaner, instead of the amount of text I threw up into the printed out Thesis, to just go ahead and define both 3x+1 mapping and sequence, but tie them to Algorithm 1, and note the fact that we use 3x+1 mapping and sequence throughout the Thesis (since they are far cleaner than referring to recursive calls).
 \chapter{Definitions} \label{sec:defns}
-We will use the following terms throughout this Thesis:
+We will use the following terms throughout this thesis:
 \begin{itemize}
     \item $\boldsymbol{3x+1}$\textbf{ mapping}: A one step application of $\Col{N}$ to some input number $N$.
     \item $\boldsymbol{3x+1}$\textbf{ sequence}: Define this as follows: 
@@ -11,20 +12,20 @@ We will use the following terms throughout this Thesis:
         \end{cases}
     \end{align*}
     This sequence can continue for arbitrarily large values of $i$, but we are only interested in following the sequence until $x_i$, for some $i$, is 1, as any value after 1 follows the cycle of $1 \rightarrow 4 \rightarrow 2 \rightarrow 1$ infinitely.
-    \item \textbf{Avoidance set $\boldsymbol A$:} The second parameter of Algorithm~\ref{alg:ColSP}, which was defined in the introduction. $A = \{a_1 \ldots a_s\}$ is all of the numbers modulo the positive integer $b$ (the third parameter of Algorithm~\ref{alg:ColSP}) that cause termination of the algorithm. This termination condition is in addition to the sole termination condition of Algorithm~\ref{alg:ColR}: when the input number $N$ is 1. Note that for all $a \in A$, $0 \le a < b$, and $A = \varnothing$ turns Algorithm~\ref{alg:ColSP} into Algorithm~\ref{alg:ColR}.
-    \item \textbf{Collatz Variant:} When we say ``Collatz Variant'' we are referring to Algorithm~\ref{alg:ColSP}, for some positive integer $N$, avoidance set $A$, and positive integer $b$. There are a couple of shorthands we use throughout this Thesis:
+    \item \textbf{Avoidance set $\boldsymbol A$:} The second parameter of Algorithm~\ref{alg:ColSP}, $\ColMod{N}{A}{b}$ which was defined in the introduction. $A = \{a_1 \ldots a_s\}$ is all of the numbers modulo the positive integer $b$ that cause termination of the algorithm. This termination condition is in addition to the sole termination condition of Algorithm~\ref{alg:ColR}: when the input number is 1. Note that for all $a \in A$, $0 \le a < b$, and $A = \varnothing$ turns Algorithm~\ref{alg:ColSP} into Algorithm~\ref{alg:ColR}.
+    \item \textbf{Collatz Variant:} When we say ``Collatz Variant'' we are referring to Algorithm~\ref{alg:ColSP}, for some positive integer $N$, avoidance set $A$, and positive integer $b$. There are a couple of shorthands we use throughout this thesis:
       \begin{itemize}
       \item $\boldsymbol{\ColMod{N}{A}{b}:}$ Parameters are the same as Algorithm~\ref{alg:ColSP}.
-      \item \textbf{Collatz Variant A:} The vast majority of our analysis is when $b = 8$, so when we say Collatz Variant $A$, it is shorthand for $\ColMod{N}{A}{8}$. For singleton sets $A$, we omit the braces normally around sets. We often list several Collatz Variants together, so for instance, if we say Collatz Variants 1, 5, 7, and $\{1,5\}$, we mean the variants $\ColMod{N}{\{1\}}{8}$, $\ColMod{N}{\{5\}}{8}$, $\ColMod{N}{\{7\}}{8}$, and $\ColMod{N}{\{1,5\}}{8}$, respectively.
+      \item \textbf{Collatz Variant A:} The vast majority of our analysis on Collatz Variants is on instances when $b = 8$, so when we say Collatz Variant $A$, it is shorthand for $\ColMod{N}{A}{8}$. For singleton sets $A$, we omit the braces normally around sets. We often list several base 8 instances of Collatz Variants together, so for instance, if we say Collatz Variants 1, 5, 7, and $\{1,5\}$; we mean the variants $\ColMod{N}{\{1\}}{8}$, $\ColMod{N}{\{5\}}{8}$, $\ColMod{N}{\{7\}}{8}$, and $\ColMod{N}{\{1,5\}}{8}$; respectively.
       \end{itemize}
 
-\item \textbf{Number of bits:} For an input number $x$, we say that, written in binary, it has $m$ bits.
+\item \textbf{Number of bits:} For a number $x$, we say that, written in binary, it has $m$ bits.
 \end{itemize}
 We also have definitions for concepts more relevant to their respective chapters. A couple of these terms used more broadly throughout this thesis are mentioned here, along with the respective section they are more clearly defined:
 \begin{itemize}
-\item \textbf{Collatz base $\boldsymbol b$ graph:} Section~\ref{subsec:colgraph}
+\item \textbf{Base $\boldsymbol b$ Collatz Graph:} Section~\ref{subsec:colgraph}
 \item \textbf{Node $\boldsymbol a$:} Section~\ref{subsec:colgraph}
-\item \textbf{Classical Hardness $\boldsymbol {H_C}$:} Section~\ref{subsec:algcomp}
+\item \textbf{Classical hardness $\boldsymbol {H_C}$:} Section~\ref{subsec:algcomp}
 \item \textbf{Collatz String Rewrite System (SRS):} Section~\ref{subsec:CollatzSRS}
 \item \textbf{Collatz Subproblem $\boldsymbol A$:} Section~\ref{subsec:base8rewrite} and ~\ref{subsec:rewritemeasuredefs} 
 \end{itemize}

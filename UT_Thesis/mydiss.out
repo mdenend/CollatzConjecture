@@ -4,39 +4,39 @@
 \BOOKMARK [0][-]{chapter.1}{Chapter 1. Introduction}{}% 4
 \BOOKMARK [0][-]{chapter.2}{Chapter 2. Definitions}{}% 5
 \BOOKMARK [0][-]{chapter.3}{Chapter 3. Alternative Termination Conditions}{}% 6
-\BOOKMARK [1][-]{section.3.1}{Defining a Collatz Base b Graph}{chapter.3}% 7
-\BOOKMARK [1][-]{section.3.2}{Lemmas that hold for any base b Collatz Graph}{chapter.3}% 8
-\BOOKMARK [1][-]{section.3.3}{Base 4 Graph and Variants}{chapter.3}% 9
-\BOOKMARK [2][-]{subsection.3.3.1}{Base 4 graph construction}{section.3.3}% 10
-\BOOKMARK [2][-]{subsection.3.3.2}{Base 4 variants}{section.3.3}% 11
-\BOOKMARK [1][-]{section.3.4}{Base 8 Graph and Variants}{chapter.3}% 12
-\BOOKMARK [2][-]{subsection.3.4.1}{Base 8 graph construction}{section.3.4}% 13
-\BOOKMARK [2][-]{subsection.3.4.2}{Base 8 cycle analysis}{section.3.4}% 14
-\BOOKMARK [2][-]{subsection.3.4.3}{Base 8 variants}{section.3.4}% 15
-\BOOKMARK [0][-]{chapter.4}{Chapter 4. Variant Hardness Prediction}{}% 16
+\BOOKMARK [1][-]{section.3.1}{Base b Collatz Graph Definition}{chapter.3}% 7
+\BOOKMARK [1][-]{section.3.2}{Base b Collatz Graph Lemmas}{chapter.3}% 8
+\BOOKMARK [1][-]{section.3.3}{Base 4 Collatz Graph and Variants}{chapter.3}% 9
+\BOOKMARK [2][-]{subsection.3.3.1}{Base 4 Collatz Graph Construction}{section.3.3}% 10
+\BOOKMARK [2][-]{subsection.3.3.2}{Base 4 Collatz Variants}{section.3.3}% 11
+\BOOKMARK [1][-]{section.3.4}{Base 8 Collatz Graph and Variants}{chapter.3}% 12
+\BOOKMARK [2][-]{subsection.3.4.1}{Base 8 Collatz Graph Construction}{section.3.4}% 13
+\BOOKMARK [2][-]{subsection.3.4.2}{Base 8 Collatz Graph Cycle Analysis}{section.3.4}% 14
+\BOOKMARK [2][-]{subsection.3.4.3}{Base 8 Collatz Variants}{section.3.4}% 15
+\BOOKMARK [0][-]{chapter.4}{Chapter 4. Collatz Variant Hardness Prediction}{}% 16
 \BOOKMARK [1][-]{section.4.1}{Defining Measures}{chapter.4}% 17
-\BOOKMARK [1][-]{section.4.2}{Generating Results}{chapter.4}% 18
-\BOOKMARK [1][-]{section.4.3}{Single Base Avoidance Analysis}{chapter.4}% 19
+\BOOKMARK [1][-]{section.4.2}{Generating Measures}{chapter.4}% 18
+\BOOKMARK [1][-]{section.4.3}{Single Base Collatz Variant Analysis}{chapter.4}% 19
 \BOOKMARK [2][-]{subsection.4.3.1}{Hardness Function Results and Analysis}{section.4.3}% 20
 \BOOKMARK [2][-]{subsection.4.3.2}{Percentage of Sequence Function Results and Analysis}{section.4.3}% 21
-\BOOKMARK [2][-]{subsection.4.3.3}{Sequence similarity analysis}{section.4.3}% 22
+\BOOKMARK [2][-]{subsection.4.3.3}{Sequence Similarity Analysis}{section.4.3}% 22
 \BOOKMARK [1][-]{section.4.4}{Paired Base Avoidance Analysis}{chapter.4}% 23
 \BOOKMARK [2][-]{subsection.4.4.1}{Hardness Function Results and Analysis}{section.4.4}% 24
 \BOOKMARK [2][-]{subsection.4.4.2}{Percentage of Sequence Function Results and Analysis}{section.4.4}% 25
-\BOOKMARK [0][-]{chapter.5}{Chapter 5. Using SAT Solvers with String Rewriting Systems}{}% 26
-\BOOKMARK [1][-]{section.5.1}{SAT Solvers}{chapter.5}% 27
-\BOOKMARK [1][-]{section.5.2}{String Rewrite Systems}{chapter.5}% 28
-\BOOKMARK [1][-]{section.5.3}{The Collatz Conjecture as a rewriting system}{chapter.5}% 29
+\BOOKMARK [0][-]{chapter.5}{Chapter 5. Heule's and Aaronson's Attempts to Prove the Collatz Conjecture}{}% 26
+\BOOKMARK [1][-]{section.5.1}{SAT Solver Background}{chapter.5}% 27
+\BOOKMARK [1][-]{section.5.2}{String Rewrite System and Matrix Interpretation Background}{chapter.5}% 28
+\BOOKMARK [1][-]{section.5.3}{The Collatz Conjecture as a String Rewriting System}{chapter.5}% 29
 \BOOKMARK [1][-]{section.5.4}{Proving Collatz Conjecture Results}{chapter.5}% 30
-\BOOKMARK [0][-]{chapter.6}{Chapter 6. Hardness of Application of Rewrite Rules}{}% 31
-\BOOKMARK [1][-]{section.6.1}{Computation}{chapter.6}% 32
-\BOOKMARK [1][-]{section.6.2}{Estimated rewrite steps needed}{chapter.6}% 33
+\BOOKMARK [0][-]{chapter.6}{Chapter 6. Collatz SRS Analysis}{}% 31
+\BOOKMARK [1][-]{section.6.1}{Simulating the Collatz SRS}{chapter.6}% 32
+\BOOKMARK [1][-]{section.6.2}{Estimated Rewrite Step Additional Factor}{chapter.6}% 33
 \BOOKMARK [1][-]{section.6.3}{Collatz SRS Subproblem Analysis}{chapter.6}% 34
 \BOOKMARK [2][-]{subsection.6.3.1}{Modified Base 8 Rewrite System}{section.6.3}% 35
 \BOOKMARK [2][-]{subsection.6.3.2}{Defining Measures for Subproblem Analysis}{section.6.3}% 36
-\BOOKMARK [2][-]{subsection.6.3.3}{SRR removal analysis}{section.6.3}% 37
-\BOOKMARK [1][-]{section.6.4}{Further SRS rule modifications}{chapter.6}% 38
-\BOOKMARK [2][-]{subsection.6.4.1}{Removing even rule from the Collatz SRS}{section.6.4}% 39
+\BOOKMARK [2][-]{subsection.6.3.3}{Subproblem Hardness Analysis}{section.6.3}% 37
+\BOOKMARK [1][-]{section.6.4}{Further SRS Rule Modifications}{chapter.6}% 38
+\BOOKMARK [2][-]{subsection.6.4.1}{Odd Collatz SRS}{section.6.4}% 39
 \BOOKMARK [2][-]{subsection.6.4.2}{Change in Rewrite Steps}{section.6.4}% 40
 \BOOKMARK [0][-]{chapter.7}{Chapter 7. Conclusion}{}% 41
 \BOOKMARK [0][-]{chapter*.4}{Bibliography}{}% 42
