@@ -41,6 +41,7 @@
 				% Makediss for the last time.
 
 %The Rest of these are packages that I need for my thesis.
+\usepackage{soul}
 \usepackage{hyperref}
 \usepackage{amsfonts}
 \usepackage{graphicx}
@@ -329,8 +330,8 @@ Most of all, I am so thankful that I had such a loving, caring mother. She told 
 \index{Abstract}%
 \indent
 %Should not exceed 350 words. Looks like I have a good amount.
-The Collatz Conjecture (also known as the $3x+1$ problem) is simple to explain, yet proving that all positive integers following the Collatz Mapping must converge to 1 has eluded mathematicians for over half a century. Aaronson and Heule are exploring solving the Collatz Conjecture using an approach involving string rewrite systems: Aaronson transformed the Conjecture into a string rewrite system and Heule applied parallel SAT solvers on instances of this system. Similar approaches have been applied successfully to other mathematical problems.\par
-We started looking into simpler, but also challenging variants of the conjecture. This thesis defines some of these variants and investigates easily provable as well as very hard variants. We study the hardness of unsolved variants by computing the number of rewrite steps needed up to 1 billion. Our hardness prediction method suggests that proving termination of the challenging variants should be considerably easier compared to solving the original conjecture.
+The Collatz Conjecture (also known as the $3N+1$ problem) is simple to explain, yet proving that all positive integers following the Collatz Mapping must converge to 1 has eluded mathematicians for over half a century. Aaronson and Heule are exploring solving the Collatz Conjecture using an approach involving string rewrite systems: Aaronson transformed the Conjecture into a string rewrite system and Heule \hl{has been applying} parallel SAT solvers on instances of this system. Similar approaches have been applied successfully to other mathematical problems.\par
+\hl{We started looking into simpler variants of the conjecture}. This thesis defines some of these variants and investigates easily provable as well as very hard variants. We study the hardness of unsolved variants by computing the number of rewrite steps needed up to 1 billion. Our hardness prediction method suggests that proving termination of the challenging variants should be considerably easier compared to solving the original conjecture.
 \tableofcontents   % Table of Contents will be automatically
                    % generated and placed here.
 
