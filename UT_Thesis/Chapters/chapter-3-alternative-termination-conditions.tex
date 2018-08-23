@@ -1,14 +1,7 @@
 \chapter{Alternative Termination Conditions} \label{sec:alttercdns}
  This chapter explores some of the possible Collatz Variants. Before we investigate them, we define a graph paradigm that transforms the $3N+1$ problem into directed graphs that depict the flow for all input numbers modulo base $b$, where $b$ is a power of 2. Using this paradigm, we can show that some variants are easily provable. However, others are not.
 \section{Base \textit{b} Collatz Graph Definition} \label{subsec:colgraph}
-Define $G_b=(V,E)$ to be a ``Base $b$ Collatz Graph'', where $b = 2^k$, and $k$ is nonnegative. Choosing a power of 2 for $b$ allows us to easily reason with binary numbers, which is useful for both several proofs in this chapter and the Collatz SRS that we will discuss starting in Chapter~\ref{sec:SRSandSAT}. \hl{$V$ has $b$ vertices in it, where each vertex is labeled a unique integer in the interval $[0, b-1]$. We say that a number $N$ is visiting vertex $v \in V$ if and only if $N \equiv v \Mod{b}$ for vertex $v$ labeled with integer $v$. Out of convenience, note that we use $v$ as a vertex and integer interchangeably in this paper. %\par
-
-%, when we refer to vertex $v$, we are referring both to the vertex $v \in V$, and a number $v$, such that $N$ visiting the vertex labelled $v$ means $N \equiv v \Mod{b}$.
-
-% We often use the vertex label $v$ and numbers interchangeably, so if we say ``node $v$'', we are talking about $v \Mod{b}$ and the vertex $v \in V$ interchangeably. This is done out of conveneince.
-%This thesis uses the term ``node $v$'' as shorthand to correspond to the number $v$ in $v \Mod{b}$, as opposed to ``vertex $v$'' which corresponds to the actual vertex of the graph. 
-
-Let $N$ be an input number, and $N_1$ the result of applying the $3N+1$ mapping to $N$. $E = V \times V$ is a set of directed edges, where, for nodes $u, v \in V$, $(u,v) \in E$ if and only if $N_i \equiv u \Mod{b}$ and $N_{i+1} \equiv v \Mod{b}$ for some $N$ and $N_1$.}
+Define $G_b=(V,E)$ to be a ``Base $b$ Collatz Graph'', where $b = 2^k$, and $k$ is nonnegative. Choosing a power of 2 for $b$ allows us to easily reason with binary numbers, which is useful for both several proofs in this chapter and the Collatz SRS that we will discuss starting in Chapter~\ref{sec:SRSandSAT}. $V$ has $b$ vertices in it, where each vertex is labeled a unique integer in the interval $[0, b-1]$. We say that a number $N$ is visiting vertex $v \in V$ if and only if $N \equiv v \Mod{b}$ for vertex $v$ labeled with integer $v$. Out of convenience, note that we use $v$ as a vertex and integer interchangeably in this paper. Let $N$ be an input number, and $N_1$ the result of applying the $3N+1$ mapping to $N$. $E = V \times V$ is a set of directed edges, where, for nodes $u, v \in V$, $(u,v) \in E$ if and only if $N_i \equiv u \Mod{b}$ and $N_{i+1} \equiv v \Mod{b}$ for some $N$ and $N_1$.
 
 \section{Base \textit{b} Collatz Graph Lemmas}
 This section contains some lemmas that are used throughout this chapter. First, we start with a lemma about the number of node transitions in any Collatz Base $b$ Graph $G_b$.
@@ -17,8 +10,8 @@ This section contains some lemmas that are used throughout this chapter. First, 
 Given a Collatz Base $b$ Graph, for all $v \in V$, if node $v$ is even, then it has two outgoing edges. Otherwise, if node $v$ is odd, then it has only one outgoing edge.
 \end{lemma}
 \begin{proof}
-\hl{Take some number $N$ that is visiting node $v$, and consider $N$ in binary. First, let us consider the case where node $v$ is even. When we divide by 2, we just remove the lowest 0 bit from $N$ to get $N_{1}$. The bit at index $k-1$ of $N_{1}$ can be either a 0 or a 1, allowing for two options for even nodes. \par
-Now, let $N$ visit an odd node $v$. Multiplying $N$ by 3 and adding 1 will give us a $N_1$ where the binary string for it grows at least one bit longer than $N$, since $3\cdot N = 2 \cdot N + N$, and $2N$ in binary is shifting the bits of $N$ one index to the left, then adding a 0 bit to the least significant bit. This gives us only one option for the least significant $k$ bits, meaning $N_1$ can only visit one node, and only one such outgoing edge from $v$ exists.}
+Take some number $N$ that is visiting node $v$, and consider $N$ in binary. First, let us consider the case where node $v$ is even. When we divide by 2, we just remove the lowest 0 bit from $N$ to get $N_{1}$. The bit at index $k-1$ of $N_{1}$ can be either a 0 or a 1, allowing for two options for even nodes. \par
+Now, let $N$ visit an odd node $v$. Multiplying $N$ by 3 and adding 1 will give us a $N_1$ where the binary string for it grows at least one bit longer than $N$, since $3\cdot N = 2 \cdot N + N$, and $2N$ in binary is shifting the bits of $N$ one index to the left, then adding a 0 bit to the least significant bit. This gives us only one option for the least significant $k$ bits, meaning $N_1$ can only visit one node, and only one such outgoing edge from $v$ exists.
 \end{proof}
 Now, we have a couple of important properties about cycles that exist in any Collatz Base $b$ Graph, and the fact that these cycles cannot continue indefinitely. First, we introduce the ``0 cycle'' lemma.
 \begin{lemma}
@@ -37,7 +30,7 @@ Now, we introduce another important lemma about cycles: the fact that we will al
 \begin{proof}
 In this proof, we will show first that a $b-1 \rightarrow b-2 \rightarrow b-1$ cycle exists, and second, that this cycle cannot continue indefinitely; more precisely, that some number congruent modulo to $b-2 \Mod{b}$, after division by 2, actually becomes congruent modulo to $b/2-1 \Mod{b}$ instead. We will prove this using long multiplication in binary. \par
 %x NEEDS to remain x here, make it equal to some number N
-Let $x$ be a arbitrary number\footnote{\hl{Normally, we use the notation $N$ to denote an arbitrary number in the $3N+1$ sequence, but we mean $N_i$ to mean the $i$\textsuperscript{th} number in the $3N+1$ sequence, whereas in this proof, we have $x_j$ to denote the $j$\textsuperscript{th} bit of $x$. Hence, we use variables $x$ and $y$ instead of $N$ and $N_1$.}} congruent modulo to $b-1 \Mod{b}$. We want to express $x$ in binary, so let $x$ have $m$ bits. We know that since $x$ is congruent modulo to $b-1 \Mod{b}$, all bits from indices 0 to $k-1$ are 1. Let $x_j$ denote the $j$\textsuperscript{th} bit of $x$, $k \leq j \leq m$. These bits are unknown. Let $1_{+1}$ correspond to the adding of 1 after multiplying by 3, which is added to the least significant bit of $x$. Let $c_j$ denote the unknown carry for the $j$\textsuperscript{th} addition of bits. Let $y$ be the result after $3x+1$ is computed, and let index $j$ of $y$ be the same index as $x$. The multiplication is referenced in Figure~\ref{fig:mul}. \par
+Let $x$ be a arbitrary number\footnote{Normally, we use the notation $N$ to denote an arbitrary number in the $3N+1$ sequence, but we mean $N_i$ to mean the $i$\textsuperscript{th} number in the $3N+1$ sequence, whereas in this proof, we have $x_j$ to denote the $j$\textsuperscript{th} bit of $x$. Hence, we use variables $x$ and $y$ instead of $N$ and $N_1$.} congruent modulo to $b-1 \Mod{b}$. We want to express $x$ in binary, so let $x$ have $m$ bits. We know that since $x$ is congruent modulo to $b-1 \Mod{b}$, all bits from indices 0 to $k-1$ are 1. Let $x_j$ denote the $j$\textsuperscript{th} bit of $x$, $k \leq j \leq m$. These bits are unknown. Let $1_{+1}$ correspond to the adding of 1 after multiplying by 3, which is added to the least significant bit of $x$. Let $c_j$ denote the unknown carry for the $j$\textsuperscript{th} addition of bits. Let $y$ be the result after $3x+1$ is computed, and let index $j$ of $y$ be the same index as $x$. The multiplication is referenced in Figure~\ref{fig:mul}. \par
 \begin{figure}
 \begin{tabular}{*{16}c}%{c*{15}{@{\,}c}}
  & & $ x_{n}$  & $ x_{n-1}$  & \ldots & $ x_{j+1}$  & $ x_{j}$  & \ldots & $ x_{k+1}$  & $ x_{k}$  & 1 & 1 & \ldots & 1 & 1 & 1 \\
@@ -68,7 +61,7 @@ We introduce one more lemma that shows that cycles where the magnitude of divisi
 Given a cycle in any Collatz Base $b$ Graph $G$, let $V_{e}$ be the set of even nodes in the cycle, and $V_{o}$ be the set of odd nodes. If $2^{|V_e|} > 3^{|V_o|}$, then the cycle cannot continue indefinitely.
 \end{lemma}
 \begin{proof}
-Let $2^{|V_e|} > 3^{|V_o|}$ \hl{and $j=|V_e| + |V_o|$. Let $N$ be visiting a node $v$ in the cycle, and assume $N$ will run through the cycle at least once without terminating, implying no number between $N$ and $N_j$ inclusive is 1, and that $N_j$ visits the same node $v$ as $N$ did.} We visited $|V_e|$ vertices in the cycle, so we divided $N$ by $2^{|V_e|}$ after one trip around the cycle. We also visited $|V_o|$ vertices in the cycle, each time multiplying by 3, and overall, multiplied $N$ by about $3^{|V_o|}$.\footnote{We also added one each time we visit an odd node, but this is asymptotically insignificant compared to multiplying by 3 or dividing by 2, so we ignore it in this proof.}\par
+Let $2^{|V_e|} > 3^{|V_o|}$ and $j=|V_e| + |V_o|$. Let $N$ be visiting a node $v$ in the cycle, and assume $N$ will run through the cycle at least once without terminating, implying no number between $N$ and $N_j$ inclusive is 1, and that $N_j$ visits the same node $v$ as $N$ did. We visited $|V_e|$ vertices in the cycle, so we divided $N$ by $2^{|V_e|}$ after one trip around the cycle. We also visited $|V_o|$ vertices in the cycle, each time multiplying by 3, and overall, multiplied $N$ by about $3^{|V_o|}$.\footnote{We also added one each time we visit an odd node, but this is asymptotically insignificant compared to multiplying by 3 or dividing by 2, so we ignore it in this proof.}\par
 Hence, after we visited the cycle once, we computed $N_{j} \approx \frac{3^{|V_o|}}{2^{|V_e|}}N$. Since $2^{|V_e|} > 3^{|V_o|}$, $N_{j} < N$. Therefore, one of two things must happen:
 \begin{enumerate}
 \item $N$ eventually becomes 1, which means the cycle no longer can be repeated.
@@ -77,9 +70,9 @@ Hence, after we visited the cycle once, we computed $N_{j} \approx \frac{3^{|V_o
 In both cases, the cycle cannot continue indefinitely.
 \end{proof}
 \section{Base 4 Collatz Graph and Variants} \label{subsec:base4graph}
-\hl{In this section, we build a simple example of a Base $b$ Collatz Graph:  $G_4$. We chose $G_4$ because we can prove that $\ColMod{N}{A}{4}$ terminates for any nonempty $A \subseteq \{0,1,2,3\}$. In $G_4$, there are 4 different nodes: one for each integer between 0 and 3. When determining which node $v$ input number $N$ visits, we look at the lowest 2 bits of $N$, since $4= 2^2$. For example, $N \equiv 0\Mod{4}$ has 00 as the 2 least significant bits, whereas $N \equiv 2\Mod{4}$ has 10 as its 2 least significant bits.}
+In this section, we build a simple example of a Base $b$ Collatz Graph:  $G_4$. We chose $G_4$ because we can prove that $\ColMod{N}{A}{4}$ terminates for any nonempty $A \subseteq \{0,1,2,3\}$. In $G_4$, there are 4 different nodes: one for each integer between 0 and 3. When determining which node $v$ input number $N$ visits, we look at the lowest 2 bits of $N$, since $4= 2^2$. For example, $N \equiv 0\Mod{4}$ has 00 as the 2 least significant bits, whereas $N \equiv 2\Mod{4}$ has 10 as its 2 least significant bits.
  \subsection{Base 4 Collatz Graph Construction} \label{subsubsec:proofbase4graph}
-Figure~\ref{fig:base_4_graph} shows \hl{$G_4$. We describe the construction in this subsection. We start by describing the transitions for even nodes, then the transitions for odd nodes. Assume, in all cases, that a number $N$ is written in binary. First, the transitions for even nodes:}
+Figure~\ref{fig:base_4_graph} shows $G_4$. We describe the construction in this subsection. We start by describing the transitions for even nodes, then the transitions for odd nodes. Assume, in all cases, that a number $N$ is written in binary. First, the transitions for even nodes:
 \begin{figure}
     \centering
     \begin{tikzpicture}
@@ -99,13 +92,13 @@ Figure~\ref{fig:base_4_graph} shows \hl{$G_4$. We describe the construction in t
 \end{figure}
 
 \begin{itemize}
-    \item \hl{$N$ visiting node 0 means $N$ ends with binary string ``00''. Removing the last 0 bit of $N$ leaves either ``00'', meaning $N_1$ visits node 0 again, or ``10'', meaning $N_1$ visits node 2 instead.} 
-    \item \hl{$N$ visiting node 2 means $N$ ends with binary string ``10''. Removing the last 0 bit of $N$ leaves either ``01'', meaning $N_1$ visits node 1, or ``11'', meaning $N_1$ visits node 3.}
+    \item $N$ visiting node 0 means $N$ ends with binary string ``00''. Removing the last 0 bit of $N$ leaves either ``00'', meaning $N_1$ visits node 0 again, or ``10'', meaning $N_1$ visits node 2 instead.
+    \item $N$ visiting node 2 means $N$ ends with binary string ``10''. Removing the last 0 bit of $N$ leaves either ``01'', meaning $N_1$ visits node 1, or ``11'', meaning $N_1$ visits node 3.
 \end{itemize}
 Now, the transitions for odd nodes. Let $x_2$ and $x_3$ be unknown bits:
 \begin{itemize}
-    \item \hl{$N$ visiting node 1 means $N$ ends with binary string ``01''.  Multiplying this by 3 and adding 1 results in $N_1$ ending with ``$x_200$'', so $N_1$ visits node 0.}
-    \item \hl{$N$ visiting node 3 means $N$ ends with binary string ``11''.  Multiplying this by 3 and adding 1 results in $N_1$ ending with ``$x_3x_210$'', so $N_1$ visits node 2.}
+    \item $N$ visiting node 1 means $N$ ends with binary string ``01''.  Multiplying this by 3 and adding 1 results in $N_1$ ending with ``$x_200$'', so $N_1$ visits node 0.
+    \item $N$ visiting node 3 means $N$ ends with binary string ``11''.  Multiplying this by 3 and adding 1 results in $N_1$ ending with ``$x_3x_210$'', so $N_1$ visits node 2.
 \end{itemize}
 \subsection{Base 4 Collatz Variants} \label{subsubsec:base4variants}
 We introduced the Base 4 case for nodes because we can prove that we need to visit all of the nodes in this graph, which is equivalent to saying that each of the Collatz Variants, $\ColMod{N}{A}{4}$ terminates for nonempty $A \subseteq \{0,1,2,3\}$, and for any input number $N$. 
@@ -113,7 +106,7 @@ We introduced the Base 4 case for nodes because we can prove that we need to vis
 $\ColMod{N}{A}{4}$ terminates for nonempty $A \subseteq \{0,1,2,3\}$.
 \end{theorem}
 \begin{proof}
-\hl{Assume that no $3N+1$ sequence described in this proof reaches 1, otherwise $\ColMod{N}{A}{4}$ terminates trivially for any $A$.} We will start with proving that $\ColMod{N}{\{2\}}{4}$ will terminate for any input number $N$, because the 2 node is central to the Base 4 graph.  \par
+Assume that no $3N+1$ sequence described in this proof reaches 1, otherwise $\ColMod{N}{A}{4}$ terminates trivially for any $A$. We will start with proving that $\ColMod{N}{\{2\}}{4}$ will terminate for any input number $N$, because the 2 node is central to the Base 4 graph.  \par
 \begin{lemma}
 \label{lem:collatzSubTwoModFour}
 $\ColMod{N}{\{2\}}{4}$ terminates for any $N$.
@@ -121,9 +114,9 @@ $\ColMod{N}{\{2\}}{4}$ terminates for any $N$.
 \begin{proof}
 We use the graph to help in this proof. An equivalent question is this: Can we show that node 2 must be visited for all input numbers? To show that this is the case, we have to show that all other nodes must visit node 2.
 \begin{itemize}
-    \item 2: \hl{If the input number $N$ is visiting node 2, we are already done.}
-    \item 3: \hl{If the input number $N$ is visiting node 3, then after the $3N+1$ mapping is applied to $N$, $N_1$ is now visiting node 2.}
-    \item 1 and 0: \hl{Let $N$ be visiting node 1. $N_1$ visits node 0 after applying the $3N+1$ mapping once. To show $N_{1+j}$ must leave node 0}, we use lemma~\ref{lem:zeroCycle} (the ``0 cycle'' lemma) for $b = 4$, \hl{and $N_{1+j}$ will visit node 2 after $j$ more applications of the $3N+1$ mapping, both causing $\ColMod{N}{\{2\}}{4}$ to terminate.}
+    \item 2: If the input number $N$ is visiting node 2, we are already done.
+    \item 3: If the input number $N$ is visiting node 3, then after the $3N+1$ mapping is applied to $N$, $N_1$ is now visiting node 2.
+    \item 1 and 0: Let $N$ be visiting node 1. $N_1$ visits node 0 after applying the $3N+1$ mapping once. To show $N_{1+j}$ must leave node 0, we use lemma~\ref{lem:zeroCycle} (the ``0 cycle'' lemma) for $b = 4$, and $N_{1+j}$ will visit node 2 after $j$ more applications of the $3N+1$ mapping, both causing $\ColMod{N}{\{2\}}{4}$ to terminate.
 \end{itemize}
 Since all other nodes must visit node 2, it means that for all $N$, $\ColMod{N}{\{2\}}{4}$ terminates.
 \end{proof} \par
@@ -133,7 +126,7 @@ Since all other nodes must visit node 2, it means that for all $N$, $\ColMod{N}{
 $\ColMod{N}{\{1\}}{4}$ terminates for any $N$.
 \end{lemma}
 \begin{proof}
-We use lemma~\ref{lem:collatzSubTwoModFour} \hl{to show that node 2 must be visited, meaning that for any input number $N$, $N_i \equiv 2 \Mod{4}$ after $i$ steps. Then we use lemma}~\ref{lem:oneConsumption} \hl{to show that the cycle between nodes 2 and 3 cannot continue indefinitely, so after $j$ more steps, $N_{i+j}$ visits node 1, proving termination of this variant.}
+We use lemma~\ref{lem:collatzSubTwoModFour} to show that node 2 must be visited, meaning that for any input number $N$, $N_i \equiv 2 \Mod{4}$ after $i$ steps. Then we use lemma~\ref{lem:oneConsumption} to show that the cycle between nodes 2 and 3 cannot continue indefinitely, so after $j$ more steps, $N_{i+j}$ visits node 1, proving termination of this variant.
 \end{proof}
 \begin{lemma}
 \label{lem:collatzSubZeroModFour}
@@ -147,7 +140,7 @@ Given lemma~\ref{lem:collatzSubOneModFour}, we know after $i$ steps $N_i$ must v
 $\ColMod{N}{\{3\}}{4}$ terminates for any $N$.
 \end{lemma}
 \begin{proof}
-Given the ``even node dominance lemma'',~\ref{lem:EvenDom}, \hl{the $2 \rightarrow 1 \rightarrow 0 \rightarrow \ldots \rightarrow 2$ cycle cannot continue forever because, if we assume that the 0 node never self-cycles, $2^2 > 3^1$. The 0 self-cycle makes even nodes dominate even more. So an input number $N$ in the $2 \rightarrow 1 \rightarrow 0 \rightarrow \ldots \rightarrow 2$ cycle must, after $i$ steps, visit node 3, causing $\ColMod{N}{\{3\}}{4}$ to terminate.}
+Given the ``even node dominance lemma'',~\ref{lem:EvenDom}, the $2 \rightarrow 1 \rightarrow 0 \rightarrow \ldots \rightarrow 2$ cycle cannot continue forever because, if we assume that the 0 node never self-cycles, $2^2 > 3^1$. The 0 self-cycle makes even nodes dominate even more. So an input number $N$ in the $2 \rightarrow 1 \rightarrow 0 \rightarrow \ldots \rightarrow 2$ cycle must, after $i$ steps, visit node 3, causing $\ColMod{N}{\{3\}}{4}$ to terminate.
 \end{proof}
 Since all of these lemmas hold, it follows that any singleton set from $A \subseteq \{0,1,2,3\}$ causes $\ColMod{N}{A}{4}$ to terminate. Also, by definition of Algorithm~\ref{alg:ColSP}, any larger size sets for $A$ also terminate as larger set sizes add more termination conditions. So any nonempty set $A$ will cause $\ColMod{N}{A}{4}$ to terminate for any input $N$.
 \end{proof}
@@ -182,7 +175,7 @@ After proving $\ColMod{N}{A}{4}$ terminates for any nonempty base set $A$ and in
 \end{figure}
 
 \subsection{Base 8 Collatz Graph Construction} \label{subsubsec:base8proof}
-Like $G_4$ before, we show how to construct $G_8$. We examine the even nodes first. In this case, there are four different nodes: 0, 2, 4, and 6. Using lemma~\ref{lem:numOutEdges}, each vertex has two different transitions, depending on what the next bit to the left of the 3 bits after removing the least significant 0. % \item \hl{$N$ visiting node 2 means $N$ ends with binary string ``10''. Removing the last 0 bit of $N$ leaves either ``01'', meaning $N_1$ visits node 1, or ``11'', meaning $N_1$ visits node 3.}
+Like $G_4$ before, we show how to construct $G_8$. We examine the even nodes first. In this case, there are four different nodes: 0, 2, 4, and 6. Using lemma~\ref{lem:numOutEdges}, each vertex has two different transitions, depending on what the next bit to the left of the 3 bits after removing the least significant 0. 
 
 
 \begin{itemize}
@@ -192,7 +185,7 @@ Like $G_4$ before, we show how to construct $G_8$. We examine the even nodes fir
     \item $N$ visiting node 6 means $N$ ends with binary string ``110''. Removing the last 0 bit leaves either ``011'',  meaning $N_1$ visits node 3, or ``111'',  meaning $N_1$ visits node 7.
 \end{itemize}
 Now, the odd nodes. Let $x_3$ and $x_4$ be unknown bits.
-%    \item \hl{$N$ visiting node 1 means $N$ ends with binary string ``01''.  Multiplying this by 3 and adding 1 results in $N_1$ ending with ``$x_200$'', so $N_1$ visits node 0.}
+%    \item $N$ visiting node 1 means $N$ ends with binary string ``01''.  Multiplying this by 3 and adding 1 results in $N_1$ ending with ``$x_200$'', so $N_1$ visits node 0.
 \begin{itemize}
     \item $N$ visiting node 1 means $N$ ends with binary string ``001''. Multiplying this by 3 and adding 1 results in $N_1$ ending with ``$100$'', so $N_1$ visits node 4.
     \item $N$ visiting node 3 means $N$ ends with binary string ``011''. Multiplying this by 3 and adding 1 results in $N_1$ ending with ``$x_3010$'',  so $N_1$ visits node 2.
@@ -200,13 +193,13 @@ Now, the odd nodes. Let $x_3$ and $x_4$ be unknown bits.
     \item $N$ visiting node 7 means $N$ ends with binary string ``111''. Multiplying this by 3 and adding 1 results in $N_1$ ending with ``$x_4x_3110$'', so $N_1$ visits node 6.
 \end{itemize}
 \subsection{Base 8 Collatz Graph Cycle Analysis} \label{subsubsec:cycleanalysis}
-Since we do not have proofs for all Collatz Variants $\ColMod{N}{A}{8}$, we analyzed whether certain cycles can last indefinitely. \hl{We have found that all simple cycles of $G_8$ can be proven to not last indefinitely. However, showing that some combinations of these simple cycles cannot continue forever is much more difficult to do.}\par
-\hl{We tie in interesting Collatz Variants to these analyses. We start with smaller cycles and work our way into longer cycles, as well as combinations of them.}
+Since we do not have proofs for all Collatz Variants $\ColMod{N}{A}{8}$, we analyzed whether certain cycles can last indefinitely. We have found that all simple cycles of $G_8$ can be proven to not last indefinitely. However, showing that some combinations of these simple cycles cannot continue forever is much more difficult to do.\par
+We tie in interesting Collatz Variants to these analyses. We start with smaller cycles and work our way into longer cycles, as well as combinations of them.
 \begin{itemize}
     \item The 0 self-cycle, ($0  \rightarrow \ldots$) cannot continue forever, as per lemma~\ref{lem:zeroCycle}.
     \item The $6 \rightarrow 7 \rightarrow 6$ cycle cannot continue forever as per lemma~\ref{lem:oneConsumption}.
     \item The $4 \rightarrow 2 \rightarrow 1 \rightarrow 4$ cycle cannot continue forever, as even nodes dominate ($2^2 > 3$), so according to lemma~\ref{lem:EvenDom}, this cycle cannot last forever.
-    \item $4 \rightarrow 2 \rightarrow 5 \rightarrow 0  \rightarrow \ldots \rightarrow 4$ cycle:  Even nodes dominate, even without any 0 self-cycles ($2^3 > 3$), so according to lemma~\ref{lem:EvenDom}, this cycle cannot continue forever. \hl{We can also combine this cycle with the $4 \rightarrow 2 \rightarrow 1 \rightarrow 4$ cycle, and since both cycles cause input numbers to decrease, the combination of these two cycles must visit a new node to prevent the number from converging to 1. The only other choice is node 6, so this argument is used to prove Collatz Variant 6 must terminate.}
+    \item $4 \rightarrow 2 \rightarrow 5 \rightarrow 0  \rightarrow \ldots \rightarrow 4$ cycle:  Even nodes dominate, even without any 0 self-cycles ($2^3 > 3$), so according to lemma~\ref{lem:EvenDom}, this cycle cannot continue forever. We can also combine this cycle with the $4 \rightarrow 2 \rightarrow 1 \rightarrow 4$ cycle, and since both cycles cause input numbers to decrease, the combination of these two cycles must visit a new node to prevent the number from converging to 1. The only other choice is node 6, so this argument is used to prove Collatz Variant 6 must terminate.
     \item $4 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 1 \rightarrow 4$ cycle: There are three different variations of this cycle. We have a proof for only one of them:
 \begin{itemize}
   \item No transition allowed from $4 \rightarrow 2$: The following theorem explains this case.
@@ -226,9 +219,9 @@ Since we do not have proofs for all Collatz Variants $\ColMod{N}{A}{8}$, we anal
     \end{itemize}
 \end{itemize}
 \subsection{Base 8 Collatz Variants} \label{subsubsec:base8subprob}
-As for which nodes we are forced to visit during the computation of a $3N+1$ sequence, we can prove Collatz Variants 2, 3, 4 and 6 terminate, meaning nodes 2, 3, 4, and 6 must be visited in the base 8 graph eventually. Variant 0 can be shown to terminate if another unproven variant terminates. It will still be mentioned with the already proven variants. The following will explain how these five variants terminate. We present them in an order to build arguments off of one another. \hl{Like the proofs for Base 4 Collatz Variants, assume that no $3N+1$ sequence described in this proof reaches 1, otherwise $\ColMod{N}{A}{8}$ terminates trivially for any $A$.}
+As for which nodes we are forced to visit during the computation of a $3N+1$ sequence, we can prove Collatz Variants 2, 3, 4 and 6 terminate, meaning nodes 2, 3, 4, and 6 must be visited in the base 8 graph eventually. Variant 0 can be shown to terminate if another unproven variant terminates. It will still be mentioned with the already proven variants. The following will explain how these five variants terminate. We present them in an order to build arguments off of one another. Like the proofs for Base 4 Collatz Variants, assume that no $3N+1$ sequence described in this proof reaches 1, otherwise $\ColMod{N}{A}{8}$ terminates trivially for any $A$.
 \begin{itemize}
-    \item \textbf{$\boldsymbol{\ColMod{N}{\{6\}}{8}}$:} \hl{Like in the Collatz Base 4 Graph, we have to show that all other nodes must visit node 6 eventually. There are several different cases we enumerate here:}
+    \item \textbf{$\boldsymbol{\ColMod{N}{\{6\}}{8}}$:} Like in the Collatz Base 4 Graph, we have to show that all other nodes must visit node 6 eventually. There are several different cases we enumerate here:
 \begin{enumerate}
 \item $N$ visits node 6. We are already done.
 \item $N$ visits node 7. Then after one application of the $3N+1$ mapping, $N_1$ visits node 6.
