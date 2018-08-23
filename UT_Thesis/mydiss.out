@@ -30,7 +30,7 @@
 \BOOKMARK [1][-]{section.5.4}{Proving Collatz Conjecture Results}{chapter.5}% 30
 \BOOKMARK [0][-]{chapter.6}{Chapter 6. Collatz SRS Analysis}{}% 31
 \BOOKMARK [1][-]{section.6.1}{Simulating the Collatz SRS}{chapter.6}% 32
-\BOOKMARK [1][-]{section.6.2}{Estimated Rewrite Step Additional Factor}{chapter.6}% 33
+\BOOKMARK [1][-]{section.6.2}{Determining Extra Steps the Collatz SRS Adds}{chapter.6}% 33
 \BOOKMARK [1][-]{section.6.3}{Collatz SRS Subproblem Analysis}{chapter.6}% 34
 \BOOKMARK [2][-]{subsection.6.3.1}{Modified Base 8 Rewrite System}{section.6.3}% 35
 \BOOKMARK [2][-]{subsection.6.3.2}{Defining Measures for Subproblem Analysis}{section.6.3}% 36

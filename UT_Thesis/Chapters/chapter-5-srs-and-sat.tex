@@ -14,8 +14,10 @@ An example SRS to explain further is given.\par\noindent
 A problem, called Zantema's Other Problem~\cite{Hofbauer:2006:TA:1142725.1711178}, using SRS A, asks the following question:\par\noindent
 \textbf{Zantema's Other Problem:}
 Does the system laid out in SRS $A$ terminate for any input string $(a|b|c)*$?\par
-If one thinks about this problem a little, it would seem that a proof should be easy to show.  Surprisingly, both humans and computers struggled to come up with a proof for this problem when initially presented.  However, Hofbauer and Waldmann came up with a proof~\cite{Hofbauer:2006:TA:1142725.1711178}, and from this, found that, for any rewriting rules in any rewrite system, if they are transformed into functions that causes all inputs to decrease, then the rewrite system will terminate.~\cite{Hofbauer2006}. \par
-These functions are typically built with matrices. A SAT solver can check if a $d \times d$ matrix is large enough to ensure that the matrix functions for the set of rewrite rules always decrease for all inputs. The process of building these matrices is described in a paper by Endrullis, Waldmann and Zantema~\cite{Endrullis2006}. An example using Zantema's Other Problem will be explained here. The matrices computed by SAT from ~\cite{Hofbauer:2006:TA:1142725.1711178} are the following:
+If one thinks about this problem a little, it would seem that a proof should be easy to show.  Surprisingly, both humans and computers struggled to come up with a proof for this problem when initially presented.  However, Hofbauer and Waldmann came up with a proof~\cite{Hofbauer:2006:TA:1142725.1711178}, and from this \hl{found that, if the alphabet of an SRS can be converted to functions with certain properties, we can prove that any input string to this SRS can terminate}~\cite{Hofbauer2006}. 
+
+\par
+\hl{We explain in more detail using Zantema's other problem. The matrices needed, which are from} ~\cite{Hofbauer:2006:TA:1142725.1711178}, are the following:
 \begin{align*}
 a(\Vec{x}) &= \begin{pmatrix}
 1&0&0&3\\
@@ -51,13 +53,16 @@ c(\Vec{x}) &= \begin{pmatrix}
 0
 \end{pmatrix}
 \end{align*}
-We will provide an example string to show that it is always decreasing, but first, define the $\succ$ operator to show that, for vectors $(x_1 \ldots x_d)$ and $(y_1 \ldots y_d)$, $(x_1 \ldots x_d) \succ (y_1 \ldots y_d)$ if $x_1 > y_1$ and $x_i \geq y_i$ for $i \in \{2, \ldots, d\}$. In other words, the first element of a vector must be always decreasing after we apply a rule, while the other $d-1$ elements must either be the same number or decrease. \par
-Let our sample string be ``$bbaa$''. \hl{The initial vector is the following:}
+\hl{We can build a vector representation of an input string by composing the functions for symbols together. For instance, if we build the vector representation of the input string ``$bbaa$,'' we would compute} $b \circ b \circ b \circ a (\Vec{0})$, \hl{which gives us the following vector:}
 \[
 b(b(a(a(\Vec{0}))))= \begin{pmatrix}
 18\\14\\6\\0 \end{pmatrix}
-\] 
-The following is a possible set of rules that can be applied to this string as well as the vector representations of the symbols: \par
+\]
+\hl{The matrices chosen earlier are not constructed arbitrarily. They are chosen in such a manner that, any time an input string has a rewrite rule applied to it, the magnitude of the vector representation of the input string decreases. The vector must continue to decrease in magnitude until the input string can no longer accept new SRRs, causing the SRS to terminate. The search for correct matrices is challenging, but SAT solvers can help in this process by checking if a $d \times d$ matrix is large enough to meet the aforementioned requirements. The process of building these matrices is technical so further background will not be covered here, but if one is interested, they can check} the paper by Endrullis, Waldmann and Zantema~\cite{Endrullis2006}.
+  % found that, for any rewriting rules in any rewrite system, if they are transformed into functions that causes all inputs to decrease, then the rewrite system will terminate.~\cite{Hofbauer2006}. \par
+%These functions are typically built with matrices. A SAT solver can check if a $d \times d$ matrix is large enough to ensure that the matrix functions for the set of rewrite rules always decrease for all inputs. The process of building these matrices is described in a paper by Endrullis, Waldmann and Zantema~\cite{Endrullis2006}. An example using Zantema's Other Problem will be explained here. 
+We will use our example string ``$bbaa$'' to show that the vector representation of it is always decreasing, but first, define the $\succ$ operator to show that, for vectors $(x_1 \ldots x_d)$ and $(y_1 \ldots y_d)$, $(x_1 \ldots x_d) \succ (y_1 \ldots y_d)$ if $x_1 > y_1$ and $x_i \geq y_i$ for $i \in \{2, \ldots, d\}$. In other words, the first element of a vector must be always decreasing after we apply a rule, while the other $d-1$ elements must either be the same number or decrease. \hl{This operator ensures the magnitude of the vector always decreases.} \par
+The following is a possible set of rules that can be applied to ``$bbaa$'' as well as the vector representations of the string: \par
 %Made text small to have it all fit in one line.
 {\small
 \begin{alignat*}{10}
@@ -127,8 +132,13 @@ Here is how one can run the SRS and preserve an ordering we know to be valid:
         \item If a ternary character is generated, apply $A$ and $B$ rules until the ternary symbol and the $c$ are adjacent, then apply the appropriate $C$ rule.
     \end{itemize}
 \end{enumerate}
-This order of applying the SRRs is correct, because one takes a string that is strictly in binary symbols and applies the correct $D$ rules until a ternary character is generated. In this SRS, the only $D$ rule that genrates a ternary character is rule $D_2$. When a ternary symbol is generated, we immediately apply $A$, $B$, and $C$ rules until the ternary symbol is converted into binary symbol(s). The number is not changed during application of the $A$, $B$, and $C$ rules, making the ordering correct. We use this to investigate properties of the Collatz SRS, which we will discuss in Chapter~\ref{sec:hardnessrewriterules}. \par
-If we take the Collatz SRS and find matrix functions for all symbols that cause all vector representations of input strings to decrease when SRRs are applied, then we believe we can prove the Collatz Conjecture. We don't have a formal proof, because we don't have a proof that applying the Collatz SRRs in arbitrary order results in the same output string. However, we strongly believe that termination of the Collatz SRS implies termination of Algorithm~\ref{alg:ColR}, since the rewrite system operates on input strings the same way as Algorithm~\ref{alg:ColR} would on positive integers.
+This order of applying the SRRs is correct, because one takes a string that is strictly in binary symbols and applies the correct $D$ rules until a ternary character is generated. In this SRS, the only $D$ rule that generates a ternary character is rule $D_2$. When a ternary symbol is generated, we immediately apply $A$, $B$, and $C$ rules until the ternary symbol is converted into binary symbol(s). The number is not changed during application of the $A$, $B$, and $C$ rules, making the ordering correct. We use this to investigate properties of the Collatz SRS, which we will discuss in Chapter~\ref{sec:hardnessrewriterules}. \par
+If we take the Collatz SRS and find matrix functions for all symbols that cause all vector representations of input strings to decrease when SRRs are applied, then we believe we can prove the Collatz Conjecture. \hl{We don't have a formal proof, because we don't have a proof that applying the Collatz SRRs in arbitrary order results in the same output string.} However, we strongly believe that termination of the Collatz SRS implies termination of Algorithm~\ref{alg:ColR}, since the rewrite system operates on input strings the same way as Algorithm~\ref{alg:ColR} would on positive integers.
 \section{Proving Collatz Conjecture Results} \label{subsec:provingCollatzresults}
 This section discusses some of the results mentioned in~\cite{HeuleAaronson}. Heule initially tried to run the Collatz SRS on state-of-the-art matrix interpretation solvers like AProVE~\cite{Giesletal:2004}. However, 4 of the 11 rules needed to be removed before the system could be solved. As a result, a custom matrix interpretation solver was built by Heule specifically for this problem. Heule, as of now, has been unable to prove termination of the entire 11 rule system with matrix interpretation. However, any combination of 10 of the 11 rules has been proven. \par
 Heule has also run the matrix interpretation on several Collatz Variants: the ones that remain unproven in this thesis also have not been proved by the system yet. Hence, the motivation for investigating hardness of unproven Collatz Variants came about, as did the motivation for writing this thesis. Further work on this and related problems will be done under NSF grant CCF-1813993 in the coming years~\cite{HeuleAaronson}.
+
+%%  LocalWords:  Heule's combinatorics Levin runtime SRS SRRs SRR aa
+%%  LocalWords:  substrings bc bb Zantema's Hofbauer Waldmann bbaa ba
+%%  LocalWords:  Endrullis Zantema cb abab cabad ae fb ce bd gd af eb
+%%  LocalWords:  ga caa ag bg gb bfd cd AProVE CCF

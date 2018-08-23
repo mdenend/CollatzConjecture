@@ -11,7 +11,7 @@ We will use the following terms throughout this thesis:
         \end{cases}
     \end{align*}
     This sequence can continue for arbitrarily large values of $i$, but we are only interested in following the sequence until $N_i$, for some $i$, is 1, as any value after 1 follows the cycle of $1 \rightarrow 4 \rightarrow 2 \rightarrow 1$ infinitely. \par
-    \hl{Note that if we run $\Col{N}$, we would, after $i$ recursive calls, end up passing, into the $i+1$}\textsuperscript{th} recurslve call of Algorithm~\ref{alg:ColR}, $N_{i+1}$. Algorithm~\ref{alg:ColR} \hl{can be modified to store the sequence of numbers $N, N_1, \ldots, N_i$, meaning it can effectively compute $3N+1$ sequences as well. However, for simplicity, throughout the remainder of this thesis, we just refer to $3N+1$ sequences, with $N$ as the initial input, and $N_i$ as the $i$ number in the $3N+1$ sequence that started with $N$.}
+    \hl{Note that if we run $\Col{N}$, we would, after $i$ recursive calls, end up passing, into the $i+1$}\textsuperscript{th} recursive call of Algorithm~\ref{alg:ColR}, $N_{i+1}$. Algorithm~\ref{alg:ColR} \hl{can be modified to store the sequence of numbers $N, N_1, \ldots, N_i$, meaning it can effectively compute $3N+1$ sequences as well. However, for simplicity, throughout the remainder of this thesis, we just refer to $3N+1$ sequences, with $N$ as the initial input, and $N_i$ as the $i$ number in the $3N+1$ sequence that started with $N$.}
 
     \item $\boldsymbol{3N+1}$\textbf{ mapping}: \hl{One recursive call of $\Col{N}$ for input number $N$, giving us the number $N_1$, as defined in the $3N+1$ sequence.}
     \item \textbf{Avoidance set $\boldsymbol A$:} The second parameter of Algorithm~\ref{alg:ColSP}, $\ColMod{N}{A}{b}$, which was defined in the introduction. $A = \{a_1 \ldots a_s\}$ is all of the numbers modulo the positive integer $b$ that cause termination of the algorithm. This termination condition is in addition to the sole termination condition of Algorithm~\ref{alg:ColR}: when the input into $Col(N)$, $N$, is 1. Note that for all $a \in A$, $0 \le a < b$, and $A = \varnothing$ turns Algorithm~\ref{alg:ColSP} into Algorithm~\ref{alg:ColR}.
@@ -24,6 +24,7 @@ We also have definitions for concepts more relevant to their respective chapters
 \begin{itemize}
 \item \textbf{Base $\boldsymbol b$ Collatz Graph:} Section~\ref{subsec:colgraph}
 \item \textbf{Node $\boldsymbol a$:} Section~\ref{subsec:colgraph}
+  %Colatz Variant Sequence?
 \item \textbf{Classical hardness $\boldsymbol {H_C}$:} Section~\ref{subsec:algcomp}
 \item \textbf{Collatz String Rewrite System (SRS):} Section~\ref{subsec:CollatzSRS}
 \item \textbf{Collatz Subproblem $\boldsymbol A$:} Section~\ref{subsec:base8rewrite} and ~\ref{subsec:rewritemeasuredefs} 
@@ -32,3 +33,5 @@ We also have definitions for concepts more relevant to their respective chapters
 %Collatz base b Graph
 %"Node a:"
 %
+
+%%  LocalWords:  th SRS Subproblem
