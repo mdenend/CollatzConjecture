@@ -1,83 +1,125 @@
-This is an application to run the 3x+1 problem. It allows us to run the 3x+1 problem on a batch system, like Condor, using a number of input files.
+Matt Denend
 
-(Define "Chain here")
+This application can run many different variations of the Collatz Conjecture/3N+1 problem, or the Collatz Conjecture. The primary focus is on Collatz Variants, as defined by my thesis, whose link will be provided here when it is published. For now, we provide a definition, which will be removed in the future. If you wish to edit the code, Intellij should work very well with it. We tried to get it to also run with Eclipse but decided it wasn't high on our priority list.
 
-First, you need to compile this package. To do this, run:
+COLLATZ VARIANT DEFINITION:
 
- javac -d [YOUR_DIRECTORY_NAME] src/collatz/Main.java src/collatz/compute/* src/collatz/helpers/* src/collatz/output/* src/collatz/utils/*
+Since the thesis tied to this project has not been published yet, we will briefly explain what a "Collatz Variant" is.
+
+The 3N+1 sequence can be defined recursively with this code:
+
+Col(N):
+1:	if N < 1 then
+2:	   return N
+3:	if N % 2 == 0 then
+4:	   return Col(N/2)
+5:	else
+6:	   return Col(3*N+1)
+	
+A Collataz Variant (Col_Mod) modifies the termination conditions for line 1. We add two more parameters: a set A, and a positive integer b. The new termination condition is:
+Col_Mod(N,A,b):
+	if N < 1 or N % b == a_1 or N % b == a_2 or ... or N % b == a_n  then
+	   return N
+	if N % 2 == 0 then
+	   return Col(N/2)
+	else
+	   return Col(3*N+1)
+
+meaning that for the n element setof A, where a is in A, if N % b == a, then Col_Mod(N,A,b) terminates.
 
 
-Then, you need to generate input files that denote the number ranges. To do this, run:
+COMPILING THE PROGRAM:
 
+In this directory, type:
+
+ javac -d COMPILED_DIRECTORY src/collatz/Main.java src/collatz/compute/*.java src/collatz/helpers/*.java src/collatz/output/*.java src/collatz/utils/*.java
+
+Where COMPILED_DIRECTORY is a directory you compile the output files. It's optional to run the -d option, but strongly recommended, because otherwise, the output files will compile in the src files.
+
+RUNNING THE 3N+1 PROGRAM:
+
+To run the 3N+1 problem, you need to run:
+
+    java -cp COMPILED_DIRECTORY collatz.Main [--mode modename] [--base baseNum] [--baseoutput ALL|EVEN|ODD|[#-#, #, #]] [--inputfile Input/InputLarge.txt] [--timeefficient] --outputfile Output/Large/outputtimeeff.csv 1 5 7 5-7
+
+    --mode modename: Runs different analyses of the 3N+1 problem. There are 5 different modes: baseavoid, entirechain, untildecay, updown, and avoidingmodgrowth. Default is baseavoid.
+
+    	   baseavoid is the default option. This allows us to count the highest number of steps each input number in the range avoids termination of Collatz Variants, and for each variant, prints out the sequence of numbers for the longest sequence in a csv file, as well as other infrormation in the first cell.
+	   avoidingmodgrowth is like baseavoid, except, for each Collatz Variant, the program prints out a table where each row corresponds to longer length sequences avoiding termination of the Collatz Variant.
+           entirechain prints the entire 3N+1 sequence, from the starting number to 1.
+	   untildecay means that, for an odd number, we continue to compute the 3N+1 sequence until we have a number lower than the original number. We print out only the longest chain in the range of numbers.
+	   updown is different from other modes. In a range of numbers, for each odd number, run the untildecay mode, except take the number of steps and which number the original number has become, instead of the longest 3N+1 sequence. Also, take what the shortest length a number below the input number can be, what that number is, and the number of steps (if we go backwards). The csv prints out one row per number.
+	   
+    --base baseNum: Changes the parameter b, the third parameter of Algorithm 2 in the thesis, to another number. Default is 8.
+
+    --baseOutput ALL, EVEN, ODD, [#-#,#] Changes the output bases. This is only used in the baseavoid mode.
+    	If ALL, bases from 2-32 are considered.
+        If EVEN, only even bases from input are considered.
+        If ODD, only odd bases from input are considered.
+        If single number, just consider that base.
+        If multiple numbers are to be used, then use brackets, commas for mutiple selections, and hyphens to denote a range of numbers from low-high. Ex. [2-8, 12] means output bases from 2-8 and 12.
+    --inputFile name: take the input file and run on all numbers in the range. Input file has two lines: one for the start number, and the second for the stop number.
+    --numSteps #: restricts the number of steps made in the 3N+1 sequence. Includes input number as a step. Must be greater than 1. Default is no limit.
+    --onenumber #: run the program on only one number instead of a range of numbers: the given number.
+    --outputFile name: changes the output file name. Should include the directory the number ought to be output to, and note that name should have ".csv" extension added. If many Collatz Variants are run, an output file is generated for each one with a distinct name for each Collatz Variant. Default name is output.csv.
+    --timeefficient uses a map to store numbers that were already detected in Collatz conjecture. Only a good idea if you have enough memory for RANGE/2 BigInts.
+
+    Last numbers are the Collatz Variants we are tracking. 1 means the Collatz Variant that terminates when an input number is congruent modulo to 1 mod b (b is the base number provided with the --base option. 2-3 means the Collatz Variant that terminates when an input number is congruent modulo to either 2 mod b or 3 mod b. Note that a hyphen means track the variant where either number causes termination. Many hyphens can be used as well, so 1-5-7 is also a valid option.
+
+
+    Example:
+
+    Assume that, in our present working directory, that we have the following directories:
+    out: This is COMPILED_DIRECTORY
+    Input: has the input text file with the two numbers.
+    Output/Batch1: where the output will go.
+
+    baseavoid example:
+    java -cp out collatz.Main --inputfile Input/Input.txt --mode baseavoid --base 8 --baseoutput ALL --timeefficient --outputfile Output/Batch1/outputtimeeff.csv 1 5 7 5-7
+
+    	 Runs the mode baseavoid for (Base 8) Collatz Variants 1, 5, 7, and {5,7}. Does not repeat computation of already seen odd numbers. Takes the range of numbers from a input file Input/Input.txt with the correct format, and outputs the files into Output/Batch1/outputtimeeff#.csv for each of the different variants.
+
+    untildecay example:
+    java -cp out collatz.Main --inputfile Input/Input.txt --mode untildecay --timeefficient --outputfile Output/untildecayrun.csv
+
+    	 Runs the mode untildecay. Does not repeat computation of already seen odd numbers. Takes the range of numbers from a input file Input/Input.txt with the correct format, and outputs the files into Output/untildecayrun.csv. Note that there are fewer parameters for this mode compared to baseavoid mode, of particular note, there are no dangling numbers.
+
+
+PREPROCESSING IF YOU WANT TO RUN SEVERAL PROGRAMS IN PARALLEL:
+
+If we want to run batches of numbers in parallel, we need to preprocess numbers to give us slices.. (This will be eliminated in future versions.)
        
-    java -cp [DIRECTORY_WITH_GENERATED_INPUT_CLASS] GenerateInputFiles lowNum highNum numFiles
+    java -cp COMPILED_DIRECTORY collatz.utils.GenerateInputFiles lowNum highNum numFiles
 
-    lowNum: The lowest number that you run the 3x+1 problem on. Number must be positive. Allows any value up to 2^63-1. Should be odd.
-    highNum: The highest number that you run the 3x+1 problem on. Number must be positive. Allows any value up to 2^63-1. Must be greater than lowNum. Also should be odd.
+    lowNum: The lowest number that you run the 3N+1 problem on. Number must be positive. Allows any value up to 2^63-1. Should be odd.
+    highNum: The highest number that you run the 3N+1 problem on. Number must be positive. Allows any value up to 2^63-1. Must be greater than lowNum. Also should be odd.
     numFiles: The number of input files that you'll divide into.
 
     GenerateInputFiles will figure out the slice size per number number range by computing highNum - lowNum, then divide by numberOfFiles.
     If the resulting slice size is an odd number, since our code is sensitive to odd/even numbers, it will terminate the code and not generate files.
 
-    The resulting input files will always start with an odd number, and end with an even number. To make things best work, it's best to:
-        1. Make both the input and output numbers are odd odd.
+    The resulting input files will always start with an odd number, and end with an even number. To make things work consistently, it's best to:
+        1. Make both the input and output numbers odd.
         2. Make the difference of them EXACTLY a power of 2. Ex: lowNum = 1; highNum = 2^32 + 1. The difference is 2^32.
-        3. Make numFiles some power of 2. Good choices are 128 (less threads, less granularity), or 1024. Both of these will divide perfectly evenly into 2^n
+        3. Make numFiles some power of 2. Good choices are 8, 128, or 1024. Any of these will divide perfectly evenly into 2^n
         for any int n >= 10.
 
-After this, you'll have some number of input files stored into the directory Input. (Note: in the future, have an option where we can change the input directory,
-but I don't super care about this now.)
+After this, you'll have some number of input files stored into the directory Input.
 
-To run the 3x+1 problem, you need to run:
-
-    java -cp [DIRECTORY_FOR_COLLATZ_PACKAGE] Main [--base baseNum] [--baseoutput ALL|EVEN|ODD|[#-#, #, #]] [--inputfile Input/InputLarge.txt] --timeefficient --outputfile Output/Large/outputtimeeff.csv 5 1 7 5-7
+We used Condor to run numbers in batches. For more information on using Condor, please visit https://research.cs.wisc.edu/htcondor/
 
 
-    --base #: Changes the base of our graph to #. If no input, default is 8.
-    --inputFile name: take the input file and consider the range. Input file has two lines: one for the start number, and the other for the stop number.
-    --baseOutput ALL, EVEN, ODD, [#-#,#] Changes the output bases.
-        If ALL, bases from 2-32 are considered.
-        If EVEN, only even bases from input are considered.
-        If ODD,  only odd bases from input are considered.
-        If single number, just consider that base.
-        If brackets detected [] (or something else), then take any range low-high in hyphen, and other numbers in commas. Ex. [2-8, 12] means numbers from 2-8 and 12.
-    --mode baseavoid|entirechain|untildecay|updown|avoidingmodgrowth Changes the various modes in which we can analyze the collatz conjecture:
-      baseavoid is the default option. This allows us to check, for multiple bases, how long it takes for us to hit a base.
+VERSION HISTORY:
 
-      entirechain just prints the entire chain, from the starting number to 1. Does not print 1, but it's trivial that 2 goes to 1, so this is unnecessary.
-
-      untildecay means that, for an odd number, we continue to run until we have a number lower than the original number. We then check to see if the chain is longer than previous one.
-      updown is a quite different mode. In a set of numbers, for each odd number, determine how long it can run until decay
-         (EXACTLY the same as case 3, except we don't care about the list, just what number it becomes and number of steps), and
-         what's the shortest length that a number below it can be, what's that number, and the number of steps (if we go backwards). So csv here is VERY different from other cases.
-
-      avoidingmodgrowth is a mode that analyzes records of the given x mod b, where x is the node we're avoiding, and b is the base we're analyzing.
-    --numSteps #: restricts the number of steps made in the Collatz Conjecture. Includes input number as a step. Must be greater than 1. Usually done with whole list mode.
-    --onenumber # only run the Collatz Conjecture on this number.
-    --outputFile name: outputs the text to name_avoidingBase#.csv, where # is/are the base(s) that this file corresponds to. If nothing, name will just default to output (with .csv suffix)
-        Also splits at the last period and adds the avoid bases between the name and suffix.
-    --reverselimit #: sets the maximum amount of steps we can reverse compute for the 4th mode, otherwise it may run infinitely. Only used in 4th mode, not anywhere else.
-    --timeefficient uses a map to store numbers that were already detected in Collatz conjecture. Only a good idea if you have enough memory for RANGE/2 BigInts.
-
-    Last numbers are the ones that are supposed that we're tracking. 1 means avoid 1 mod b (b is the base number, 2,3 means avoid both 2 mod b and 3 mod b.
-    	 In the baseavoid mode, we can avoiding several bases as a group. Ex: 2-3 means avoid both 2 mod b and 3 mod b.
+v1.0 (8/28/18): Made this repository public.
 
 
-    Examples:
+PLANNED FUTURE EDITS:
 
-    Assume that, in our present working directory, that we have the following directories:
-    out: has all of the compiled output, hence will be in -cp
-    Input: has the input text file with the two numbers.
-    Output/Batch1: where the output will go.
+-Adding in a more time efficient mode that uses all prior computations, although it is heavy on memory.
+-Rewording some confusing variable names.
+-Removing the GenerateInputFiles program and generating slices on the fly without input files.
+-Automatically add a .csv extension to the output.
+-Add in an output directory option.
 
-    baseavoid:
-    java -cp out --inputfile Input/Input.txt Main --mode baseavoid --base 8 --baseoutput ALL --timeefficient --outputfile Output/Batch1/outputtimeeff.csv 1 5 7 5-7
-        runs a test for all input numbers and for one input number, sees when the 3x+1 mapping chain hits 1 mod 8, 5 mod 8, 7 mod 8, and 5 mod 8 AND 7 mod 8 together, and tracks records for avoiding said bases.
-        --inputfile grabs the file Input/Input.txt and reads the first number x as the start of the range, and the second number y as the end of the range.
-        --mode baseavoid runs the 3x+1 mapping, for all odd numbers from range x to y, until these odd numbers reach 1. While a number n is being run,
-        it is being tracked for
-        --base 8 makes us avoid the numbers n (listed as the last arguments, here 5, 1, 7, and 5-7 together) mod 8.
-        --baseoutput ALL means we output all bases from 2 to 32 in the output file.
-        --timeefficient If this mode is enabled, when an odd number is visited in any chain, it is added to a "visited set". Before a new chain is built, if one of the input numbers between x and y is in this "visited set", we skip this number.
-        --outputfile Output/Batch1/outputtimeeff.csv outputs several files for each of the record chains avoiding 1 mod 8, 5 mod 8, 7 mod 8, and 5 mod 8, 7 mod 8 together.
-        1, 5, 7, 5-7 makes 1 mod 8, 5 mod 8, 7 mod 8, and 5 mod 8 + 7 mod 8 are the targets.
+
