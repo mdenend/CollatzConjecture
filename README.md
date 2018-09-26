@@ -1,54 +1,60 @@
+Collatz Conjecture Application
+===========================
+
 This application can run many different variations of the Collatz Conjecture/3N+1 problem, or the Collatz Conjecture. The primary focus is on Collatz Variants, as defined by my thesis, whose link will be provided here when it is published. For now, we provide a definition, which will be removed in the future. If you wish to edit the code, Intellij should work very well with it. We tried to get it to also run with Eclipse but decided it wasn't high on our priority list.
 
-COLLATZ VARIANT DEFINITION:
+Collatz Variant Definition
+---------------------
 
 Since the thesis tied to this project has not been published yet, we will briefly explain what a "Collatz Variant" is.
 
 The 3N+1 sequence can be defined recursively with this code:
 
-Col(N):
-1:	if N < 1 then
-2:	   return N
-3:	if N % 2 == 0 then
-4:	   return Col(N/2)
-5:	else
-6:	   return Col(3*N+1)
+	Col(N):
+		1:	if N < 1 then
+		2:	   return N
+		3:	if N % 2 == 0 then
+		4:	   return Col(N/2)
+		5:	else
+		6:	   return Col(3*N+1)
 	
 A Collataz Variant (Col_Mod) modifies the termination conditions for line 1. We add two more parameters: a set A, and a positive integer b. The new termination condition is:
-Col_Mod(N,A,b):
-	if N < 1 or N % b == a_1 or N % b == a_2 or ... or N % b == a_n  then
-	   return N
-	if N % 2 == 0 then
-	   return Col(N/2)
-	else
-	   return Col(3*N+1)
+	Col_Mod(N,A,b):
+		if N < 1 or N % b == a_1 or N % b == a_2 or ... or N % b == a_n  then
+	   		return N
+		if N % 2 == 0 then
+	   		return Col(N/2)
+		else
+	   		return Col(3*N+1)
 
 meaning that for the n element setof A, where a is in A, if N % b == a, then Col_Mod(N,A,b) terminates.
 
 
-COMPILING THE PROGRAM:
+Compiling the program:
+------------------------
 
 In this directory, type:
 
- javac -d COMPILED_DIRECTORY src/collatz/Main.java src/collatz/compute/*.java src/collatz/helpers/*.java src/collatz/output/*.java src/collatz/utils/*.java
+	javac -d COMPILED_DIRECTORY src/collatz/Main.java src/collatz/compute/*.java src/collatz/helpers/*.java src/collatz/output/*.java src/collatz/utils/*.java
 
 Where COMPILED_DIRECTORY is a directory you compile the output files. It's optional to run the -d option, but strongly recommended, because otherwise, the output files will compile in the src files.
 
-RUNNING THE 3N+1 PROGRAM:
+Running the 3N+1 program:
+-------------------------
 
 To run the 3N+1 problem, you need to run:
 
-    java -cp COMPILED_DIRECTORY collatz.Main [--mode modename] [--base baseNum] [--baseoutput ALL|EVEN|ODD|[#-#, #, #]] [--inputfile Input/InputLarge.txt] [--timeefficient] --outputfile Output/Large/outputtimeeff.csv 1 5 7 5-7
+	java -cp COMPILED_DIRECTORY collatz.Main [--mode modename] [--base baseNum] [--baseoutput ALL|EVEN|ODD|[#-#, #, #]] [--inputfile Input/InputLarge.txt] [--timeefficient] --outputfile Output/Large/outputtimeeff.csv 1 5 7 5-7
 
-    --mode modename: Runs different analyses of the 3N+1 problem. There are 5 different modes: baseavoid, entirechain, untildecay, updown, and avoidingmodgrowth. Default is baseavoid.
-
-    	   baseavoid is the default option. This allows us to count the highest number of steps each input number in the range avoids termination of Collatz Variants, and for each variant, prints out the sequence of numbers for the longest sequence in a csv file, as well as other infrormation in the first cell.
-	   avoidingmodgrowth is like baseavoid, except, for each Collatz Variant, the program prints out a table where each row corresponds to longer length sequences avoiding termination of the Collatz Variant.
-           entirechain prints the entire 3N+1 sequence, from the starting number to 1.
-	   untildecay means that, for an odd number, we continue to compute the 3N+1 sequence until we have a number lower than the original number. We print out only the longest chain in the range of numbers.
-	   updown is different from other modes. In a range of numbers, for each odd number, run the untildecay mode, except take the number of steps and which number the original number has become, instead of the longest 3N+1 sequence. Also, take what the shortest length a number below the input number can be, what that number is, and the number of steps (if we go backwards). The csv prints out one row per number.
+Options:
+- --mode modename: Runs different analyses of the 3N+1 problem. There are 5 different modes: baseavoid, entirechain, untildecay, updown, and avoidingmodgrowth. Default is baseavoid.
+	- baseavoid is the default option. This allows us to count the highest number of steps each input number in the range avoids termination of Collatz Variants, and for each variant, prints out the sequence of numbers for the longest sequence in a csv file, as well as other infrormation in the first cell.
+	- avoidingmodgrowth is like baseavoid, except, for each Collatz Variant, the program prints out a table where each row corresponds to longer length sequences avoiding termination of the Collatz Variant.
+        - entirechain prints the entire 3N+1 sequence, from the starting number to 1.
+	- untildecay means that, for an odd number, we continue to compute the 3N+1 sequence until we have a number lower than the original number. We print out only the longest chain in the range of numbers.
+	- updown is different from other modes. In a range of numbers, for each odd number, run the untildecay mode, except take the number of steps and which number the original number has become, instead of the longest 3N+1 sequence. Also, take what the shortest length a number below the input number can be, what that number is, and the number of steps (if we go backwards). The csv prints out one row per number.
 	   
-    --base baseNum: Changes the parameter b, the third parameter of Algorithm 2 in the thesis, to another number. Default is 8.
+- --base baseNum: Changes the parameter b, the third parameter of Algorithm 2 in the thesis, to another number. Default is 8.
 
     --baseOutput ALL, EVEN, ODD, [#-#,#] Changes the output bases. This is only used in the baseavoid mode.
     	If ALL, bases from 2-32 are considered.
