@@ -19,6 +19,7 @@ The 3N+1 sequence can be defined recursively with this code:
 		6:	   return Col(3*N+1)
 	
 A Collataz Variant (Col_Mod) modifies the termination conditions for line 1. We add two more parameters: a set A, and a positive integer b. The new termination condition is:
+
 	Col_Mod(N,A,b):
 		if N < 1 or N % b == a_1 or N % b == a_2 or ... or N % b == a_n  then
 	   		return N
