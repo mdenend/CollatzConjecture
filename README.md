@@ -56,74 +56,77 @@ Options:
 	   
 - --base baseNum: Changes the parameter b, the third parameter of Algorithm 2 in the thesis, to another number. Default is 8.
 
-    --baseOutput ALL, EVEN, ODD, [#-#,#] Changes the output bases. This is only used in the baseavoid mode.
-    	If ALL, bases from 2-32 are considered.
-        If EVEN, only even bases from input are considered.
-        If ODD, only odd bases from input are considered.
-        If single number, just consider that base.
-        If multiple numbers are to be used, then use brackets, commas for mutiple selections, and hyphens to denote a range of numbers from low-high. Ex. [2-8, 12] means output bases from 2-8 and 12.
-    --inputFile name: take the input file and run on all numbers in the range. Input file has two lines: one for the start number, and the second for the stop number.
-    --numSteps #: restricts the number of steps made in the 3N+1 sequence. Includes input number as a step. Must be greater than 1. Default is no limit.
-    --onenumber #: run the program on only one number instead of a range of numbers: the given number.
-    --outputFile name: changes the output file name. Should include the directory the number ought to be output to, and note that name should have ".csv" extension added. If many Collatz Variants are run, an output file is generated for each one with a distinct name for each Collatz Variant. Default name is output.csv.
-    --timeefficient uses a map to store numbers that were already detected in Collatz conjecture. Only a good idea if you have enough memory for RANGE/2 BigInts.
+- --baseOutput ALL, EVEN, ODD, [#-#,#] Changes the output bases. This is only used in the baseavoid mode.
+	- If ALL, bases from 2-32 are considered.
+        - If EVEN, only even bases from input are considered.
+        - If ODD, only odd bases from input are considered.
+        - If single number, just consider that base.
+        - If multiple numbers are to be used, then use brackets, commas for mutiple selections, and hyphens to denote a range of numbers from low-high. Ex. [2-8, 12] means output bases from 2-8 and 12.
+- --inputFile name: take the input file and run on all numbers in the range. Input file has two lines: one for the start number, and the second for the stop number.
+- --numSteps #: restricts the number of steps made in the 3N+1 sequence. Includes input number as a step. Must be greater than 1. Default is no limit.
+- --onenumber #: run the program on only one number instead of a range of numbers: the given number.
+- --outputFile name: changes the output file name. Should include the directory the number ought to be output to, and note that name should have ".csv" extension added. If many Collatz Variants are run, an output file is generated for each one with a distinct name for each Collatz Variant. Default name is output.csv.
+- --timeefficient uses a map to store numbers that were already detected in Collatz conjecture. Only a good idea if you have enough memory for RANGE/2 BigInts.
+- Last numbers are the Collatz Variants we are tracking. 1 means the Collatz Variant that terminates when an input number is congruent modulo to 1 mod b (b is the base number provided with the --base option. 2-3 means the Collatz Variant that terminates when an input number is congruent modulo to either 2 mod b or 3 mod b. Note that a hyphen means track the variant where either number causes termination. Many hyphens can be used as well, so 1-5-7 is also a valid option.
 
-    Last numbers are the Collatz Variants we are tracking. 1 means the Collatz Variant that terminates when an input number is congruent modulo to 1 mod b (b is the base number provided with the --base option. 2-3 means the Collatz Variant that terminates when an input number is congruent modulo to either 2 mod b or 3 mod b. Note that a hyphen means track the variant where either number causes termination. Many hyphens can be used as well, so 1-5-7 is also a valid option.
+Examples:
+------------------
 
+Assume that, in our present working directory, that we have the following directories:
+- out: This is COMPILED_DIRECTORY
+- Input: has the input text file with the two numbers.
+- Output/Batch1: where the output will go.
 
-    Example:
+baseavoid example:
 
-    Assume that, in our present working directory, that we have the following directories:
-    out: This is COMPILED_DIRECTORY
-    Input: has the input text file with the two numbers.
-    Output/Batch1: where the output will go.
+	java -cp out collatz.Main --inputfile Input/Input.txt --mode baseavoid --base 8 --baseoutput ALL --timeefficient --outputfile Output/Batch1/outputtimeeff.csv 1 5 7 5-7
 
-    baseavoid example:
-    java -cp out collatz.Main --inputfile Input/Input.txt --mode baseavoid --base 8 --baseoutput ALL --timeefficient --outputfile Output/Batch1/outputtimeeff.csv 1 5 7 5-7
+Runs the mode baseavoid for (Base 8) Collatz Variants 1, 5, 7, and {5,7}. Does not repeat computation of already seen odd numbers. Takes the range of numbers from a input file Input/Input.txt with the correct format, and outputs the files into Output/Batch1/outputtimeeff#.csv for each of the different variants.
 
-    	 Runs the mode baseavoid for (Base 8) Collatz Variants 1, 5, 7, and {5,7}. Does not repeat computation of already seen odd numbers. Takes the range of numbers from a input file Input/Input.txt with the correct format, and outputs the files into Output/Batch1/outputtimeeff#.csv for each of the different variants.
+untildecay example:
 
-    untildecay example:
     java -cp out collatz.Main --inputfile Input/Input.txt --mode untildecay --timeefficient --outputfile Output/untildecayrun.csv
 
-    	 Runs the mode untildecay. Does not repeat computation of already seen odd numbers. Takes the range of numbers from a input file Input/Input.txt with the correct format, and outputs the files into Output/untildecayrun.csv. Note that there are fewer parameters for this mode compared to baseavoid mode, of particular note, there are no dangling numbers.
+Runs the mode untildecay. Does not repeat computation of already seen odd numbers. Takes the range of numbers from a input file Input/Input.txt with the correct format, and outputs the files into Output/untildecayrun.csv. Note that there are fewer parameters for this mode compared to baseavoid mode, of particular note, there are no dangling numbers.
 
 
-PREPROCESSING IF YOU WANT TO RUN SEVERAL PROGRAMS IN PARALLEL:
+Preprocessing if you want to run several programs in parallel:
+--------------------------------------------------
 
 If we want to run batches of numbers in parallel, we need to preprocess numbers to give us slices.. (This will be eliminated in future versions.)
        
     java -cp COMPILED_DIRECTORY collatz.utils.GenerateInputFiles lowNum highNum numFiles
 
-    lowNum: The lowest number that you run the 3N+1 problem on. Number must be positive. Allows any value up to 2^63-1. Should be odd.
-    highNum: The highest number that you run the 3N+1 problem on. Number must be positive. Allows any value up to 2^63-1. Must be greater than lowNum. Also should be odd.
-    numFiles: The number of input files that you'll divide into.
+Options:
+- lowNum: The lowest number that you run the 3N+1 problem on. Number must be positive. Allows any value up to 2^63-1. Should be odd.
+- highNum: The highest number that you run the 3N+1 problem on. Number must be positive. Allows any value up to 2^63-1. Must be greater than lowNum. Also should be odd.
+- numFiles: The number of input files that you'll divide into.
 
-    GenerateInputFiles will figure out the slice size per number number range by computing highNum - lowNum, then divide by numberOfFiles.
-    If the resulting slice size is an odd number, since our code is sensitive to odd/even numbers, it will terminate the code and not generate files.
+GenerateInputFiles will figure out the slice size per number number range by computing highNum - lowNum, then divide by numberOfFiles. If the resulting slice size is an odd number, since our code is sensitive to odd/even numbers, it will terminate the code and not generate files.
 
-    The resulting input files will always start with an odd number, and end with an even number. To make things work consistently, it's best to:
-        1. Make both the input and output numbers odd.
-        2. Make the difference of them EXACTLY a power of 2. Ex: lowNum = 1; highNum = 2^32 + 1. The difference is 2^32.
-        3. Make numFiles some power of 2. Good choices are 8, 128, or 1024. Any of these will divide perfectly evenly into 2^n
-        for any int n >= 10.
+The resulting input files will always start with an odd number, and end with an even number. To make things work consistently, it's best to:
+- Make both the input and output numbers odd.
+- Make the difference of them EXACTLY a power of 2. Ex: lowNum = 1; highNum = 2^32 + 1. The difference is 2^32.
+- Make numFiles some power of 2. Good choices are 8, 128, or 1024. Any of these will divide perfectly evenly into 2^n for any int n >= 10.
 
 After this, you'll have some number of input files stored into the directory Input.
 
 We used Condor to run numbers in batches. For more information on using Condor, please visit https://research.cs.wisc.edu/htcondor/
 
 
-VERSION HISTORY:
+Version History:
+-----------------
 
 v1.0 (8/28/18): Made this repository public.
 
 
-PLANNED FUTURE EDITS:
+Planned Future Edits:
+------------------
 
--Adding in a more time efficient mode that uses all prior computations, although it is heavy on memory.
--Rewording some confusing variable names.
--Removing the GenerateInputFiles program and generating slices on the fly without input files.
--Automatically add a .csv extension to the output.
--Add in an output directory option.
+- Adding in a more time efficient mode that uses all prior computations, although it is heavy on memory.
+- Rewording some confusing variable names.
+- Removing the GenerateInputFiles program and generating slices on the fly without input files.
+- Automatically add a .csv extension to the output.
+- Add in an output directory option.
 
 
